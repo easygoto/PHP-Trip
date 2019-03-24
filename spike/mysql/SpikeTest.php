@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: LiJian
- * Date: 2019/3/23
- * Time: 20:14
- */
 
 namespace spike\mysql;
 
@@ -19,7 +13,7 @@ class SpikeTest {
     /**
      * @param $user_total
      */
-    public static function buy($user_total) {
+    public static function buy($user_total = 1000) {
 
         for ($i = 0; $i < $user_total; $i ++) {
             $user_id     = mt_rand(1, 100 * $user_total);
@@ -39,5 +33,5 @@ class SpikeTest {
     }
 }
 
-SpikeTest::buy(1000);
+SpikeTest::buy(10000);
 

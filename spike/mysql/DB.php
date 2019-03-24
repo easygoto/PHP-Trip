@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: LiJian
- * Date: 2019/3/24
- * Time: 9:29
- */
 
 namespace spike\mysql;
 
@@ -18,6 +12,7 @@ use PDO;
 class DB {
 
     private const HOST     = '127.0.0.1';
+    private const PORT     = '3306';
     private const DBNAME   = 'test';
     private const USER     = 'root';
     private const PASSWORD = '123123';
@@ -34,7 +29,7 @@ class DB {
      */
     public static function getInstance() {
         if (self::$db == null) {
-            $dsn      = 'mysql:host=' . self::HOST . ';dbname=' . self::DBNAME;
+            $dsn      = 'mysql:host=' . self::HOST . ';dbname=' . self::DBNAME . ';port=' . self::PORT;
             self::$db = new PDO($dsn, self::USER, self::PASSWORD);
         }
         return self::$db;

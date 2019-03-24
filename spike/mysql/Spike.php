@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: LiJian
- * Date: 2019/3/23
- * Time: 19:55
- */
 
 namespace spike\mysql;
 
@@ -51,6 +45,11 @@ class Spike {
             }
         }
 
+        $goods_id_num_list = array_column($goods_order, 'goods_num', 'goods_id');
+        if (count($goods_id_num_list) != count($goods_order)) {
+            return $this->_result(0, '非正常订单(4)');
+        }
+
         if (! $this->db->beginTransaction()) {
             return $this->_result(0, '系统维护中...');
         }
@@ -58,16 +57,16 @@ class Spike {
         $message_list = [];
         try {
             // 2、取出当前订单信息，进一步判断库存
-            $goods_id_num_list = array_column($goods_order, 'goods_num', 'goods_id');
-            $goods_id_str      = implode(',', array_column($goods_order, 'goods_id'));
+            $goods_id_str = implode(',', array_column($goods_order, 'goods_id'));
 
-            $sql  = "select * from `goods` where `id` in (:goods_id_str)";
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([
-                ':goods_id_str' => $goods_id_str,
-            ]);
-            $goods_list = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            $stmt->closeCursor();
+            $goods_select_sql  = "select * from `goods` where `is_delete`=0 and `status`=1 and `id` in ({$goods_id_str})";
+            $goods_select_stmt = $this->db->query($goods_select_sql);
+
+            $goods_list = $goods_select_stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if ((count($goods_id_num_list) != count($goods_list))) {
+                throw new Exception('秒杀失败，商品出错');
+            }
 
             foreach ($goods_list as $key => $goods) {
                 $goods_id   = $this->_getValue($goods, 'id');
@@ -77,18 +76,16 @@ class Spike {
                 $goods_list[$key]['goods_num'] = $goods_num;
 
                 if (! $this->_getValue($goods, 'inventory') || $goods['inventory'] < $goods_num) {
-                    $message_list[$goods_id] = $goods_name . '库存不够';
+                    $message_list[$goods_id] = $goods_name . '库存不足';
                     continue;
                 }
             }
 
             if (! empty($message_list)) {
-                throw new Exception('秒杀失败');
+                throw new Exception('秒杀失败，库存不足');
             }
 
             // 3、秒杀成功，把信息加到 order 和 order_goods 中
-            $order_sql   = 'insert into `order` (`uid`, `order_sn`, `total_price`, `created_at`, `updated_at`, `operated_at`, `status`, `is_delete`) values (:uid, :order_sn, :total_price, :created_at, :updated_at, :operated_at, :status, :is_delete)';
-            $order_stmt  = $this->db->prepare($order_sql);
             $now_time    = date('Y-m-d H:i:s');
             $order_sn    = date('YmdHis') . mt_rand(10000000, 99999999);
             $total_price = 0;
@@ -96,55 +93,58 @@ class Spike {
                 $total_price += round(floatval($goods['selling_price']) * floatval($goods['goods_num']), 2);
             }, $goods_list);
 
-            $order_stmt->bindValue(':uid', $uid);
-            $order_stmt->bindValue(':order_sn', $order_sn);
-            $order_stmt->bindValue(':total_price', $total_price);
-            $order_stmt->bindValue(':created_at', $now_time);
-            $order_stmt->bindValue(':updated_at', $now_time);
-            $order_stmt->bindValue(':operated_at', $now_time);
-            $order_stmt->bindValue(':status', 1);
-            $order_stmt->bindValue(':is_delete', 0);
-            $order_stmt_result = $order_stmt->execute();
-            $order_stmt->closeCursor();
+            $order_insert_sql  = 'insert into `order` (`uid`, `order_sn`, `total_price`, `created_at`, `updated_at`, `operated_at`, `status`, `is_delete`) values (:uid, :order_sn, :total_price, :created_at, :updated_at, :operated_at, :status, :is_delete)';
+            $order_insert_stmt = $this->db->prepare($order_insert_sql);
+            $order_stmt_result = $order_insert_stmt->execute([
+                ':uid'         => $uid,
+                ':order_sn'    => $order_sn,
+                ':total_price' => $total_price,
+                ':created_at'  => $now_time,
+                ':updated_at'  => $now_time,
+                ':operated_at' => $now_time,
+                ':status'      => 1,
+                ':is_delete'   => 0,
+            ]);
+
             if (! $order_stmt_result) {
                 throw new Exception('订单添加失败');
             }
             $order_id = $this->db->lastInsertId();
 
-            $order_goods_sql = 'insert into `order_goods` (`order_id`, `goods_id`, `goods_name`, `wholesale`, `selling_price`, `market_price`, `goods_num`) values ';
+            $order_goods_insert_sql = 'insert into `order_goods` (`order_id`, `goods_id`, `goods_name`, `wholesale`, `selling_price`, `market_price`, `goods_num`) values ';
             foreach ($goods_list as $key => $goods) {
-                $order_goods_sql .= " (:order_id_{$key}, :goods_id_{$key}, :goods_name_{$key}, :wholesale_{$key}, :selling_price_{$key}, :market_price_{$key}, :goods_num_{$key}), ";
+                $order_goods_insert_sql .= " (:order_id_{$key}, :goods_id_{$key}, :goods_name_{$key}, :wholesale_{$key}, :selling_price_{$key}, :market_price_{$key}, :goods_num_{$key}), ";
             }
-            $order_goods_sql = rtrim($order_goods_sql, ', ');
+            $order_goods_insert_sql  = rtrim($order_goods_insert_sql, ', ');
+            $order_goods_insert_stmt = $this->db->prepare($order_goods_insert_sql);
 
-            $order_goods_stmt = $this->db->prepare($order_goods_sql);
             foreach ($goods_list as $key => $goods) {
-                $order_goods_stmt->bindValue(":order_id_{$key}", $order_id);
-                $order_goods_stmt->bindValue(":goods_id_{$key}", $goods['id']);
-                $order_goods_stmt->bindValue(":goods_name_{$key}", $goods['name']);
-                $order_goods_stmt->bindValue(":wholesale_{$key}", $goods['wholesale']);
-                $order_goods_stmt->bindValue(":selling_price_{$key}", $goods['selling_price']);
-                $order_goods_stmt->bindValue(":market_price_{$key}", $goods['market_price']);
-                $order_goods_stmt->bindValue(":goods_num_{$key}", $goods['goods_num']);
+                $order_goods_insert_stmt->bindValue(":order_id_{$key}", $order_id);
+                $order_goods_insert_stmt->bindValue(":goods_id_{$key}", $goods['id']);
+                $order_goods_insert_stmt->bindValue(":goods_name_{$key}", $goods['name']);
+                $order_goods_insert_stmt->bindValue(":wholesale_{$key}", $goods['wholesale']);
+                $order_goods_insert_stmt->bindValue(":selling_price_{$key}", $goods['selling_price']);
+                $order_goods_insert_stmt->bindValue(":market_price_{$key}", $goods['market_price']);
+                $order_goods_insert_stmt->bindValue(":goods_num_{$key}", $goods['goods_num']);
             }
 
-            $order_goods_stmt_result = $order_goods_stmt->execute();
-            $order_goods_stmt->closeCursor();
-            if (! $order_goods_stmt_result) {
+            $order_goods_insert_stmt_result = $order_goods_insert_stmt->execute();
+            if (! $order_goods_insert_stmt_result) {
                 throw new Exception('订单商品添加失败');
             }
 
             // 4、商品表减去相应的库存
-            $goods_sql = 'update `goods` set inventory = :inventory where id = :id';
             foreach ($goods_list as $goods) {
-                $goods_stmt = $this->db->prepare($goods_sql);
-                $inventory  = $goods['inventory'] - $goods['goods_num'];
-                $goods_stmt_result = $goods_stmt->execute([
+                $goods_update_sql  = 'update `goods` set `inventory` = :inventory where `id` = :id';
+                $goods_update_stmt = $this->db->prepare($goods_update_sql);
+
+                $inventory                = $goods['inventory'] - $goods['goods_num'];
+                $goods_update_stmt_result = $goods_update_stmt->execute([
                     ':inventory' => $inventory,
-                    ':id' => $goods['id'],
+                    ':id'        => $goods['id'],
                 ]);
-                $goods_stmt->closeCursor();
-                if (! $goods_stmt_result) {
+
+                if (! $goods_update_stmt_result) {
                     throw new Exception('商品库存更新失败');
                 }
             }
@@ -156,6 +156,16 @@ class Spike {
             $this->db->rollBack();
             return $this->_result(0, $exception->getMessage(), $message_list);
         }
+    }
+
+    /**
+     * @param $uid
+     * @param $order_id
+     *
+     * @return array
+     */
+    public function refund($uid, $order_id) {
+        return $this->_result();
     }
 
     /**
