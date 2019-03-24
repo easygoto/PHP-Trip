@@ -17,8 +17,23 @@ class Spike {
      */
     private $db = null;
 
-    public function __construct() {
+    /**
+     * @var Spike
+     */
+    private static $spike = null;
+
+    private function __construct() {
         $this->db = DB::getInstance();
+    }
+
+    /**
+     * @return Spike
+     */
+    public static function getInstance() {
+        if (self::$spike == null) {
+            self::$spike = new self();
+        }
+        return self::$spike;
     }
 
     /**

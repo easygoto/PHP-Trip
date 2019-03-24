@@ -16,7 +16,7 @@ class SpikeTest {
     public static function buy($user_total = 1000) {
 
         for ($i = 0; $i < $user_total; $i ++) {
-            $user_id     = mt_rand(1, 100 * $user_total);
+            $user_id     = mt_rand(10000000, 99999999);
             $goods_list  = [];
             $goods_total = rand(1, 5);
 
@@ -27,11 +27,11 @@ class SpikeTest {
                 ];
             }
 
-            $result = (new Spike())->buy($user_id, $goods_list);
+            $result = Spike::getInstance()->buy($user_id, $goods_list);
             echo "{$result['msg']}\n";
         }
     }
 }
 
-SpikeTest::buy(10000);
+SpikeTest::buy();
 
