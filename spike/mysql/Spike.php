@@ -13,27 +13,27 @@ use PDO;
 class Spike {
 
     /**
-     * @var $db PDO
+     * @var $_db PDO
      */
-    private $db = null;
+    private $_db = null;
 
     /**
      * @var Spike
      */
-    private static $spike = null;
+    private static $_spike = null;
 
     private function __construct() {
-        $this->db = DB::getInstance();
+        $this->_db = DB::getInstance();
     }
 
     /**
      * @return Spike
      */
     public static function getInstance() {
-        if (self::$spike == null) {
-            self::$spike = new self();
+        if (self::$_spike == null) {
+            self::$_spike = new self();
         }
-        return self::$spike;
+        return self::$_spike;
     }
 
     /**
@@ -65,7 +65,7 @@ class Spike {
             return $this->_result(0, '非正常订单(4)');
         }
 
-        if (! $this->db->beginTransaction()) {
+        if (! $this->_db->beginTransaction()) {
             return $this->_result(0, '系统维护中...');
         }
 
@@ -75,7 +75,7 @@ class Spike {
             $goods_id_str = implode(',', array_column($goods_order, 'goods_id'));
 
             $goods_select_sql  = "select * from `goods` where `is_delete`=0 and `status`=1 and `id` in ({$goods_id_str})";
-            $goods_select_stmt = $this->db->query($goods_select_sql);
+            $goods_select_stmt = $this->_db->query($goods_select_sql);
 
             $goods_list = $goods_select_stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -109,7 +109,7 @@ class Spike {
             }, $goods_list);
 
             $order_insert_sql  = 'insert into `order` (`uid`, `order_sn`, `total_price`, `created_at`, `updated_at`, `operated_at`, `status`, `is_delete`) values (:uid, :order_sn, :total_price, :created_at, :updated_at, :operated_at, :status, :is_delete)';
-            $order_insert_stmt = $this->db->prepare($order_insert_sql);
+            $order_insert_stmt = $this->_db->prepare($order_insert_sql);
             $order_stmt_result = $order_insert_stmt->execute([
                 ':uid'         => $uid,
                 ':order_sn'    => $order_sn,
@@ -124,14 +124,14 @@ class Spike {
             if (! $order_stmt_result) {
                 throw new Exception('订单添加失败');
             }
-            $order_id = $this->db->lastInsertId();
+            $order_id = $this->_db->lastInsertId();
 
             $order_goods_insert_sql = 'insert into `order_goods` (`order_id`, `goods_id`, `goods_name`, `wholesale`, `selling_price`, `market_price`, `goods_num`) values ';
             foreach ($goods_list as $key => $goods) {
                 $order_goods_insert_sql .= " (:order_id_{$key}, :goods_id_{$key}, :goods_name_{$key}, :wholesale_{$key}, :selling_price_{$key}, :market_price_{$key}, :goods_num_{$key}), ";
             }
             $order_goods_insert_sql  = rtrim($order_goods_insert_sql, ', ');
-            $order_goods_insert_stmt = $this->db->prepare($order_goods_insert_sql);
+            $order_goods_insert_stmt = $this->_db->prepare($order_goods_insert_sql);
 
             foreach ($goods_list as $key => $goods) {
                 $order_goods_insert_stmt->bindValue(":order_id_{$key}", $order_id);
@@ -151,7 +151,7 @@ class Spike {
             // 4、商品表减去相应的库存
             foreach ($goods_list as $goods) {
                 $goods_update_sql  = 'update `goods` set `inventory` = :inventory where `id` = :id';
-                $goods_update_stmt = $this->db->prepare($goods_update_sql);
+                $goods_update_stmt = $this->_db->prepare($goods_update_sql);
 
                 $inventory                = $goods['inventory'] - $goods['goods_num'];
                 $goods_update_stmt_result = $goods_update_stmt->execute([
@@ -164,11 +164,11 @@ class Spike {
                 }
             }
 
-            $this->db->commit();
+            $this->_db->commit();
             return $this->_result(1, '秒杀成功');
         } catch (Exception $exception) {
 
-            $this->db->rollBack();
+            $this->_db->rollBack();
             return $this->_result(0, $exception->getMessage(), $message_list);
         }
     }

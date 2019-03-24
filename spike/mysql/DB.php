@@ -20,7 +20,7 @@ class DB {
     /**
      * @var PDO
      */
-    private static $db = null;
+    private static $_db = null;
 
     private function __construct() { }
 
@@ -28,10 +28,10 @@ class DB {
      * @return PDO
      */
     public static function getInstance() {
-        if (self::$db == null) {
-            $dsn      = 'mysql:host=' . self::HOST . ';dbname=' . self::DBNAME . ';port=' . self::PORT;
-            self::$db = new PDO($dsn, self::USER, self::PASSWORD);
+        if (self::$_db == null) {
+            $dsn       = 'mysql:host=' . self::HOST . ';dbname=' . self::DBNAME . ';port=' . self::PORT;
+            self::$_db = new PDO($dsn, self::USER, self::PASSWORD);
         }
-        return self::$db;
+        return self::$_db;
     }
 }
