@@ -150,13 +150,12 @@ class Spike {
 
             // 4、商品表减去相应的库存
             foreach ($goods_list as $goods) {
-                $goods_update_sql  = 'update `goods` set `inventory` = :inventory where `id` = :id';
+                $goods_update_sql  = 'update `goods` set `inventory` = `inventory` - :num where `id` = :id';
                 $goods_update_stmt = $this->_db->prepare($goods_update_sql);
 
-                $inventory                = $goods['inventory'] - $goods['goods_num'];
                 $goods_update_stmt_result = $goods_update_stmt->execute([
-                    ':inventory' => $inventory,
-                    ':id'        => $goods['id'],
+                    ':num' => $goods['goods_num'],
+                    ':id'  => $goods['id'],
                 ]);
 
                 if (! $goods_update_stmt_result) {
