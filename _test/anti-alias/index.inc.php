@@ -12,17 +12,20 @@ if (empty($_GET["id"])) {
     $mobile = new MobileTemplate();
     include $mobile->template("index/index", $_W, $_GPC);
     goto _EXIT;
+
 }
 $list = pdo_get("xc_beauty_article", ["id" => $_GET["id"], "uniacid" => $uniacid]);
 if (!$list) {
     $mobile = new MobileTemplate();
     include $mobile->template("index/index", $_W, $_GPC);
     goto _EXIT;
+
 }
 $list["content"] = htmlspecialchars_decode($list["content"]);
 $mobile          = new MobileTemplate();
 include $mobile->template("index/index", $_W, $_GPC);
 goto _EXIT;
+
 _EXIT:
 
 class MobileTemplate {
@@ -59,175 +62,1963 @@ class MobileTemplate {
     }
 
     function template($filename, $_W, $_GPC) {
-        goto kkMmD;
-        JIoYN: Rr2c5:
-        goto eEzqI;
-        UFcPn:
-        $source = IA_ROOT . "/web/themes/{$_W["template"]}/{$filename}.html";
-        goto Qu4Pq;
-        r_Vl2:
-        $source = IA_ROOT . "/app/themes/default/{$name}/{$filename}.html";
-        goto fpx21;
-        CxqpT:
-        $_W["template"] = "default";
-        goto p_F3i;
-        piUJw: Xv_eF:
-        goto LGNQ_;
-        DS0PK:
-        $source = $defineDir . "/template/webapp/{$filename}.html";
-        goto YLaVN;
-        Qu4Pq: hKLMI:
-        goto bQA_E;
-        yYQ0g: gKxaB:
-        goto o2q8I;
-        i06lQ:
-        if (is_file($source)) {
-            goto hKLMI;
-        }
-        goto UFcPn;
-        gQoco:
-        return $compile;
-        goto nluza;
-        II8Sa:
-        $source = IA_ROOT . "/web/themes/default/{$filename}.html";
-        goto cV5pq;
-        MSWII: ouMij:
-        goto VLp0o;
-        p_F3i:
-        if (defined("IN_SYS")) {
-            goto tPlb6;
-        }
-        goto Av5Ob;
-        IOC42:
-        if (is_file($source)) {
-            goto Awryv;
-        }
-        goto ELQg_;
-        v2daI:
-        if (is_file($source)) {
-            goto X3Kpv;
-        }
-        goto deKcL;
-        TdhOi:
-        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
-        goto TSWTw;
-        YwNEG:
-        if (is_file($source)) {
-            goto VXP_m;
-        }
-        goto hFb2I;
-        oIWKa:
-        $compile = IA_ROOT . "/data/tpl/app/{$_W["template"]}/{$name}/{$filename}.tpl.php";
-        goto Mckry;
-        So26H:
-        $source = IA_ROOT . "/web/themes/{$_W["template"]}/{$name}/{$filename}.html";
-        goto iDsb8;
-        bQA_E:
-        if (is_file($source)) {
-            goto qjQp8;
-        }
-        goto II8Sa;
-        fZ71S: Awryv:
-        goto rDmr2;
-        reRed:
-        $source = IA_ROOT . "/app/themes/default/{$filename}.html";
-        goto J8Pu6;
-        eEzqI:
-        if (is_file($source)) {
-            goto Ws_n0;
-        }
-        goto DS0PK;
-        zV1Rw:
-        $source = IA_ROOT . "/app/themes/{$_W["template"]}/{$filename}.html";
-        goto O7QZ8;
-        hFb2I:
-        $source = $defineDir . "/template/{$filename}.html";
-        goto lD8kK;
-        rDmr2:
-        goto gKxaB;
-        goto iE6_1;
-        n5nbi:
-        exit("Error: template source '{$filename}' is not exist!");
-        goto piUJw;
-        O7QZ8: WxNej:
-        goto IOC42;
-        yH8d0:
-        if (is_file($source)) {
-            goto Rr2c5;
-        }
-        goto Mv8aC;
-        muiec:
-        template_compile($source, $compile, true);
-        goto dEI0_;
-        YLaVN: Ws_n0:
-        goto OBY_5;
-        J8Pu6:
-        goto FSB0R;
-        goto MSWII;
-        iDsb8:
-        $compile = IA_ROOT . "/data/tpl/web/{$_W["template"]}/{$name}/{$filename}.tpl.php";
-        goto v2daI;
-        ELQg_:
-        if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
-            goto ouMij;
-        }
-        goto reRed;
-        LGNQ_:
-        $paths = pathinfo($compile);
-        goto TdhOi;
-        deKcL:
-        $source = IA_ROOT . "/web/themes/default/{$name}/{$filename}.html";
-        goto rl1hM;
-        CLnGh:
-        $defineDir = IA_ROOT . "/addons/" . $_GPC["m"];
-        goto CxqpT;
-        kkMmD:
+        goto kkMmD;kkMmD:
         $name = $_GPC["m"];
-        goto CLnGh;
-        VLp0o:
-        $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
-        goto uqN0a;
-        fpx21: TaIPt:
-        goto yH8d0;
-        iE6_1: tPlb6:
-        goto So26H;
-        uqN0a: FSB0R:
-        goto fZ71S;
-        cV5pq: qjQp8:
-        goto yYQ0g;
-        rl1hM: X3Kpv:
-        goto YwNEG;
-        Mckry:
-        if (is_file($source)) {
-            goto TaIPt;
+        goto CLnGh;CLnGh:
+        $defineDir = IA_ROOT . "/addons/" . $_GPC["m"];
+        goto CxqpT;CxqpT:
+        $_W["template"] = "default";
+        goto p_F3i;p_F3i:
+        if (defined("IN_SYS")) {
+            goto tPlb6;tPlb6:
+            goto So26H;So26H:
+            $source = IA_ROOT . "/web/themes/{$_W["template"]}/{$name}/{$filename}.html";
+            goto iDsb8;iDsb8:
+            $compile = IA_ROOT . "/data/tpl/web/{$_W["template"]}/{$name}/{$filename}.tpl.php";
+            goto v2daI;v2daI:
+            if (is_file($source)) {
+                goto X3Kpv;X3Kpv:
+                goto YwNEG;YwNEG:
+                if (is_file($source)) {
+                    goto VXP_m;VXP_m:
+                    goto i06lQ;i06lQ:
+                    if (is_file($source)) {
+                        goto hKLMI;hKLMI:
+                        goto bQA_E;bQA_E:
+                        if (is_file($source)) {
+                            goto qjQp8;qjQp8:
+                            goto yYQ0g;yYQ0g:
+                            goto o2q8I;o2q8I:
+                            if (is_file($source)) {
+                                goto Xv_eF;Xv_eF:
+                                goto LGNQ_;LGNQ_:
+                                $paths = pathinfo($compile);
+                                goto TdhOi;TdhOi:
+                                $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                                goto TSWTw;TSWTw:
+                                if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                                    goto UX4FX;UX4FX:
+                                    goto gQoco;gQoco:
+                                    return $compile;
+                                }
+                                goto muiec;muiec:
+                                template_compile($source, $compile, true);
+                                goto dEI0_;dEI0_:
+                                goto gQoco;gQoco:
+                                return $compile;
+                            }
+                            goto n5nbi;n5nbi:
+                            exit("Error: template source '{$filename}' is not exist!");
+                        }
+                        goto II8Sa;II8Sa:
+                        $source = IA_ROOT . "/web/themes/default/{$filename}.html";
+                        goto cV5pq;cV5pq:
+                        goto yYQ0g;yYQ0g:
+                        goto o2q8I;o2q8I:
+                        if (is_file($source)) {
+                            goto Xv_eF;Xv_eF:
+                            goto LGNQ_;LGNQ_:
+                            $paths = pathinfo($compile);
+                            goto TdhOi;TdhOi:
+                            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                            goto TSWTw;TSWTw:
+                            if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                                goto UX4FX;UX4FX:
+                                goto gQoco;gQoco:
+                                return $compile;
+                            }
+                            goto muiec;muiec:
+                            template_compile($source, $compile, true);
+                            goto dEI0_;dEI0_:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto n5nbi;n5nbi:
+                        exit("Error: template source '{$filename}' is not exist!");
+                    }
+                    goto UFcPn;UFcPn:
+                    $source = IA_ROOT . "/web/themes/{$_W["template"]}/{$filename}.html";
+                    goto Qu4Pq;Qu4Pq:
+                    goto bQA_E;bQA_E:
+                    if (is_file($source)) {
+                        goto qjQp8;qjQp8:
+                        goto yYQ0g;yYQ0g:
+                        goto o2q8I;o2q8I:
+                        if (is_file($source)) {
+                            goto Xv_eF;Xv_eF:
+                            goto LGNQ_;LGNQ_:
+                            $paths = pathinfo($compile);
+                            goto TdhOi;TdhOi:
+                            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                            goto TSWTw;TSWTw:
+                            if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                                goto UX4FX;UX4FX:
+                                goto gQoco;gQoco:
+                                return $compile;
+                            }
+                            goto muiec;muiec:
+                            template_compile($source, $compile, true);
+                            goto dEI0_;dEI0_:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto n5nbi;n5nbi:
+                        exit("Error: template source '{$filename}' is not exist!");
+                    }
+                    goto II8Sa;II8Sa:
+                    $source = IA_ROOT . "/web/themes/default/{$filename}.html";
+                    goto cV5pq;cV5pq:
+                    goto yYQ0g;yYQ0g:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto hFb2I;hFb2I:
+                $source = $defineDir . "/template/{$filename}.html";
+                goto lD8kK;lD8kK:
+                goto i06lQ;i06lQ:
+                if (is_file($source)) {
+                    goto hKLMI;hKLMI:
+                    goto bQA_E;bQA_E:
+                    if (is_file($source)) {
+                        goto qjQp8;qjQp8:
+                        goto yYQ0g;yYQ0g:
+                        goto o2q8I;o2q8I:
+                        if (is_file($source)) {
+                            goto Xv_eF;Xv_eF:
+                            goto LGNQ_;LGNQ_:
+                            $paths = pathinfo($compile);
+                            goto TdhOi;TdhOi:
+                            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                            goto TSWTw;TSWTw:
+                            if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                                goto UX4FX;UX4FX:
+                                goto gQoco;gQoco:
+                                return $compile;
+                            }
+                            goto muiec;muiec:
+                            template_compile($source, $compile, true);
+                            goto dEI0_;dEI0_:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto n5nbi;n5nbi:
+                        exit("Error: template source '{$filename}' is not exist!");
+                    }
+                    goto II8Sa;II8Sa:
+                    $source = IA_ROOT . "/web/themes/default/{$filename}.html";
+                    goto cV5pq;cV5pq:
+                    goto yYQ0g;yYQ0g:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto UFcPn;UFcPn:
+                $source = IA_ROOT . "/web/themes/{$_W["template"]}/{$filename}.html";
+                goto Qu4Pq;Qu4Pq:
+                goto bQA_E;bQA_E:
+                if (is_file($source)) {
+                    goto qjQp8;qjQp8:
+                    goto yYQ0g;yYQ0g:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto II8Sa;II8Sa:
+                $source = IA_ROOT . "/web/themes/default/{$filename}.html";
+                goto cV5pq;cV5pq:
+                goto yYQ0g;yYQ0g:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto deKcL;deKcL:
+            $source = IA_ROOT . "/web/themes/default/{$name}/{$filename}.html";
+            goto rl1hM;rl1hM:
+            goto YwNEG;YwNEG:
+            if (is_file($source)) {
+                goto VXP_m;VXP_m:
+                goto i06lQ;i06lQ:
+                if (is_file($source)) {
+                    goto hKLMI;hKLMI:
+                    goto bQA_E;bQA_E:
+                    if (is_file($source)) {
+                        goto qjQp8;qjQp8:
+                        goto yYQ0g;yYQ0g:
+                        goto o2q8I;o2q8I:
+                        if (is_file($source)) {
+                            goto Xv_eF;Xv_eF:
+                            goto LGNQ_;LGNQ_:
+                            $paths = pathinfo($compile);
+                            goto TdhOi;TdhOi:
+                            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                            goto TSWTw;TSWTw:
+                            if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                                goto UX4FX;UX4FX:
+                                goto gQoco;gQoco:
+                                return $compile;
+                            }
+                            goto muiec;muiec:
+                            template_compile($source, $compile, true);
+                            goto dEI0_;dEI0_:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto n5nbi;n5nbi:
+                        exit("Error: template source '{$filename}' is not exist!");
+                    }
+                    goto II8Sa;II8Sa:
+                    $source = IA_ROOT . "/web/themes/default/{$filename}.html";
+                    goto cV5pq;cV5pq:
+                    goto yYQ0g;yYQ0g:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto UFcPn;UFcPn:
+                $source = IA_ROOT . "/web/themes/{$_W["template"]}/{$filename}.html";
+                goto Qu4Pq;Qu4Pq:
+                goto bQA_E;bQA_E:
+                if (is_file($source)) {
+                    goto qjQp8;qjQp8:
+                    goto yYQ0g;yYQ0g:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto II8Sa;II8Sa:
+                $source = IA_ROOT . "/web/themes/default/{$filename}.html";
+                goto cV5pq;cV5pq:
+                goto yYQ0g;yYQ0g:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto hFb2I;hFb2I:
+            $source = $defineDir . "/template/{$filename}.html";
+            goto lD8kK;lD8kK:
+            goto i06lQ;i06lQ:
+            if (is_file($source)) {
+                goto hKLMI;hKLMI:
+                goto bQA_E;bQA_E:
+                if (is_file($source)) {
+                    goto qjQp8;qjQp8:
+                    goto yYQ0g;yYQ0g:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto II8Sa;II8Sa:
+                $source = IA_ROOT . "/web/themes/default/{$filename}.html";
+                goto cV5pq;cV5pq:
+                goto yYQ0g;yYQ0g:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto UFcPn;UFcPn:
+            $source = IA_ROOT . "/web/themes/{$_W["template"]}/{$filename}.html";
+            goto Qu4Pq;Qu4Pq:
+            goto bQA_E;bQA_E:
+            if (is_file($source)) {
+                goto qjQp8;qjQp8:
+                goto yYQ0g;yYQ0g:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto II8Sa;II8Sa:
+            $source = IA_ROOT . "/web/themes/default/{$filename}.html";
+            goto cV5pq;cV5pq:
+            goto yYQ0g;yYQ0g:
+            goto o2q8I;o2q8I:
+            if (is_file($source)) {
+                goto Xv_eF;Xv_eF:
+                goto LGNQ_;LGNQ_:
+                $paths = pathinfo($compile);
+                goto TdhOi;TdhOi:
+                $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                goto TSWTw;TSWTw:
+                if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                    goto UX4FX;UX4FX:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto muiec;muiec:
+                template_compile($source, $compile, true);
+                goto dEI0_;dEI0_:
+                goto gQoco;gQoco:
+                return $compile;
+            }
+            goto n5nbi;n5nbi:
+            exit("Error: template source '{$filename}' is not exist!");
         }
-        goto r_Vl2;
-        OBY_5:
-        if (is_file($source)) {
-            goto WxNej;
-        }
-        goto zV1Rw;
-        Mv8aC:
-        $source = $defineDir . "/template/mobile_template/{$filename}.html";
-        goto JIoYN;
-        TSWTw:
-        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
-            goto UX4FX;
-        }
-        goto muiec;
-        lD8kK: VXP_m:
-        goto i06lQ;
-        o2q8I:
-        if (is_file($source)) {
-            goto Xv_eF;
-        }
-        goto n5nbi;
-        Av5Ob:
+        goto Av5Ob;Av5Ob:
         $source = IA_ROOT . "/app/themes/{$_W["template"]}/{$name}/{$filename}.html";
-        goto oIWKa;
-        dEI0_: UX4FX:
-        goto gQoco;
-        nluza:
+        goto oIWKa;oIWKa:
+        $compile = IA_ROOT . "/data/tpl/app/{$_W["template"]}/{$name}/{$filename}.tpl.php";
+        goto Mckry;Mckry:
+        if (is_file($source)) {
+            goto TaIPt;TaIPt:
+            goto yH8d0;yH8d0:
+            if (is_file($source)) {
+                goto Rr2c5;Rr2c5:
+                goto eEzqI;eEzqI:
+                if (is_file($source)) {
+                    goto Ws_n0;Ws_n0:
+                    goto OBY_5;OBY_5:
+                    if (is_file($source)) {
+                        goto WxNej;WxNej:
+                        goto IOC42;IOC42:
+                        if (is_file($source)) {
+                            goto Awryv;Awryv:
+                            goto rDmr2;rDmr2:
+                            goto gKxaB;gKxaB:
+                            goto o2q8I;o2q8I:
+                            if (is_file($source)) {
+                                goto Xv_eF;Xv_eF:
+                                goto LGNQ_;LGNQ_:
+                                $paths = pathinfo($compile);
+                                goto TdhOi;TdhOi:
+                                $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                                goto TSWTw;TSWTw:
+                                if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                                    goto UX4FX;UX4FX:
+                                    goto gQoco;gQoco:
+                                    return $compile;
+                                }
+                                goto muiec;muiec:
+                                template_compile($source, $compile, true);
+                                goto dEI0_;dEI0_:
+                                goto gQoco;gQoco:
+                                return $compile;
+                            }
+                            goto n5nbi;n5nbi:
+                            exit("Error: template source '{$filename}' is not exist!");
+                        }
+                        goto ELQg_;ELQg_:
+                        if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+                            goto ouMij;ouMij:
+                            goto VLp0o;VLp0o:
+                            $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
+                            goto uqN0a;uqN0a:
+                            goto fZ71S;fZ71S:
+                            goto rDmr2;rDmr2:
+                            goto gKxaB;gKxaB:
+                            goto o2q8I;o2q8I:
+                            if (is_file($source)) {
+                                goto Xv_eF;Xv_eF:
+                                goto LGNQ_;LGNQ_:
+                                $paths = pathinfo($compile);
+                                goto TdhOi;TdhOi:
+                                $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                                goto TSWTw;TSWTw:
+                                if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                                    goto UX4FX;UX4FX:
+                                    goto gQoco;gQoco:
+                                    return $compile;
+                                }
+                                goto muiec;muiec:
+                                template_compile($source, $compile, true);
+                                goto dEI0_;dEI0_:
+                                goto gQoco;gQoco:
+                                return $compile;
+                            }
+                            goto n5nbi;n5nbi:
+                            exit("Error: template source '{$filename}' is not exist!");
+                        }
+                        goto reRed;reRed:
+                        $source = IA_ROOT . "/app/themes/default/{$filename}.html";
+                        goto J8Pu6;J8Pu6:
+                        goto FSB0R;FSB0R:
+                        goto fZ71S;fZ71S:
+                        goto rDmr2;rDmr2:
+                        goto gKxaB;gKxaB:
+                        goto o2q8I;o2q8I:
+                        if (is_file($source)) {
+                            goto Xv_eF;Xv_eF:
+                            goto LGNQ_;LGNQ_:
+                            $paths = pathinfo($compile);
+                            goto TdhOi;TdhOi:
+                            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                            goto TSWTw;TSWTw:
+                            if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                                goto UX4FX;UX4FX:
+                                goto gQoco;gQoco:
+                                return $compile;
+                            }
+                            goto muiec;muiec:
+                            template_compile($source, $compile, true);
+                            goto dEI0_;dEI0_:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto n5nbi;n5nbi:
+                        exit("Error: template source '{$filename}' is not exist!");
+                    }
+                    goto zV1Rw;zV1Rw:
+                    $source = IA_ROOT . "/app/themes/{$_W["template"]}/{$filename}.html";
+                    goto O7QZ8;O7QZ8:
+                    goto IOC42;IOC42:
+                    if (is_file($source)) {
+                        goto Awryv;Awryv:
+                        goto rDmr2;rDmr2:
+                        goto gKxaB;gKxaB:
+                        goto o2q8I;o2q8I:
+                        if (is_file($source)) {
+                            goto Xv_eF;Xv_eF:
+                            goto LGNQ_;LGNQ_:
+                            $paths = pathinfo($compile);
+                            goto TdhOi;TdhOi:
+                            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                            goto TSWTw;TSWTw:
+                            if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                                goto UX4FX;UX4FX:
+                                goto gQoco;gQoco:
+                                return $compile;
+                            }
+                            goto muiec;muiec:
+                            template_compile($source, $compile, true);
+                            goto dEI0_;dEI0_:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto n5nbi;n5nbi:
+                        exit("Error: template source '{$filename}' is not exist!");
+                    }
+                    goto ELQg_;ELQg_:
+                    if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+                        goto ouMij;ouMij:
+                        goto VLp0o;VLp0o:
+                        $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
+                        goto uqN0a;uqN0a:
+                        goto fZ71S;fZ71S:
+                        goto rDmr2;rDmr2:
+                        goto gKxaB;gKxaB:
+                        goto o2q8I;o2q8I:
+                        if (is_file($source)) {
+                            goto Xv_eF;Xv_eF:
+                            goto LGNQ_;LGNQ_:
+                            $paths = pathinfo($compile);
+                            goto TdhOi;TdhOi:
+                            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                            goto TSWTw;TSWTw:
+                            if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                                goto UX4FX;UX4FX:
+                                goto gQoco;gQoco:
+                                return $compile;
+                            }
+                            goto muiec;muiec:
+                            template_compile($source, $compile, true);
+                            goto dEI0_;dEI0_:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto n5nbi;n5nbi:
+                        exit("Error: template source '{$filename}' is not exist!");
+                    }
+                    goto reRed;reRed:
+                    $source = IA_ROOT . "/app/themes/default/{$filename}.html";
+                    goto J8Pu6;J8Pu6:
+                    goto FSB0R;FSB0R:
+                    goto fZ71S;fZ71S:
+                    goto rDmr2;rDmr2:
+                    goto gKxaB;gKxaB:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto DS0PK;DS0PK:
+                $source = $defineDir . "/template/webapp/{$filename}.html";
+                goto YLaVN;YLaVN:
+                goto OBY_5;OBY_5:
+                if (is_file($source)) {
+                    goto WxNej;WxNej:
+                    goto IOC42;IOC42:
+                    if (is_file($source)) {
+                        goto Awryv;Awryv:
+                        goto rDmr2;rDmr2:
+                        goto gKxaB;gKxaB:
+                        goto o2q8I;o2q8I:
+                        if (is_file($source)) {
+                            goto Xv_eF;Xv_eF:
+                            goto LGNQ_;LGNQ_:
+                            $paths = pathinfo($compile);
+                            goto TdhOi;TdhOi:
+                            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                            goto TSWTw;TSWTw:
+                            if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                                goto UX4FX;UX4FX:
+                                goto gQoco;gQoco:
+                                return $compile;
+                            }
+                            goto muiec;muiec:
+                            template_compile($source, $compile, true);
+                            goto dEI0_;dEI0_:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto n5nbi;n5nbi:
+                        exit("Error: template source '{$filename}' is not exist!");
+                    }
+                    goto ELQg_;ELQg_:
+                    if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+                        goto ouMij;ouMij:
+                        goto VLp0o;VLp0o:
+                        $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
+                        goto uqN0a;uqN0a:
+                        goto fZ71S;fZ71S:
+                        goto rDmr2;rDmr2:
+                        goto gKxaB;gKxaB:
+                        goto o2q8I;o2q8I:
+                        if (is_file($source)) {
+                            goto Xv_eF;Xv_eF:
+                            goto LGNQ_;LGNQ_:
+                            $paths = pathinfo($compile);
+                            goto TdhOi;TdhOi:
+                            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                            goto TSWTw;TSWTw:
+                            if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                                goto UX4FX;UX4FX:
+                                goto gQoco;gQoco:
+                                return $compile;
+                            }
+                            goto muiec;muiec:
+                            template_compile($source, $compile, true);
+                            goto dEI0_;dEI0_:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto n5nbi;n5nbi:
+                        exit("Error: template source '{$filename}' is not exist!");
+                    }
+                    goto reRed;reRed:
+                    $source = IA_ROOT . "/app/themes/default/{$filename}.html";
+                    goto J8Pu6;J8Pu6:
+                    goto FSB0R;FSB0R:
+                    goto fZ71S;fZ71S:
+                    goto rDmr2;rDmr2:
+                    goto gKxaB;gKxaB:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto zV1Rw;zV1Rw:
+                $source = IA_ROOT . "/app/themes/{$_W["template"]}/{$filename}.html";
+                goto O7QZ8;O7QZ8:
+                goto IOC42;IOC42:
+                if (is_file($source)) {
+                    goto Awryv;Awryv:
+                    goto rDmr2;rDmr2:
+                    goto gKxaB;gKxaB:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto ELQg_;ELQg_:
+                if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+                    goto ouMij;ouMij:
+                    goto VLp0o;VLp0o:
+                    $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
+                    goto uqN0a;uqN0a:
+                    goto fZ71S;fZ71S:
+                    goto rDmr2;rDmr2:
+                    goto gKxaB;gKxaB:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto reRed;reRed:
+                $source = IA_ROOT . "/app/themes/default/{$filename}.html";
+                goto J8Pu6;J8Pu6:
+                goto FSB0R;FSB0R:
+                goto fZ71S;fZ71S:
+                goto rDmr2;rDmr2:
+                goto gKxaB;gKxaB:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto Mv8aC;Mv8aC:
+            $source = $defineDir . "/template/mobile_template/{$filename}.html";
+            goto JIoYN;JIoYN:
+            goto eEzqI;eEzqI:
+            if (is_file($source)) {
+                goto Ws_n0;Ws_n0:
+                goto OBY_5;OBY_5:
+                if (is_file($source)) {
+                    goto WxNej;WxNej:
+                    goto IOC42;IOC42:
+                    if (is_file($source)) {
+                        goto Awryv;Awryv:
+                        goto rDmr2;rDmr2:
+                        goto gKxaB;gKxaB:
+                        goto o2q8I;o2q8I:
+                        if (is_file($source)) {
+                            goto Xv_eF;Xv_eF:
+                            goto LGNQ_;LGNQ_:
+                            $paths = pathinfo($compile);
+                            goto TdhOi;TdhOi:
+                            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                            goto TSWTw;TSWTw:
+                            if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                                goto UX4FX;UX4FX:
+                                goto gQoco;gQoco:
+                                return $compile;
+                            }
+                            goto muiec;muiec:
+                            template_compile($source, $compile, true);
+                            goto dEI0_;dEI0_:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto n5nbi;n5nbi:
+                        exit("Error: template source '{$filename}' is not exist!");
+                    }
+                    goto ELQg_;ELQg_:
+                    if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+                        goto ouMij;ouMij:
+                        goto VLp0o;VLp0o:
+                        $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
+                        goto uqN0a;uqN0a:
+                        goto fZ71S;fZ71S:
+                        goto rDmr2;rDmr2:
+                        goto gKxaB;gKxaB:
+                        goto o2q8I;o2q8I:
+                        if (is_file($source)) {
+                            goto Xv_eF;Xv_eF:
+                            goto LGNQ_;LGNQ_:
+                            $paths = pathinfo($compile);
+                            goto TdhOi;TdhOi:
+                            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                            goto TSWTw;TSWTw:
+                            if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                                goto UX4FX;UX4FX:
+                                goto gQoco;gQoco:
+                                return $compile;
+                            }
+                            goto muiec;muiec:
+                            template_compile($source, $compile, true);
+                            goto dEI0_;dEI0_:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto n5nbi;n5nbi:
+                        exit("Error: template source '{$filename}' is not exist!");
+                    }
+                    goto reRed;reRed:
+                    $source = IA_ROOT . "/app/themes/default/{$filename}.html";
+                    goto J8Pu6;J8Pu6:
+                    goto FSB0R;FSB0R:
+                    goto fZ71S;fZ71S:
+                    goto rDmr2;rDmr2:
+                    goto gKxaB;gKxaB:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto zV1Rw;zV1Rw:
+                $source = IA_ROOT . "/app/themes/{$_W["template"]}/{$filename}.html";
+                goto O7QZ8;O7QZ8:
+                goto IOC42;IOC42:
+                if (is_file($source)) {
+                    goto Awryv;Awryv:
+                    goto rDmr2;rDmr2:
+                    goto gKxaB;gKxaB:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto ELQg_;ELQg_:
+                if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+                    goto ouMij;ouMij:
+                    goto VLp0o;VLp0o:
+                    $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
+                    goto uqN0a;uqN0a:
+                    goto fZ71S;fZ71S:
+                    goto rDmr2;rDmr2:
+                    goto gKxaB;gKxaB:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto reRed;reRed:
+                $source = IA_ROOT . "/app/themes/default/{$filename}.html";
+                goto J8Pu6;J8Pu6:
+                goto FSB0R;FSB0R:
+                goto fZ71S;fZ71S:
+                goto rDmr2;rDmr2:
+                goto gKxaB;gKxaB:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto DS0PK;DS0PK:
+            $source = $defineDir . "/template/webapp/{$filename}.html";
+            goto YLaVN;YLaVN:
+            goto OBY_5;OBY_5:
+            if (is_file($source)) {
+                goto WxNej;WxNej:
+                goto IOC42;IOC42:
+                if (is_file($source)) {
+                    goto Awryv;Awryv:
+                    goto rDmr2;rDmr2:
+                    goto gKxaB;gKxaB:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto ELQg_;ELQg_:
+                if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+                    goto ouMij;ouMij:
+                    goto VLp0o;VLp0o:
+                    $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
+                    goto uqN0a;uqN0a:
+                    goto fZ71S;fZ71S:
+                    goto rDmr2;rDmr2:
+                    goto gKxaB;gKxaB:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto reRed;reRed:
+                $source = IA_ROOT . "/app/themes/default/{$filename}.html";
+                goto J8Pu6;J8Pu6:
+                goto FSB0R;FSB0R:
+                goto fZ71S;fZ71S:
+                goto rDmr2;rDmr2:
+                goto gKxaB;gKxaB:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto zV1Rw;zV1Rw:
+            $source = IA_ROOT . "/app/themes/{$_W["template"]}/{$filename}.html";
+            goto O7QZ8;O7QZ8:
+            goto IOC42;IOC42:
+            if (is_file($source)) {
+                goto Awryv;Awryv:
+                goto rDmr2;rDmr2:
+                goto gKxaB;gKxaB:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto ELQg_;ELQg_:
+            if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+                goto ouMij;ouMij:
+                goto VLp0o;VLp0o:
+                $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
+                goto uqN0a;uqN0a:
+                goto fZ71S;fZ71S:
+                goto rDmr2;rDmr2:
+                goto gKxaB;gKxaB:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto reRed;reRed:
+            $source = IA_ROOT . "/app/themes/default/{$filename}.html";
+            goto J8Pu6;J8Pu6:
+            goto FSB0R;FSB0R:
+            goto fZ71S;fZ71S:
+            goto rDmr2;rDmr2:
+            goto gKxaB;gKxaB:
+            goto o2q8I;o2q8I:
+            if (is_file($source)) {
+                goto Xv_eF;Xv_eF:
+                goto LGNQ_;LGNQ_:
+                $paths = pathinfo($compile);
+                goto TdhOi;TdhOi:
+                $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                goto TSWTw;TSWTw:
+                if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                    goto UX4FX;UX4FX:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto muiec;muiec:
+                template_compile($source, $compile, true);
+                goto dEI0_;dEI0_:
+                goto gQoco;gQoco:
+                return $compile;
+            }
+            goto n5nbi;n5nbi:
+            exit("Error: template source '{$filename}' is not exist!");
+        }
+        goto r_Vl2;r_Vl2:
+        $source = IA_ROOT . "/app/themes/default/{$name}/{$filename}.html";
+        goto fpx21;fpx21:
+        goto yH8d0;yH8d0:
+        if (is_file($source)) {
+            goto Rr2c5;Rr2c5:
+            goto eEzqI;eEzqI:
+            if (is_file($source)) {
+                goto Ws_n0;Ws_n0:
+                goto OBY_5;OBY_5:
+                if (is_file($source)) {
+                    goto WxNej;WxNej:
+                    goto IOC42;IOC42:
+                    if (is_file($source)) {
+                        goto Awryv;Awryv:
+                        goto rDmr2;rDmr2:
+                        goto gKxaB;gKxaB:
+                        goto o2q8I;o2q8I:
+                        if (is_file($source)) {
+                            goto Xv_eF;Xv_eF:
+                            goto LGNQ_;LGNQ_:
+                            $paths = pathinfo($compile);
+                            goto TdhOi;TdhOi:
+                            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                            goto TSWTw;TSWTw:
+                            if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                                goto UX4FX;UX4FX:
+                                goto gQoco;gQoco:
+                                return $compile;
+                            }
+                            goto muiec;muiec:
+                            template_compile($source, $compile, true);
+                            goto dEI0_;dEI0_:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto n5nbi;n5nbi:
+                        exit("Error: template source '{$filename}' is not exist!");
+                    }
+                    goto ELQg_;ELQg_:
+                    if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+                        goto ouMij;ouMij:
+                        goto VLp0o;VLp0o:
+                        $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
+                        goto uqN0a;uqN0a:
+                        goto fZ71S;fZ71S:
+                        goto rDmr2;rDmr2:
+                        goto gKxaB;gKxaB:
+                        goto o2q8I;o2q8I:
+                        if (is_file($source)) {
+                            goto Xv_eF;Xv_eF:
+                            goto LGNQ_;LGNQ_:
+                            $paths = pathinfo($compile);
+                            goto TdhOi;TdhOi:
+                            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                            goto TSWTw;TSWTw:
+                            if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                                goto UX4FX;UX4FX:
+                                goto gQoco;gQoco:
+                                return $compile;
+                            }
+                            goto muiec;muiec:
+                            template_compile($source, $compile, true);
+                            goto dEI0_;dEI0_:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto n5nbi;n5nbi:
+                        exit("Error: template source '{$filename}' is not exist!");
+                    }
+                    goto reRed;reRed:
+                    $source = IA_ROOT . "/app/themes/default/{$filename}.html";
+                    goto J8Pu6;J8Pu6:
+                    goto FSB0R;FSB0R:
+                    goto fZ71S;fZ71S:
+                    goto rDmr2;rDmr2:
+                    goto gKxaB;gKxaB:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto zV1Rw;zV1Rw:
+                $source = IA_ROOT . "/app/themes/{$_W["template"]}/{$filename}.html";
+                goto O7QZ8;O7QZ8:
+                goto IOC42;IOC42:
+                if (is_file($source)) {
+                    goto Awryv;Awryv:
+                    goto rDmr2;rDmr2:
+                    goto gKxaB;gKxaB:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto ELQg_;ELQg_:
+                if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+                    goto ouMij;ouMij:
+                    goto VLp0o;VLp0o:
+                    $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
+                    goto uqN0a;uqN0a:
+                    goto fZ71S;fZ71S:
+                    goto rDmr2;rDmr2:
+                    goto gKxaB;gKxaB:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto reRed;reRed:
+                $source = IA_ROOT . "/app/themes/default/{$filename}.html";
+                goto J8Pu6;J8Pu6:
+                goto FSB0R;FSB0R:
+                goto fZ71S;fZ71S:
+                goto rDmr2;rDmr2:
+                goto gKxaB;gKxaB:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto DS0PK;DS0PK:
+            $source = $defineDir . "/template/webapp/{$filename}.html";
+            goto YLaVN;YLaVN:
+            goto OBY_5;OBY_5:
+            if (is_file($source)) {
+                goto WxNej;WxNej:
+                goto IOC42;IOC42:
+                if (is_file($source)) {
+                    goto Awryv;Awryv:
+                    goto rDmr2;rDmr2:
+                    goto gKxaB;gKxaB:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto ELQg_;ELQg_:
+                if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+                    goto ouMij;ouMij:
+                    goto VLp0o;VLp0o:
+                    $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
+                    goto uqN0a;uqN0a:
+                    goto fZ71S;fZ71S:
+                    goto rDmr2;rDmr2:
+                    goto gKxaB;gKxaB:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto reRed;reRed:
+                $source = IA_ROOT . "/app/themes/default/{$filename}.html";
+                goto J8Pu6;J8Pu6:
+                goto FSB0R;FSB0R:
+                goto fZ71S;fZ71S:
+                goto rDmr2;rDmr2:
+                goto gKxaB;gKxaB:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto zV1Rw;zV1Rw:
+            $source = IA_ROOT . "/app/themes/{$_W["template"]}/{$filename}.html";
+            goto O7QZ8;O7QZ8:
+            goto IOC42;IOC42:
+            if (is_file($source)) {
+                goto Awryv;Awryv:
+                goto rDmr2;rDmr2:
+                goto gKxaB;gKxaB:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto ELQg_;ELQg_:
+            if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+                goto ouMij;ouMij:
+                goto VLp0o;VLp0o:
+                $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
+                goto uqN0a;uqN0a:
+                goto fZ71S;fZ71S:
+                goto rDmr2;rDmr2:
+                goto gKxaB;gKxaB:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto reRed;reRed:
+            $source = IA_ROOT . "/app/themes/default/{$filename}.html";
+            goto J8Pu6;J8Pu6:
+            goto FSB0R;FSB0R:
+            goto fZ71S;fZ71S:
+            goto rDmr2;rDmr2:
+            goto gKxaB;gKxaB:
+            goto o2q8I;o2q8I:
+            if (is_file($source)) {
+                goto Xv_eF;Xv_eF:
+                goto LGNQ_;LGNQ_:
+                $paths = pathinfo($compile);
+                goto TdhOi;TdhOi:
+                $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                goto TSWTw;TSWTw:
+                if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                    goto UX4FX;UX4FX:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto muiec;muiec:
+                template_compile($source, $compile, true);
+                goto dEI0_;dEI0_:
+                goto gQoco;gQoco:
+                return $compile;
+            }
+            goto n5nbi;n5nbi:
+            exit("Error: template source '{$filename}' is not exist!");
+
+        }
+        goto Mv8aC;Mv8aC:
+        $source = $defineDir . "/template/mobile_template/{$filename}.html";
+        goto JIoYN;JIoYN:
+        goto eEzqI;eEzqI:
+        if (is_file($source)) {
+            goto Ws_n0;Ws_n0:
+            goto OBY_5;OBY_5:
+            if (is_file($source)) {
+                goto WxNej;WxNej:
+                goto IOC42;IOC42:
+                if (is_file($source)) {
+                    goto Awryv;Awryv:
+                    goto rDmr2;rDmr2:
+                    goto gKxaB;gKxaB:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto ELQg_;ELQg_:
+                if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+                    goto ouMij;ouMij:
+                    goto VLp0o;VLp0o:
+                    $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
+                    goto uqN0a;uqN0a:
+                    goto fZ71S;fZ71S:
+                    goto rDmr2;rDmr2:
+                    goto gKxaB;gKxaB:
+                    goto o2q8I;o2q8I:
+                    if (is_file($source)) {
+                        goto Xv_eF;Xv_eF:
+                        goto LGNQ_;LGNQ_:
+                        $paths = pathinfo($compile);
+                        goto TdhOi;TdhOi:
+                        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                        goto TSWTw;TSWTw:
+                        if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                            goto UX4FX;UX4FX:
+                            goto gQoco;gQoco:
+                            return $compile;
+                        }
+                        goto muiec;muiec:
+                        template_compile($source, $compile, true);
+                        goto dEI0_;dEI0_:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto n5nbi;n5nbi:
+                    exit("Error: template source '{$filename}' is not exist!");
+                }
+                goto reRed;reRed:
+                $source = IA_ROOT . "/app/themes/default/{$filename}.html";
+                goto J8Pu6;J8Pu6:
+                goto FSB0R;FSB0R:
+                goto fZ71S;fZ71S:
+                goto rDmr2;rDmr2:
+                goto gKxaB;gKxaB:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto zV1Rw;zV1Rw:
+            $source = IA_ROOT . "/app/themes/{$_W["template"]}/{$filename}.html";
+            goto O7QZ8;O7QZ8:
+            goto IOC42;IOC42:
+            if (is_file($source)) {
+                goto Awryv;Awryv:
+                goto rDmr2;rDmr2:
+                goto gKxaB;gKxaB:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto ELQg_;ELQg_:
+            if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+                goto ouMij;ouMij:
+                goto VLp0o;VLp0o:
+                $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
+                goto uqN0a;uqN0a:
+                goto fZ71S;fZ71S:
+                goto rDmr2;rDmr2:
+                goto gKxaB;gKxaB:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto reRed;reRed:
+            $source = IA_ROOT . "/app/themes/default/{$filename}.html";
+            goto J8Pu6;J8Pu6:
+            goto FSB0R;FSB0R:
+            goto fZ71S;fZ71S:
+            goto rDmr2;rDmr2:
+            goto gKxaB;gKxaB:
+            goto o2q8I;o2q8I:
+            if (is_file($source)) {
+                goto Xv_eF;Xv_eF:
+                goto LGNQ_;LGNQ_:
+                $paths = pathinfo($compile);
+                goto TdhOi;TdhOi:
+                $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                goto TSWTw;TSWTw:
+                if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                    goto UX4FX;UX4FX:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto muiec;muiec:
+                template_compile($source, $compile, true);
+                goto dEI0_;dEI0_:
+                goto gQoco;gQoco:
+                return $compile;
+            }
+            goto n5nbi;n5nbi:
+            exit("Error: template source '{$filename}' is not exist!");
+        }
+        goto DS0PK;DS0PK:
+        $source = $defineDir . "/template/webapp/{$filename}.html";
+        goto YLaVN;YLaVN:
+        goto OBY_5;OBY_5:
+        if (is_file($source)) {
+            goto WxNej;WxNej:
+            goto IOC42;IOC42:
+            if (is_file($source)) {
+                goto Awryv;Awryv:
+                goto rDmr2;rDmr2:
+                goto gKxaB;gKxaB:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto ELQg_;ELQg_:
+            if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+                goto ouMij;ouMij:
+                goto VLp0o;VLp0o:
+                $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
+                goto uqN0a;uqN0a:
+                goto fZ71S;fZ71S:
+                goto rDmr2;rDmr2:
+                goto gKxaB;gKxaB:
+                goto o2q8I;o2q8I:
+                if (is_file($source)) {
+                    goto Xv_eF;Xv_eF:
+                    goto LGNQ_;LGNQ_:
+                    $paths = pathinfo($compile);
+                    goto TdhOi;TdhOi:
+                    $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                    goto TSWTw;TSWTw:
+                    if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                        goto UX4FX;UX4FX:
+                        goto gQoco;gQoco:
+                        return $compile;
+                    }
+                    goto muiec;muiec:
+                    template_compile($source, $compile, true);
+                    goto dEI0_;dEI0_:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto n5nbi;n5nbi:
+                exit("Error: template source '{$filename}' is not exist!");
+            }
+            goto reRed;reRed:
+            $source = IA_ROOT . "/app/themes/default/{$filename}.html";
+            goto J8Pu6;J8Pu6:
+            goto FSB0R;FSB0R:
+            goto fZ71S;fZ71S:
+            goto rDmr2;rDmr2:
+            goto gKxaB;gKxaB:
+            goto o2q8I;o2q8I:
+            if (is_file($source)) {
+                goto Xv_eF;Xv_eF:
+                goto LGNQ_;LGNQ_:
+                $paths = pathinfo($compile);
+                goto TdhOi;TdhOi:
+                $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                goto TSWTw;TSWTw:
+                if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                    goto UX4FX;UX4FX:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto muiec;muiec:
+                template_compile($source, $compile, true);
+                goto dEI0_;dEI0_:
+                goto gQoco;gQoco:
+                return $compile;
+            }
+            goto n5nbi;n5nbi:
+            exit("Error: template source '{$filename}' is not exist!");
+        }
+        goto zV1Rw;zV1Rw:
+        $source = IA_ROOT . "/app/themes/{$_W["template"]}/{$filename}.html";
+        goto O7QZ8;O7QZ8:
+        goto IOC42;IOC42:
+        if (is_file($source)) {
+            goto Awryv;Awryv:
+            goto rDmr2;rDmr2:
+            goto gKxaB;gKxaB:
+            goto o2q8I;o2q8I:
+            if (is_file($source)) {
+                goto Xv_eF;Xv_eF:
+                goto LGNQ_;LGNQ_:
+                $paths = pathinfo($compile);
+                goto TdhOi;TdhOi:
+                $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                goto TSWTw;TSWTw:
+                if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                    goto UX4FX;UX4FX:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto muiec;muiec:
+                template_compile($source, $compile, true);
+                goto dEI0_;dEI0_:
+                goto gQoco;gQoco:
+                return $compile;
+            }
+            goto n5nbi;n5nbi:
+            exit("Error: template source '{$filename}' is not exist!");
+        }
+        goto ELQg_;ELQg_:
+        if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+            goto ouMij;ouMij:
+            goto VLp0o;VLp0o:
+            $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
+            goto uqN0a;uqN0a:
+            goto fZ71S;fZ71S:
+            goto rDmr2;rDmr2:
+            goto gKxaB;gKxaB:
+            goto o2q8I;o2q8I:
+            if (is_file($source)) {
+                goto Xv_eF;Xv_eF:
+                goto LGNQ_;LGNQ_:
+                $paths = pathinfo($compile);
+                goto TdhOi;TdhOi:
+                $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+                goto TSWTw;TSWTw:
+                if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                    goto UX4FX;UX4FX:
+                    goto gQoco;gQoco:
+                    return $compile;
+                }
+                goto muiec;muiec:
+                template_compile($source, $compile, true);
+                goto dEI0_;dEI0_:
+                goto gQoco;gQoco:
+                return $compile;
+            }
+            goto n5nbi;n5nbi:
+            exit("Error: template source '{$filename}' is not exist!");
+        }
+        goto reRed;reRed:
+        $source = IA_ROOT . "/app/themes/default/{$filename}.html";
+        goto J8Pu6;J8Pu6:
+        goto FSB0R;FSB0R:
+        goto fZ71S;fZ71S:
+        goto rDmr2;rDmr2:
+        goto gKxaB;gKxaB:
+        goto o2q8I;o2q8I:
+        if (is_file($source)) {
+            goto Xv_eF;Xv_eF:
+            goto LGNQ_;LGNQ_:
+            $paths = pathinfo($compile);
+            goto TdhOi;TdhOi:
+            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
+            goto TSWTw;TSWTw:
+            if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
+                goto UX4FX;UX4FX:
+                goto gQoco;gQoco:
+                return $compile;
+            }
+            goto muiec;muiec:
+            template_compile($source, $compile, true);
+            goto dEI0_;dEI0_:
+            goto gQoco;gQoco:
+            return $compile;
+        }
+        goto n5nbi;n5nbi:
+        exit("Error: template source '{$filename}' is not exist!");
     }
 
     function fileSave($file_string, $type = "jpg", $name = "auto") {
