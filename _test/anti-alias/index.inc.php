@@ -63,18 +63,18 @@ class MobileTemplate {
         JIoYN: Rr2c5:
         goto eEzqI;
         UFcPn:
-        $source = IA_ROOT . "\57\x77\x65\x62\57\164\150\x65\x6d\145\x73\x2f{$_W["\x74\145\155\160\154\141\x74\145"]}\x2f{$filename}\56\x68\x74\155\x6c";
+        $source = IA_ROOT . "/web/themes/{$_W["template"]}/{$filename}.html";
         goto Qu4Pq;
         r_Vl2:
-        $source = IA_ROOT . "\x2f\141\x70\160\57\164\150\x65\x6d\x65\163\57\x64\x65\x66\x61\x75\x6c\x74\57{$name}\x2f{$filename}\56\150\x74\155\x6c";
+        $source = IA_ROOT . "/app/themes/default/{$name}/{$filename}.html";
         goto fpx21;
         CxqpT:
-        $_W["\x74\145\155\x70\x6c\x61\164\x65"] = "\144\145\x66\x61\x75\154\164";
+        $_W["template"] = "default";
         goto p_F3i;
         piUJw: Xv_eF:
         goto LGNQ_;
         DS0PK:
-        $source = $defineDir . "\x2f\x74\x65\x6d\x70\x6c\141\164\145\x2f\x77\145\x62\x61\160\x70\57{$filename}\x2e\150\164\155\154";
+        $source = $defineDir . "/template/webapp/{$filename}.html";
         goto YLaVN;
         Qu4Pq: hKLMI:
         goto bQA_E;
@@ -89,12 +89,12 @@ class MobileTemplate {
         return $compile;
         goto nluza;
         II8Sa:
-        $source = IA_ROOT . "\x2f\x77\x65\x62\x2f\164\150\145\x6d\x65\x73\57\144\x65\x66\141\x75\x6c\x74\x2f{$filename}\56\x68\164\155\154";
+        $source = IA_ROOT . "/web/themes/default/{$filename}.html";
         goto cV5pq;
         MSWII: ouMij:
         goto VLp0o;
         p_F3i:
-        if (defined("\x49\x4e\137\x53\131\x53")) {
+        if (defined("IN_SYS")) {
             goto tPlb6;
         }
         goto Av5Ob;
@@ -109,7 +109,7 @@ class MobileTemplate {
         }
         goto deKcL;
         TdhOi:
-        $compile = str_replace($paths["\x66\151\x6c\145\x6e\141\155\145"], $_W["\x75\156\x69\x61\x63\x69\x64"] . "\137" . $paths["\146\151\154\x65\x6e\x61\155\145"], $compile);
+        $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
         goto TSWTw;
         YwNEG:
         if (is_file($source)) {
@@ -117,10 +117,10 @@ class MobileTemplate {
         }
         goto hFb2I;
         oIWKa:
-        $compile = IA_ROOT . "\57\x64\141\x74\x61\x2f\164\160\154\57\x61\x70\160\x2f{$_W["\x74\145\155\160\x6c\x61\164\x65"]}\57{$name}\57{$filename}\56\164\x70\x6c\56\160\150\x70";
+        $compile = IA_ROOT . "/data/tpl/app/{$_W["template"]}/{$name}/{$filename}.tpl.php";
         goto Mckry;
         So26H:
-        $source = IA_ROOT . "\x2f\167\x65\142\57\164\x68\145\155\145\x73\57{$_W["\x74\x65\155\160\154\x61\x74\x65"]}\57{$name}\57{$filename}\x2e\150\x74\x6d\x6c";
+        $source = IA_ROOT . "/web/themes/{$_W["template"]}/{$name}/{$filename}.html";
         goto iDsb8;
         bQA_E:
         if (is_file($source)) {
@@ -130,7 +130,7 @@ class MobileTemplate {
         fZ71S: Awryv:
         goto rDmr2;
         reRed:
-        $source = IA_ROOT . "\57\x61\x70\x70\57\164\x68\145\x6d\145\163\57\x64\145\146\141\x75\x6c\x74\57{$filename}\56\150\x74\x6d\154";
+        $source = IA_ROOT . "/app/themes/default/{$filename}.html";
         goto J8Pu6;
         eEzqI:
         if (is_file($source)) {
@@ -138,16 +138,16 @@ class MobileTemplate {
         }
         goto DS0PK;
         zV1Rw:
-        $source = IA_ROOT . "\x2f\141\160\x70\x2f\x74\x68\145\x6d\x65\163\x2f{$_W["\164\145\155\x70\154\141\x74\x65"]}\57{$filename}\x2e\x68\164\155\154";
+        $source = IA_ROOT . "/app/themes/{$_W["template"]}/{$filename}.html";
         goto O7QZ8;
         hFb2I:
-        $source = $defineDir . "\x2f\164\x65\x6d\160\154\141\164\x65\57{$filename}\x2e\x68\x74\155\154";
+        $source = $defineDir . "/template/{$filename}.html";
         goto lD8kK;
         rDmr2:
         goto gKxaB;
         goto iE6_1;
         n5nbi:
-        exit("\x45\162\162\157\x72\72\x20\164\145\155\160\154\141\164\x65\x20\163\x6f\165\162\x63\145\40\47{$filename}\47\x20\x69\x73\x20\x6e\157\x74\x20\145\x78\151\163\x74\x21");
+        exit("Error: template source '{$filename}' is not exist!");
         goto piUJw;
         O7QZ8: WxNej:
         goto IOC42;
@@ -165,10 +165,10 @@ class MobileTemplate {
         goto FSB0R;
         goto MSWII;
         iDsb8:
-        $compile = IA_ROOT . "\57\144\x61\x74\x61\x2f\164\x70\x6c\57\x77\145\142\57{$_W["\164\145\x6d\x70\x6c\x61\x74\145"]}\57{$name}\57{$filename}\56\164\x70\154\x2e\x70\150\160";
+        $compile = IA_ROOT . "/data/tpl/web/{$_W["template"]}/{$name}/{$filename}.tpl.php";
         goto v2daI;
         ELQg_:
-        if (in_array($filename, ["\x68\145\x61\144\145\x72", "\146\x6f\157\164\145\x72", "\x73\154\x69\144\x65", "\164\157\x6f\x6c\142\x61\x72", "\x6d\145\x73\163\x61\x67\x65"])) {
+        if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
             goto ouMij;
         }
         goto reRed;
@@ -176,16 +176,16 @@ class MobileTemplate {
         $paths = pathinfo($compile);
         goto TdhOi;
         deKcL:
-        $source = IA_ROOT . "\57\167\x65\142\x2f\164\150\145\x6d\x65\163\57\x64\x65\x66\141\165\154\164\57{$name}\57{$filename}\56\x68\x74\x6d\x6c";
+        $source = IA_ROOT . "/web/themes/default/{$name}/{$filename}.html";
         goto rl1hM;
         CLnGh:
-        $defineDir = IA_ROOT . "\57\141\144\x64\x6f\156\163\57" . $_GPC["\x6d"];
+        $defineDir = IA_ROOT . "/addons/" . $_GPC["m"];
         goto CxqpT;
         kkMmD:
-        $name = $_GPC["\x6d"];
+        $name = $_GPC["m"];
         goto CLnGh;
         VLp0o:
-        $source = IA_ROOT . "\57\x61\160\x70\x2f\x74\150\145\x6d\x65\163\57\x64\x65\x66\x61\x75\x6c\x74\57\x63\157\x6d\x6d\157\156\x2f{$filename}\56\150\x74\155\x6c";
+        $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
         goto uqN0a;
         fpx21: TaIPt:
         goto yH8d0;
@@ -208,7 +208,7 @@ class MobileTemplate {
         }
         goto zV1Rw;
         Mv8aC:
-        $source = $defineDir . "\57\164\145\x6d\160\154\141\164\x65\x2f\x6d\x6f\142\151\154\145\137\164\x65\x6d\x70\x6c\141\x74\145\x2f{$filename}\x2e\150\x74\x6d\x6c";
+        $source = $defineDir . "/template/mobile_template/{$filename}.html";
         goto JIoYN;
         TSWTw:
         if (!(DEVELOPMENT || !is_file($compile) || filemtime($source) > filemtime($compile))) {
@@ -223,7 +223,7 @@ class MobileTemplate {
         }
         goto n5nbi;
         Av5Ob:
-        $source = IA_ROOT . "\x2f\141\x70\160\x2f\164\150\x65\155\x65\163\x2f{$_W["\x74\x65\155\160\154\141\x74\145"]}\57{$name}\57{$filename}\56\150\164\155\154";
+        $source = IA_ROOT . "/app/themes/{$_W["template"]}/{$name}/{$filename}.html";
         goto oIWKa;
         dEI0_: UX4FX:
         goto gQoco;
