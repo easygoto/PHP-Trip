@@ -6,28 +6,6 @@
     |__________________________________________________|
 */
 
-global $_W, $_GPC;
-$uniacid = $_W["uniacid"];
-if (empty($_GET["id"])) {
-    $mobile = new MobileTemplate();
-    include $mobile->template("index/index", $_W, $_GPC);
-    goto _EXIT;
-
-}
-$list = pdo_get("xc_beauty_article", ["id" => $_GET["id"], "uniacid" => $uniacid]);
-if (!$list) {
-    $mobile = new MobileTemplate();
-    include $mobile->template("index/index", $_W, $_GPC);
-    goto _EXIT;
-
-}
-$list["content"] = htmlspecialchars_decode($list["content"]);
-$mobile          = new MobileTemplate();
-include $mobile->template("index/index", $_W, $_GPC);
-goto _EXIT;
-
-_EXIT:
-
 class MobileTemplate {
     private $module;
     public  $modulename;
@@ -234,7 +212,7 @@ class MobileTemplate {
             return error(1, "\xe7\xa6\201\346\255\242\344\xbf\235\xe5\255\230\346\226\x87\344\xbb\266\347\261\273\xe5\x9e\x8b");
         }
         if (in_array($type, $allow_ext["audios"])) {
-            $type_path = "\141\165\144\151\x6f\163";
+            $type_path = "audios";
             if (!empty($type_path)) {
                 if (empty($name) || $name == "auto") {
                     $uniacid = intval($_W["uniacid"]);
@@ -321,7 +299,7 @@ class MobileTemplate {
                 }
                 return false;
             }
-            $filename .= "\56" . $type;
+            $filename .= "." . $type;
             if (file_put_contents(ATTACHMENT_ROOT . $path . $filename, $file_string)) {
                 file_remote_upload($path);
                 return $path . $filename;
@@ -368,3 +346,20 @@ class MobileTemplate {
         exit;
     }
 }
+
+global $_W, $_GPC;
+$uniacid = $_W["uniacid"];
+if (empty($_GET["id"])) {
+    $mobile = new MobileTemplate();
+    include $mobile->template("index/index", $_W, $_GPC);
+
+}
+$list = pdo_get("xc_beauty_article", ["id" => $_GET["id"], "uniacid" => $uniacid]);
+if (!$list) {
+    $mobile = new MobileTemplate();
+    include $mobile->template("index/index", $_W, $_GPC);
+
+}
+$list["content"] = htmlspecialchars_decode($list["content"]);
+$mobile          = new MobileTemplate();
+include $mobile->template("index/index", $_W, $_GPC);
