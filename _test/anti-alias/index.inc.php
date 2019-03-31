@@ -270,10 +270,10 @@ class MobileTemplate {
         if (in_array($type, $allow_ext["audios"])) {
             $type_path = "\141\165\144\151\x6f\163";
             if (!empty($type_path)) {
-                if (empty($name) || $name == "\141\x75\x74\x6f") {
-                    $uniacid = intval($_W["\165\156\x69\141\x63\151\x64"]);
-                    $path    = "{$type_path}\x2f{$uniacid}\57{$this->module["\156\x61\x6d\x65"]}\x2f" . date("\131\x2f\155\57");
-                    mkdirs(ATTACHMENT_ROOT . "\x2f" . $path);
+                if (empty($name) || $name == "auto") {
+                    $uniacid = intval($_W["uniacid"]);
+                    $path    = "{$type_path}/{$uniacid}/{$this->module["name"]}\x2f" . date("Y/m/");
+                    mkdirs(ATTACHMENT_ROOT . "/" . $path);
                     $filename = file_random_name(ATTACHMENT_ROOT . "\57" . $path, $type);
                     if (file_put_contents(ATTACHMENT_ROOT . $path . $filename, $file_string)) {
                         file_remote_upload($path);
@@ -281,8 +281,8 @@ class MobileTemplate {
                     }
                     return false;
                 }
-                $path = "{$type_path}\x2f{$uniacid}\57{$this->module["\156\141\155\145"]}\x2f";
-                mkdirs(dirname(ATTACHMENT_ROOT . "\x2f" . $path));
+                $path = "{$type_path}/{$uniacid}/{$this->module["name"]}/";
+                mkdirs(dirname(ATTACHMENT_ROOT . "/" . $path));
                 $filename = $name;
                 if (strexists($filename, $type)) {
                     if (file_put_contents(ATTACHMENT_ROOT . $path . $filename, $file_string)) {
@@ -301,21 +301,21 @@ class MobileTemplate {
             return error(1, "\xe7\xa6\201\346\255\242\344\xbf\235\xe5\255\230\346\226\x87\344\xbb\266\347\261\273\xe5\x9e\x8b");
         }
         if (in_array($type, $allow_ext["videos"])) {
-            $type_path = "\x76\x69\x64\145\x6f\x73";
+            $type_path = "videos";
             if (!empty($type_path)) {
-                if (empty($name) || $name == "\141\x75\x74\x6f") {
-                    $uniacid = intval($_W["\165\156\x69\141\x63\151\x64"]);
-                    $path    = "{$type_path}\x2f{$uniacid}\57{$this->module["\156\x61\x6d\x65"]}\x2f" . date("\131\x2f\155\57");
-                    mkdirs(ATTACHMENT_ROOT . "\x2f" . $path);
-                    $filename = file_random_name(ATTACHMENT_ROOT . "\57" . $path, $type);
+                if (empty($name) || $name == "auto") {
+                    $uniacid = intval($_W["uniacid"]);
+                    $path    = "{$type_path}/{$uniacid}/{$this->module["name"]}/" . date("Y/m/");
+                    mkdirs(ATTACHMENT_ROOT . "/" . $path);
+                    $filename = file_random_name(ATTACHMENT_ROOT . "/" . $path, $type);
                     if (file_put_contents(ATTACHMENT_ROOT . $path . $filename, $file_string)) {
                         file_remote_upload($path);
                         return $path . $filename;
                     }
                     return false;
                 }
-                $path = "{$type_path}\x2f{$uniacid}\57{$this->module["\156\141\155\145"]}\x2f";
-                mkdirs(dirname(ATTACHMENT_ROOT . "\x2f" . $path));
+                $path = "{$type_path}/{$uniacid}/{$this->module["name"]}/";
+                mkdirs(dirname(ATTACHMENT_ROOT . "/" . $path));
                 $filename = $name;
                 if (strexists($filename, $type)) {
                     if (file_put_contents(ATTACHMENT_ROOT . $path . $filename, $file_string)) {
@@ -334,19 +334,19 @@ class MobileTemplate {
             return error(1, "\xe7\xa6\201\346\255\242\344\xbf\235\xe5\255\230\346\226\x87\344\xbb\266\347\261\273\xe5\x9e\x8b");
         }
         if (!empty($type_path)) {
-            if (empty($name) || $name == "\141\x75\x74\x6f") {
-                $uniacid = intval($_W["\165\156\x69\141\x63\151\x64"]);
-                $path    = "{$type_path}\x2f{$uniacid}\57{$this->module["\156\x61\x6d\x65"]}\x2f" . date("\131\x2f\155\57");
-                mkdirs(ATTACHMENT_ROOT . "\x2f" . $path);
-                $filename = file_random_name(ATTACHMENT_ROOT . "\57" . $path, $type);
+            if (empty($name) || $name == "auto") {
+                $uniacid = intval($_W["uniacid"]);
+                $path    = "{$type_path}/{$uniacid}/{$this->module["name"]}/" . date("Y/m/");
+                mkdirs(ATTACHMENT_ROOT . "/" . $path);
+                $filename = file_random_name(ATTACHMENT_ROOT . "/" . $path, $type);
                 if (file_put_contents(ATTACHMENT_ROOT . $path . $filename, $file_string)) {
                     file_remote_upload($path);
                     return $path . $filename;
                 }
                 return false;
             }
-            $path = "{$type_path}\x2f{$uniacid}\57{$this->module["\156\141\155\145"]}\x2f";
-            mkdirs(dirname(ATTACHMENT_ROOT . "\x2f" . $path));
+            $path = "{$type_path}/{$uniacid}/{$this->module["name"]}/";
+            mkdirs(dirname(ATTACHMENT_ROOT . "/" . $path));
             $filename = $name;
             if (strexists($filename, $type)) {
                 if (file_put_contents(ATTACHMENT_ROOT . $path . $filename, $file_string)) {
