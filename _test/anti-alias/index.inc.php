@@ -44,9 +44,19 @@ class MobileTemplate {
         $defineDir      = IA_ROOT . "/addons/" . $_GPC["m"];
         $_W["template"] = "default";
         if (defined("IN_SYS")) {
-            $source  = IA_ROOT . "/web/themes/{$_W["template"]}/{$name}/{$filename}.html";
-            $compile = IA_ROOT . "/data/tpl/web/{$_W["template"]}/{$name}/{$filename}.tpl.php";
-            if (is_file($source)) {
+            $compile         = IA_ROOT . "/data/tpl/web/{$_W["template"]}/{$name}/{$filename}.tpl.php";
+            $web_source_list = [
+                IA_ROOT . "/web/themes/{$_W["template"]}/{$name}/{$filename}.html",
+                IA_ROOT . "/web/themes/default/{$name}/{$filename}.html",
+                $defineDir . "/template/{$filename}.html",
+                IA_ROOT . "/web/themes/{$_W["template"]}/{$filename}.html",
+                IA_ROOT . "/web/themes/default/{$filename}.html",
+            ];
+
+            foreach ($web_source_list as $source) {
+                if (! is_file($source)) {
+                    continue;
+                }
                 $paths   = pathinfo($compile);
                 $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
                 if (DEVELOPMENT || ! is_file($compile) || filemtime($source) > filemtime($compile)) {
@@ -54,104 +64,35 @@ class MobileTemplate {
                 }
                 return $compile;
             }
-            $source = IA_ROOT . "/web/themes/default/{$name}/{$filename}.html";
-            if (is_file($source)) {
-                $paths   = pathinfo($compile);
-                $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
-                if (DEVELOPMENT || ! is_file($compile) || filemtime($source) > filemtime($compile)) {
-                    template_compile($source, $compile, true);
-                }
-                return $compile;
-            }
-            $source = $defineDir . "/template/{$filename}.html";
-            if (is_file($source)) {
-                $paths   = pathinfo($compile);
-                $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
-                if (DEVELOPMENT || ! is_file($compile) || filemtime($source) > filemtime($compile)) {
-                    template_compile($source, $compile, true);
-                }
-                return $compile;
-            }
-            $source = IA_ROOT . "/web/themes/{$_W["template"]}/{$filename}.html";
-            if (is_file($source)) {
-                $paths   = pathinfo($compile);
-                $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
-                if (DEVELOPMENT || ! is_file($compile) || filemtime($source) > filemtime($compile)) {
-                    template_compile($source, $compile, true);
-                }
-                return $compile;
-            }
-            $source = IA_ROOT . "/web/themes/default/{$filename}.html";
-            if (is_file($source)) {
-                $paths   = pathinfo($compile);
-                $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
-                if (DEVELOPMENT || ! is_file($compile) || filemtime($source) > filemtime($compile)) {
-                    template_compile($source, $compile, true);
-                }
-                return $compile;
-            }
+
             exit("Error: template source '{$filename}' is not exist!");
         }
-        $source  = IA_ROOT . "/app/themes/{$_W["template"]}/{$name}/{$filename}.html";
-        $compile = IA_ROOT . "/data/tpl/app/{$_W["template"]}/{$name}/{$filename}.tpl.php";
-        if (is_file($source)) {
-            $paths   = pathinfo($compile);
-            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
-            if (DEVELOPMENT || ! is_file($compile) || filemtime($source) > filemtime($compile)) {
-                template_compile($source, $compile, true);
-            }
-            return $compile;
-        }
-        $source = IA_ROOT . "/app/themes/default/{$name}/{$filename}.html";
-        if (is_file($source)) {
-            $paths   = pathinfo($compile);
-            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
-            if (DEVELOPMENT || ! is_file($compile) || filemtime($source) > filemtime($compile)) {
-                template_compile($source, $compile, true);
-            }
-            return $compile;
-        }
-        $source = $defineDir . "/template/mobile_template/{$filename}.html";
-        if (is_file($source)) {
-            $paths   = pathinfo($compile);
-            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
-            if (DEVELOPMENT || ! is_file($compile) || filemtime($source) > filemtime($compile)) {
-                template_compile($source, $compile, true);
-            }
-            return $compile;
-        }
-        $source = $defineDir . "/template/webapp/{$filename}.html";
-        if (is_file($source)) {
-            $paths   = pathinfo($compile);
-            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
-            if (DEVELOPMENT || ! is_file($compile) || filemtime($source) > filemtime($compile)) {
-                template_compile($source, $compile, true);
-            }
-            return $compile;
-        }
-        $source = IA_ROOT . "/app/themes/{$_W["template"]}/{$filename}.html";
-        if (is_file($source)) {
-            $paths   = pathinfo($compile);
-            $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
-            if (DEVELOPMENT || ! is_file($compile) || filemtime($source) > filemtime($compile)) {
-                template_compile($source, $compile, true);
-            }
-            return $compile;
-        }
-        if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
-            $source = IA_ROOT . "/app/themes/default/common/{$filename}.html";
-            if (is_file($source)) {
-                $paths   = pathinfo($compile);
-                $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
-                if (DEVELOPMENT || ! is_file($compile) || filemtime($source) > filemtime($compile)) {
-                    template_compile($source, $compile, true);
+
+        $compile         = IA_ROOT . "/data/tpl/app/{$_W["template"]}/{$name}/{$filename}.tpl.php";
+        $app_source_list = [
+            IA_ROOT . "/app/themes/{$_W["template"]}/{$name}/{$filename}.html",
+            IA_ROOT . "/app/themes/default/{$name}/{$filename}.html",
+            $defineDir . "/template/mobile_template/{$filename}.html",
+            $defineDir . "/template/webapp/{$filename}.html",
+            IA_ROOT . "/app/themes/{$_W["template"]}/{$filename}.html",
+            IA_ROOT . "/app/themes/default/common/{$filename}.html", // 需要特殊处理
+            IA_ROOT . "/app/themes/default/{$filename}.html",
+
+        ];
+
+        foreach ($app_source_list as $key => $source) {
+            if ($key == 5) {
+                if (in_array($filename, ["header", "footer", "slide", "toolbar", "message"])) {
+                    if (! is_file($source)) {
+                        exit("Error: template source '{$filename}' is not exist!");
+                    }
+                } else {
+                    continue;
                 }
-                return $compile;
             }
-            exit("Error: template source '{$filename}' is not exist!");
-        }
-        $source = IA_ROOT . "/app/themes/default/{$filename}.html";
-        if (is_file($source)) {
+            if (! is_file($source)) {
+                continue;
+            }
             $paths   = pathinfo($compile);
             $compile = str_replace($paths["filename"], $_W["uniacid"] . "_" . $paths["filename"], $compile);
             if (DEVELOPMENT || ! is_file($compile) || filemtime($source) > filemtime($compile)) {
@@ -159,6 +100,7 @@ class MobileTemplate {
             }
             return $compile;
         }
+
         exit("Error: template source '{$filename}' is not exist!");
     }
 
@@ -168,7 +110,7 @@ class MobileTemplate {
         $allow_ext = [
             "images" => ["gif", "jpg", "jpeg", "bmp", "png", "ico"],
             "audios" => ["mp3", "wma", "wav", "amr"],
-            "videos" => ["wmv", "avi", "mpg", "mpeg", "mp4"]
+            "videos" => ["wmv", "avi", "mpg", "mpeg", "mp4"],
         ];
         if (in_array($type, $allow_ext["images"])) {
             $type_path = "images";
@@ -182,7 +124,7 @@ class MobileTemplate {
         if (! empty($type_path)) {
             $uniacid = intval($_W["uniacid"]);
             if (empty($name) || $name == "auto") {
-                $path    = "{$type_path}/{$uniacid}/{$this->module["name"]}/" . date("Y/m/");
+                $path = "{$type_path}/{$uniacid}/{$this->module["name"]}/" . date("Y/m/");
                 mkdirs(ATTACHMENT_ROOT . "/" . $path);
                 $filename = file_random_name(ATTACHMENT_ROOT . "/" . $path, $type);
                 if (file_put_contents(ATTACHMENT_ROOT . $path . $filename, $file_string)) {
@@ -194,7 +136,7 @@ class MobileTemplate {
             $path = "{$type_path}/{$uniacid}/{$this->module["name"]}/";
             mkdirs(dirname(ATTACHMENT_ROOT . "/" . $path));
             $filename = $name;
-            if (!strexists($filename, $type)) {
+            if (! strexists($filename, $type)) {
                 $filename .= "." . $type;
             }
             if (file_put_contents(ATTACHMENT_ROOT . $path . $filename, $file_string)) {
@@ -220,7 +162,7 @@ class MobileTemplate {
         }
         $dir  = IA_ROOT . "/framework/builtin/" . $this->modulename . "/inc/" . $module_type;
         $file = "{$dir}/{$function_name}.inc.php";
-        if (!file_exists($file)) {
+        if (! file_exists($file)) {
             $file = str_replace("framework/builtin", "addons", $file);
         }
         return $file;
