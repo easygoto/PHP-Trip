@@ -1,24 +1,8 @@
 <?php
 
-interface Observable {
-    function attach(Observer $observer);
-    function detach(Observer $observer);
-    function notify();
-    function getStatus();
-}
 
-interface Observer {
-    function update(Observable $observable);
-}
+namespace Observer\Demo;
 
-class SecurityMonitor implements Observer {
-    function update(Observable $observable) {
-        $status = $observable->getStatus();
-        if ($status[0] == Login::LOGIN_WRONG_PASS){
-            print __CLASS__."\tsending mail to sysadmin\n";
-        }
-    }
-}
 
 class Login implements Observable {
     const LOGIN_USER_UNKNOWN = 1;
@@ -76,6 +60,3 @@ class Login implements Observable {
         return $ret;
     }
 }
-
-$login = new Login();
-$login->attach(new SecurityMonitor());
