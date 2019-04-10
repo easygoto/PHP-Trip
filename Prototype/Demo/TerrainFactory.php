@@ -1,31 +1,8 @@
 <?php
 
-class Sea {
-}
 
-class EarthSea extends Sea {
-}
+namespace Prototype\Demo;
 
-class MarsSea extends Sea {
-}
-
-class Plains {
-}
-
-class EarthPlains extends Plains {
-}
-
-class MarsPlains extends Plains {
-}
-
-class Forest {
-}
-
-class EarthForest extends Forest {
-}
-
-class MarsForest extends Forest {
-}
 
 class TerrainFactory {
     private $sea;
@@ -50,12 +27,3 @@ class TerrainFactory {
         return clone $this->forest;
     }
 }
-
-$factory = new TerrainFactory(
-    new EarthSea(),
-    new EarthForest(),
-    new EarthPlains()
-);
-var_dump($factory->getSea());
-var_dump($factory->getPlains());
-var_dump($factory->getForest());
