@@ -1,6 +1,6 @@
 <?php
 
-use FactoryMethod\Demo\BloggsCommsManager;
+use Trink\FactoryMethod\Demo\BloggsCommsManager;
 
 require_once '../vendor/autoload.php';
 

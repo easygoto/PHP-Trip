@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Prototype\Demo;
+namespace Trink\Prototype\Demo;
 
 
 class Forest {

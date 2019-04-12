@@ -1,7 +1,7 @@
 <?php
 
 
-namespace FactoryMethod\Demo;
+namespace Trink\FactoryMethod\Demo;
 
 
 class BloggsApptEncoder extends ApptEncoder {

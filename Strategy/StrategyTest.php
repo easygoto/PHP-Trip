@@ -1,9 +1,9 @@
 <?php
 
-use Strategy\Demo\MarkLogicMarker;
-use Strategy\Demo\MatchMarker;
-use Strategy\Demo\RegexMarker;
-use Strategy\Demo\TextQuestion;
+use Trink\Strategy\Demo\MarkLogicMarker;
+use Trink\Strategy\Demo\MatchMarker;
+use Trink\Strategy\Demo\RegexMarker;
+use Trink\Strategy\Demo\TextQuestion;
 
 require_once '../vendor/autoload.php';
 

@@ -1,7 +1,7 @@
 <?php
 
-use Facade\Demo\Product;
-use Facade\Demo\ProductFacade;
+use Trink\Facade\Demo\Product;
+use Trink\Facade\Demo\ProductFacade;
 
 require_once '../vendor/autoload.php';
 

@@ -1,10 +1,10 @@
 <?php
 
-use Interpreter\Demo\BooleanOrExpression;
-use Interpreter\Demo\EqualsExpression;
-use Interpreter\Demo\InterpreterContext;
-use Interpreter\Demo\LiteralExpression;
-use Interpreter\Demo\VariableExpression;
+use Trink\Interpreter\Demo\BooleanOrExpression;
+use Trink\Interpreter\Demo\EqualsExpression;
+use Trink\Interpreter\Demo\InterpreterContext;
+use Trink\Interpreter\Demo\LiteralExpression;
+use Trink\Interpreter\Demo\VariableExpression;
 
 require_once '../vendor/autoload.php';
 

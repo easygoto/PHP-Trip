@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Composite\Demo;
+namespace Trink\Composite\Demo;
 
 
 class Archer extends Unit {

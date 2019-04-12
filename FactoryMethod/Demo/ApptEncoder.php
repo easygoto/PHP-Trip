@@ -1,7 +1,7 @@
 <?php
 
 
-namespace FactoryMethod\Demo;
+namespace Trink\FactoryMethod\Demo;
 
 
 abstract class ApptEncoder {

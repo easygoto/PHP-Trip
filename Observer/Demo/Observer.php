@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Observer\Demo;
+namespace Trink\Observer\Demo;
 
 
 interface Observer {

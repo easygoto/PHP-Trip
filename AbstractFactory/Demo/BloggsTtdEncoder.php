@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AbstractFactory\Demo;
+namespace Trink\AbstractFactory\Demo;
 
 
 class BloggsTtdEncoder extends TtdEncoder {

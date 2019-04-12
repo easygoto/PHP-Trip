@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Composite\Demo;
+namespace Trink\Composite\Demo;
 
 
 use Exception;

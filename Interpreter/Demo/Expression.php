@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Interpreter\Demo;
+namespace Trink\Interpreter\Demo;
 
 
 abstract class Expression {

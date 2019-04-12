@@ -1,9 +1,9 @@
 <?php
 
-use Composite\Demo\Archer;
-use Composite\Demo\Army;
-use Composite\Demo\LaserCannonUnit;
-use Composite\Demo\UnitException;
+use Trink\Composite\Demo\Archer;
+use Trink\Composite\Demo\Army;
+use Trink\Composite\Demo\LaserCannonUnit;
+use Trink\Composite\Demo\UnitException;
 
 require_once '../vendor/autoload.php';
 

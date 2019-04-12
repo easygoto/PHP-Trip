@@ -1,9 +1,9 @@
 <?php
 
-use Prototype\Demo\EarthForest;
-use Prototype\Demo\EarthPlains;
-use Prototype\Demo\EarthSea;
-use Prototype\Demo\TerrainFactory;
+use Trink\Prototype\Demo\EarthForest;
+use Trink\Prototype\Demo\EarthPlains;
+use Trink\Prototype\Demo\EarthSea;
+use Trink\Prototype\Demo\TerrainFactory;
 
 require_once '../vendor/autoload.php';
 

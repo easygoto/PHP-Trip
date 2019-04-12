@@ -1,7 +1,7 @@
 <?php
 
-use Observer\Demo\Login;
-use Observer\Demo\SecurityMonitor;
+use Trink\Observer\Demo\Login;
+use Trink\Observer\Demo\SecurityMonitor;
 
 require_once '../vendor/autoload.php';
 
