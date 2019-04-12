@@ -1,16 +1,28 @@
 <?php
 
-use Singleton\Demo\Preference;
+require_once '../vendor/autoload.php';
 
-require_once '../autoload.php';
+use PHPUnit\Framework\TestCase;
+use Trink\Singleton\Config\Config;
+use Trink\Singleton\Demo\Preference;
 
-$data = [];
-for ($i = 0; $i < 10000; $i ++) {
-    $num = Preference::getInstance()->getRnd();
-    if (in_array($num, $data)) {
-        continue;
+class SingletonTest extends TestCase {
+
+    public function testDemo() {
+        $data = [];
+        for ($i = 0; $i < 10000; $i ++) {
+            $num = Preference::getInstance()->getRnd();
+            if (in_array($num, $data)) {
+                continue;
+            }
+            $data[] = $num;
+        }
+        $this->assertCount(1, $data);
     }
-    $data[] = $num;
-}
 
-print 'ok';
+    public function testConfig() {
+        $db = Config::instance()->db;
+        var_dump($db);
+        $this->assertIsArray($db);
+    }
+}

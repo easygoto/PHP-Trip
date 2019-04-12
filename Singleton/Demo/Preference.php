@@ -1,6 +1,6 @@
 <?php
 
-namespace Singleton\Demo;
+namespace Trink\Singleton\Demo;
 
 
 class Preference {
