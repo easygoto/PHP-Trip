@@ -3,7 +3,7 @@
 use Facade\Demo\Product;
 use Facade\Demo\ProductFacade;
 
-require_once '../autoload.php';
+require_once '../vendor/autoload.php';
 
 function getProductFileLines($file) {
     return file($file);

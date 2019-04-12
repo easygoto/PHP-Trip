@@ -6,7 +6,7 @@ use Interpreter\Demo\InterpreterContext;
 use Interpreter\Demo\LiteralExpression;
 use Interpreter\Demo\VariableExpression;
 
-require_once '../autoload.php';
+require_once '../vendor/autoload.php';
 
 $context = new InterpreterContext();
 $literal = new LiteralExpression('four');

@@ -2,7 +2,7 @@
 
 use FactoryMethod\Demo\BloggsCommsManager;
 
-require_once '../autoload.php';
+require_once '../vendor/autoload.php';
 
 $bcm = new BloggsCommsManager();
 echo $bcm->getHeaderText();

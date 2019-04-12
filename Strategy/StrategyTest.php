@@ -5,7 +5,7 @@ use Strategy\Demo\MatchMarker;
 use Strategy\Demo\RegexMarker;
 use Strategy\Demo\TextQuestion;
 
-require_once '../autoload.php';
+require_once '../vendor/autoload.php';
 
 $markers = [
     new RegexMarker("/f.ve/"),

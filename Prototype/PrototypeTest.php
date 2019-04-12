@@ -5,7 +5,7 @@ use Prototype\Demo\EarthPlains;
 use Prototype\Demo\EarthSea;
 use Prototype\Demo\TerrainFactory;
 
-require_once '../autoload.php';
+require_once '../vendor/autoload.php';
 
 $factory = new TerrainFactory(
     new EarthSea(),

@@ -5,7 +5,7 @@ use Composite\Demo\Army;
 use Composite\Demo\LaserCannonUnit;
 use Composite\Demo\UnitException;
 
-require_once '../autoload.php';
+require_once '../vendor/autoload.php';
 
 try {
     $mainArmy = new Army();

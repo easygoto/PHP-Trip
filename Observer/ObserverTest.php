@@ -3,7 +3,7 @@
 use Observer\Demo\Login;
 use Observer\Demo\SecurityMonitor;
 
-require_once '../autoload.php';
+require_once '../vendor/autoload.php';
 
 $login = new Login();
 $login->attach(new SecurityMonitor());
