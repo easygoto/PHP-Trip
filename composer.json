@@ -1,7 +1,7 @@
 {
   "autoload": {
     "psr-4": {
-      "Trink\\": "./"
+      "Trink\\": "src"
     }
   },
   "require": {

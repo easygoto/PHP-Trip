@@ -48,7 +48,7 @@ class ComposerStaticInitc2c8431221860e2ca4e757f0c0e7bdb1
         ),
         'Trink\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/',
+            0 => __DIR__ . '/../..' . '/src',
         ),
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
