@@ -1,5 +1,6 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
 use Trink\Facade\Demo\Product;
 use Trink\Facade\Demo\ProductFacade;
 
@@ -27,5 +28,11 @@ function getProductObjectFromID($id, $productName) {
     return new Product($id, $productName);
 }
 
-$facade = new ProductFacade('facade.txt');
-$facade->getProduct(234);
+class FacadeTest extends TestCase {
+
+    public function testDemo() {
+        $facade = new ProductFacade('facade.txt');
+        $facade->getProduct(234);
+        $this->assertTrue(true);
+    }
+}
