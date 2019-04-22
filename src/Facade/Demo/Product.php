@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Facade\Demo;
+namespace Trink\Dp\Facade\Demo;
 
 
 class Product {

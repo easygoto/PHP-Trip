@@ -1,8 +1,29 @@
 <?php
 
 
-namespace Trink\Facade\Demo;
+namespace Trink\Dp\Facade\Demo;
 
+function getProductFileLines($file) {
+    return file($file);
+}
+
+function getIDFromLine($line) {
+    if (preg_match("/^(\d{1,3})-/", $line, $array)) {
+        return $array[1];
+    }
+    return '';
+}
+
+function getNameFromLine($line) {
+    if (preg_match("/.*-(.*)\s\d+/", $line, $array)) {
+        return str_replace('_', ' ', $array[1]);
+    }
+    return '';
+}
+
+function getProductObjectFromID($id, $productName) {
+    return new Product($id, $productName);
+}
 
 class ProductFacade {
     private $file;

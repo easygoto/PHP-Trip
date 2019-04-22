@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Singleton\Config;
+namespace Trink\Dp\Singleton\Config;
 
 
 /**

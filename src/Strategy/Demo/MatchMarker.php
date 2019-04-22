@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Strategy\Demo;
+namespace Trink\Dp\Strategy\Demo;
 
 
 class MatchMarker extends Marker {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\AbstractFactory\Demo;
+namespace Trink\Dp\AbstractFactory\Demo;
 
 
 class BloggsContactEncoder extends ContactEncoder {

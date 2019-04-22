@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Observer\Demo;
+namespace Trink\Dp\Observer\Demo;
 
 
 class SecurityMonitor implements Observer {

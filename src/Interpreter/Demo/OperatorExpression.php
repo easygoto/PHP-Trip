@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Interpreter\Demo;
+namespace Trink\Dp\Interpreter\Demo;
 
 
 // 比较表达式

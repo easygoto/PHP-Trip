@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\FactoryMethod\Demo;
+namespace Trink\Dp\FactoryMethod\Demo;
 
 
 abstract class CommsManager {

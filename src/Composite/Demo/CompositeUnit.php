@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Composite\Demo;
+namespace Trink\Dp\Composite\Demo;
 
 
 abstract class CompositeUnit extends Unit {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Prototype\Demo;
+namespace Trink\Dp\Prototype\Demo;
 
 
 class Plains {
