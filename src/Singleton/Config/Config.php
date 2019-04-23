@@ -5,7 +5,8 @@ namespace Trink\Dp\Singleton\Config;
 
 
 /**
- * @property void db
+ * @property array      db
+ * @property mixed|null test
  */
 class Config {
 

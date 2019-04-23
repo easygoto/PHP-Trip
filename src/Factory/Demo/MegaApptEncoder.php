@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\FactoryMethod\Demo;
+namespace Trink\Dp\Factory\Demo;
 
 
 class MegaApptEncoder extends ApptEncoder {

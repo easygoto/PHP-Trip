@@ -15,7 +15,7 @@ use Trink\Dp\Decorator\Demo2\MainProcess;
 use Trink\Dp\Decorator\Demo2\RequestHelper;
 use Trink\Dp\Decorator\Demo2\StructureRequest;
 use Trink\Dp\Facade\Demo\ProductFacade;
-use Trink\Dp\FactoryMethod\Demo\BloggsCommsManager;
+use Trink\Dp\Factory\Demo\BloggsCommsManager;
 use Trink\Dp\Interpreter\Demo\BooleanOrExpression;
 use Trink\Dp\Interpreter\Demo\EqualsExpression;
 use Trink\Dp\Interpreter\Demo\InterpreterContext;
@@ -28,7 +28,6 @@ use Trink\Dp\Prototype\Demo\EarthPlains;
 use Trink\Dp\Prototype\Demo\EarthSea;
 use Trink\Dp\Prototype\Demo\TerrainFactory;
 use Trink\Dp\Singleton\Config\Config;
-use Trink\Dp\Singleton\Demo\Preference;
 use Trink\Dp\Strategy\Demo\MarkLogicMarker;
 use Trink\Dp\Strategy\Demo\MatchMarker;
 use Trink\Dp\Strategy\Demo\RegexMarker;
@@ -99,7 +98,7 @@ class BaseTest extends TestCase {
         $this->assertTrue(true);
     }
 
-    public function testFactoryMethodDemo() {
+    public function testFactoryDemo() {
         $bcm = new BloggsCommsManager();
         echo $bcm->getHeaderText();
         var_dump($bcm->getApptEncoder());
