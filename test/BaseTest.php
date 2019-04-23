@@ -16,6 +16,11 @@ use Trink\Dp\Decorator\Demo2\RequestHelper;
 use Trink\Dp\Decorator\Demo2\StructureRequest;
 use Trink\Dp\Facade\Demo\ProductFacade;
 use Trink\Dp\Factory\Demo\BloggsCommsManager;
+use Trink\Dp\Factory\Electronics\Computer\AIO;
+use Trink\Dp\Factory\Electronics\Computer\Laptop;
+use Trink\Dp\Factory\Electronics\Computer\PC;
+use Trink\Dp\Factory\Electronics\Computer\Tablet;
+use Trink\Dp\Factory\Electronics\ElectronicsFactory;
 use Trink\Dp\Interpreter\Demo\BooleanOrExpression;
 use Trink\Dp\Interpreter\Demo\EqualsExpression;
 use Trink\Dp\Interpreter\Demo\InterpreterContext;
@@ -106,6 +111,24 @@ class BaseTest extends TestCase {
         $this->assertTrue(true);
     }
 
+    public function testFactoryElectronics() {
+        $aio = ElectronicsFactory::createComputer('aio');
+        $aio->run();
+        $this->assertTrue($aio instanceof AIO);
+
+        $laptop = ElectronicsFactory::createComputer('laptop');
+        $laptop->run();
+        $this->assertTrue($laptop instanceof Laptop);
+
+        $pc = ElectronicsFactory::createComputer('pc');
+        $pc->run();
+        $this->assertTrue($pc instanceof PC);
+
+        $tablet = ElectronicsFactory::createComputer('tablet');
+        $tablet->run();
+        $this->assertTrue($tablet instanceof Tablet);
+    }
+
     public function testInterpreterDemo() {
         $context = new InterpreterContext();
         $literal = new LiteralExpression('four');
@@ -164,11 +187,17 @@ class BaseTest extends TestCase {
     }
 
     public function testSingletonConfig() {
-        $db = Config::instance()->db;
         $test = Config::instance()->test;
-        var_dump($db);
+        var_dump($test);
         $this->assertNull($test);
+
+        $db = Config::instance()->db;
+        var_dump($db);
         $this->assertIsArray($db);
+
+        $host = $db['host'] ?? 'localhost';
+        var_dump($host);
+        $this->assertEquals($host, '127.0.0.1');
     }
 
     public function testStrategyDemo() {
