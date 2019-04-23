@@ -164,21 +164,11 @@ class BaseTest extends TestCase {
         $this->assertTrue(true);
     }
 
-    public function testSingletonDemo() {
-        $data = [];
-        for ($i = 0; $i < 10000; $i ++) {
-            $num = Preference::getInstance()->getRnd();
-            if (in_array($num, $data)) {
-                continue;
-            }
-            $data[] = $num;
-        }
-        $this->assertCount(1, $data);
-    }
-
     public function testSingletonConfig() {
         $db = Config::instance()->db;
+        $test = Config::instance()->test;
         var_dump($db);
+        $this->assertNull($test);
         $this->assertIsArray($db);
     }
 

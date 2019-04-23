@@ -17,10 +17,7 @@ class Config {
     private function __clone() { }
 
     public function __get($name) {
-        if (array_key_exists($name, $this->props)) {
-            return $this->props[$name];
-        }
-        return null;
+        return $this->props[$name] ?? null;
     }
 
     public static function instance() {
