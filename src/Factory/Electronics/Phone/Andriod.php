@@ -6,15 +6,15 @@ namespace Trink\Dp\Factory\Electronics\Phone;
 
 use Trink\Dp\Factory\Electronics\Phone;
 
-class IPhone implements Phone {
+class Andriod implements Phone {
 
     function open(): Phone {
-        print "欣喜若狂的开了机 ...\n";
+        print "迫不及待的开了机 ...\n";
         return $this;
     }
 
     function call(): Phone {
-        print "开着免提打电话 ...\n";
+        print "戴着耳机打电话 ...\n";
         return $this;
     }
 }
