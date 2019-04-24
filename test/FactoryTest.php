@@ -14,7 +14,10 @@ use Trink\Dp\Factory\Electronics\Phone\Symbian;
 
 class FactoryTest extends TestCase {
 
-    function testDemo() {
+    /**
+     * @test
+     */
+    function demo() {
         $bcm = new BloggsCommsManager();
         echo $bcm->getHeaderText();
         var_dump($bcm->getApptEncoder());
