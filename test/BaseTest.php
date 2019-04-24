@@ -20,7 +20,8 @@ use Trink\Dp\Factory\Electronics\Computer\AIO;
 use Trink\Dp\Factory\Electronics\Computer\Laptop;
 use Trink\Dp\Factory\Electronics\Computer\PC;
 use Trink\Dp\Factory\Electronics\Computer\Tablet;
-use Trink\Dp\Factory\Electronics\ElectronicsFactory;
+use Trink\Dp\Factory\Electronics\Electronics;
+use Trink\Dp\Factory\Electronics\Phone\IPhone;
 use Trink\Dp\Interpreter\Demo\BooleanOrExpression;
 use Trink\Dp\Interpreter\Demo\EqualsExpression;
 use Trink\Dp\Interpreter\Demo\InterpreterContext;
@@ -112,21 +113,25 @@ class BaseTest extends TestCase {
     }
 
     public function testFactoryElectronics() {
-        $aio = ElectronicsFactory::createComputer('aio');
-        $aio->run();
+        $aio = Electronics::computer('AIO');
+        $aio->run()->play()->close();
         $this->assertTrue($aio instanceof AIO);
 
-        $laptop = ElectronicsFactory::createComputer('laptop');
-        $laptop->run();
+        $laptop = Electronics::computer('Laptop');
+        $laptop->run()->play()->close();
         $this->assertTrue($laptop instanceof Laptop);
 
-        $pc = ElectronicsFactory::createComputer('pc');
-        $pc->run();
+        $pc = Electronics::computer('PC');
+        $pc->run()->play()->close();
         $this->assertTrue($pc instanceof PC);
 
-        $tablet = ElectronicsFactory::createComputer('tablet');
-        $tablet->run();
+        $tablet = Electronics::computer('Tablet');
+        $tablet->run()->play()->close();
         $this->assertTrue($tablet instanceof Tablet);
+
+        $iPhone = Electronics::phone('IPhone');
+        $iPhone->open()->call();
+        $this->assertTrue($iPhone instanceof IPhone);
     }
 
     public function testInterpreterDemo() {

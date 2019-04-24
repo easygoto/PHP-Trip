@@ -6,5 +6,9 @@ namespace Trink\Dp\Factory\Electronics;
 
 interface Computer {
 
-    function run(): void;
+    function run(): Computer;
+
+    function play(): Computer;
+
+    function close(): Computer;
 }
