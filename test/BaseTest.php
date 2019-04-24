@@ -15,13 +15,6 @@ use Trink\Dp\Decorator\Demo2\MainProcess;
 use Trink\Dp\Decorator\Demo2\RequestHelper;
 use Trink\Dp\Decorator\Demo2\StructureRequest;
 use Trink\Dp\Facade\Demo\ProductFacade;
-use Trink\Dp\Factory\Demo\BloggsCommsManager;
-use Trink\Dp\Factory\Electronics\Computer\AIO;
-use Trink\Dp\Factory\Electronics\Computer\Laptop;
-use Trink\Dp\Factory\Electronics\Computer\PC;
-use Trink\Dp\Factory\Electronics\Computer\Tablet;
-use Trink\Dp\Factory\Electronics\Electronics;
-use Trink\Dp\Factory\Electronics\Phone\IPhone;
 use Trink\Dp\Interpreter\Demo\BooleanOrExpression;
 use Trink\Dp\Interpreter\Demo\EqualsExpression;
 use Trink\Dp\Interpreter\Demo\InterpreterContext;
@@ -102,36 +95,6 @@ class BaseTest extends TestCase {
         $facade = new ProductFacade('facade.txt');
         var_dump($facade->getProduct(234));
         $this->assertTrue(true);
-    }
-
-    public function testFactoryDemo() {
-        $bcm = new BloggsCommsManager();
-        echo $bcm->getHeaderText();
-        var_dump($bcm->getApptEncoder());
-        echo $bcm->getFooterText();
-        $this->assertTrue(true);
-    }
-
-    public function testFactoryElectronics() {
-        $aio = Electronics::computer('AIO');
-        $aio->run()->play()->close();
-        $this->assertTrue($aio instanceof AIO);
-
-        $laptop = Electronics::computer('Laptop');
-        $laptop->run()->play()->close();
-        $this->assertTrue($laptop instanceof Laptop);
-
-        $pc = Electronics::computer('PC');
-        $pc->run()->play()->close();
-        $this->assertTrue($pc instanceof PC);
-
-        $tablet = Electronics::computer('Tablet');
-        $tablet->run()->play()->close();
-        $this->assertTrue($tablet instanceof Tablet);
-
-        $iPhone = Electronics::phone('IPhone');
-        $iPhone->open()->call();
-        $this->assertTrue($iPhone instanceof IPhone);
     }
 
     public function testInterpreterDemo() {
