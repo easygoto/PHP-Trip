@@ -3,11 +3,15 @@
 
 namespace Trink\Dp\AbstractFactory\Demo;
 
+abstract class CommsManager
+{
+    abstract public function getHeaderText();
 
-abstract class CommsManager {
-    abstract function getHeaderText();
-    abstract function getAppEncoder();
-    abstract function getTtdEncoder();
-    abstract function getContactEncoder();
-    abstract function getFooterText();
+    abstract public function getAppEncoder();
+
+    abstract public function getTtdEncoder();
+
+    abstract public function getContactEncoder();
+
+    abstract public function getFooterText();
 }
