@@ -3,27 +3,31 @@
 
 namespace Trink\Dp\Prototype\Demo;
 
-
-class TerrainFactory {
+class TerrainFactory
+{
     private $sea;
     private $forest;
     private $plains;
 
-    function __construct(Sea $sea, Forest $forest, Plains $plains) {
+    public function __construct(Sea $sea, Forest $forest, Plains $plains)
+    {
         $this->sea    = $sea;
         $this->forest = $forest;
         $this->plains = $plains;
     }
 
-    function getSea() {
+    public function getSea()
+    {
         return clone $this->sea;
     }
 
-    function getPlains() {
+    public function getPlains()
+    {
         return clone $this->plains;
     }
 
-    function getForest() {
+    public function getForest()
+    {
         return clone $this->forest;
     }
 }

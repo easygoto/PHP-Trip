@@ -3,6 +3,6 @@
 
 namespace Trink\Dp\Prototype\Demo;
 
-
-class EarthSea extends Sea {
+class EarthSea extends Sea
+{
 }

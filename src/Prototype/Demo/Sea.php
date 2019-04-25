@@ -3,6 +3,6 @@
 
 namespace Trink\Dp\Prototype\Demo;
 
-
-class Sea {
+class Sea
+{
 }

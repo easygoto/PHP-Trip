@@ -3,6 +3,6 @@
 
 namespace Trink\Dp\Prototype\Demo;
 
-
-class MarsForest extends Forest {
+class MarsForest extends Forest
+{
 }

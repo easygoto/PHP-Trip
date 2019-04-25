@@ -3,6 +3,6 @@
 
 namespace Trink\Dp\Prototype\Demo;
 
-
-class EarthPlains extends Plains {
+class EarthPlains extends Plains
+{
 }
