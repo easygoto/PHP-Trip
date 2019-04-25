@@ -3,10 +3,13 @@
 
 namespace Trink\Dp\Observer\Demo;
 
+interface Observable
+{
+    public function attach(Observer $observer);
 
-interface Observable {
-    function attach(Observer $observer);
-    function detach(Observer $observer);
-    function notify();
-    function getStatus();
+    public function detach(Observer $observer);
+
+    public function notify();
+
+    public function getStatus();
 }

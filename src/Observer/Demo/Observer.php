@@ -3,7 +3,7 @@
 
 namespace Trink\Dp\Observer\Demo;
 
-
-interface Observer {
-    function update(Observable $observable);
+interface Observer
+{
+    public function update(Observable $observable);
 }
