@@ -3,10 +3,9 @@
 
 namespace Trink\Dp\Factory\Electronics;
 
+interface Phone
+{
+    public function open(): Phone;
 
-interface Phone {
-
-    function open(): Phone;
-
-    function call(): Phone;
+    public function call(): Phone;
 }

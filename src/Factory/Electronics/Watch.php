@@ -3,8 +3,7 @@
 
 namespace Trink\Dp\Factory\Electronics;
 
-
-interface Watch {
-
-    function run(): Watch;
+interface Watch
+{
+    public function run(): Watch;
 }

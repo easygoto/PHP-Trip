@@ -1,5 +1,6 @@
 <?php
 
+namespace Test;
 
 use PHPUnit\Framework\TestCase;
 use Trink\Dp\Factory\Demo\BloggsCommsManager;
@@ -17,12 +18,13 @@ use Trink\Dp\Factory\Electronics\Watch;
 use Trink\Dp\Factory\Electronics\Watch\DigitalWatch;
 use Trink\Dp\Factory\Electronics\Watch\QuartzWatch;
 
-class FactoryTest extends TestCase {
-
+class FactoryTest extends TestCase
+{
     /**
      * @test
      */
-    function demo() {
+    public function demo()
+    {
         $bcm = new BloggsCommsManager();
         echo $bcm->getHeaderText();
         var_dump($bcm->getApptEncoder());
@@ -35,7 +37,8 @@ class FactoryTest extends TestCase {
      * @group electronics
      * @group computer
      */
-    function aio() {
+    public function aio()
+    {
         $aio = Electronics::computer('AIO');
         $this->assertTrue($aio instanceof AIO);
         $this->assertTrue($aio instanceof Computer);
@@ -47,7 +50,8 @@ class FactoryTest extends TestCase {
      * @group electronics
      * @group computer
      */
-    function laptop() {
+    public function laptop()
+    {
         $laptop = Electronics::computer('Laptop');
         $this->assertTrue($laptop instanceof Laptop);
         $this->assertTrue($laptop instanceof Computer);
@@ -59,7 +63,8 @@ class FactoryTest extends TestCase {
      * @group electronics
      * @group computer
      */
-    function pc() {
+    public function pc()
+    {
         $pc = Electronics::computer('PC');
         $this->assertTrue($pc instanceof PC);
         $this->assertTrue($pc instanceof Computer);
@@ -71,7 +76,8 @@ class FactoryTest extends TestCase {
      * @group electronics
      * @group computer
      */
-    function tablet() {
+    public function tablet()
+    {
         $tablet = Electronics::computer('Tablet');
         $this->assertTrue($tablet instanceof Tablet);
         $this->assertTrue($tablet instanceof Computer);
@@ -83,7 +89,8 @@ class FactoryTest extends TestCase {
      * @group electronics
      * @group phone
      */
-    function ios() {
+    public function ios()
+    {
         $ios = Electronics::phone('IOS');
         $this->assertTrue($ios instanceof IOS);
         $this->assertTrue($ios instanceof Phone);
@@ -95,7 +102,8 @@ class FactoryTest extends TestCase {
      * @group electronics
      * @group phone
      */
-    function andriod() {
+    public function andriod()
+    {
         $andriod = Electronics::phone('Andriod');
         $this->assertTrue($andriod instanceof Andriod);
         $this->assertTrue($andriod instanceof Phone);
@@ -107,7 +115,8 @@ class FactoryTest extends TestCase {
      * @group electronics
      * @group phone
      */
-    function symbian() {
+    public function symbian()
+    {
         $symbian = Electronics::phone('Symbian');
         $this->assertTrue($symbian instanceof Symbian);
         $this->assertTrue($symbian instanceof Phone);
@@ -119,7 +128,8 @@ class FactoryTest extends TestCase {
      * @group electronics
      * @group watch
      */
-    function digitalWatch() {
+    public function digitalWatch()
+    {
         $digitalWatch = Electronics::watch('DigitalWatch');
         $this->assertTrue($digitalWatch instanceof DigitalWatch);
         $this->assertTrue($digitalWatch instanceof Watch);
@@ -131,7 +141,8 @@ class FactoryTest extends TestCase {
      * @group electronics
      * @group watch
      */
-    function quartzWatch() {
+    public function quartzWatch()
+    {
         $quartzWatch = Electronics::watch('QuartzWatch');
         $this->assertTrue($quartzWatch instanceof QuartzWatch);
         $this->assertTrue($quartzWatch instanceof Watch);

@@ -3,17 +3,20 @@
 
 namespace Trink\Dp\Factory\Demo;
 
-
-class BloggsCommsManager extends CommsManager {
-    function getApptEncoder(){
+class BloggsCommsManager extends CommsManager
+{
+    public function getApptEncoder()
+    {
         return new BloggsApptEncoder;
     }
 
-    function getHeaderText(){
+    public function getHeaderText()
+    {
         return "BloggsCal header\n";
     }
 
-    function getFooterText(){
+    public function getFooterText()
+    {
         return "BloggsCal footer\n";
     }
 }

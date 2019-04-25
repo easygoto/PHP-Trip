@@ -3,12 +3,11 @@
 
 namespace Trink\Dp\Factory\Electronics;
 
+interface Computer
+{
+    public function run(): Computer;
 
-interface Computer {
+    public function play(): Computer;
 
-    function run(): Computer;
-
-    function play(): Computer;
-
-    function close(): Computer;
+    public function close(): Computer;
 }

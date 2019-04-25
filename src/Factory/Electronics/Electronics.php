@@ -3,7 +3,6 @@
 
 namespace Trink\Dp\Factory\Electronics;
 
-
 use ReflectionClass;
 
 /**
@@ -11,15 +10,16 @@ use ReflectionClass;
  * @method static Phone phone(string $class_name)
  * @method static Watch watch(string $string)
  */
-class Electronics {
-
+class Electronics
+{
     private static $product_map = [
         'computer' => 'Computer',
         'phone'    => 'Phone',
         'watch'    => 'Watch',
     ];
 
-    public static function __callStatic($method_name, $arguments) {
+    public static function __callStatic($method_name, $arguments)
+    {
         if (!array_key_exists($method_name, self::$product_map)) {
             return null;
         }
