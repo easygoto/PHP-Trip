@@ -3,11 +3,12 @@
 
 namespace Trink\Dp\Composite\Demo;
 
-
-abstract class Unit {
-    function getComposite(){
+abstract class Unit
+{
+    public function getComposite()
+    {
         return null;
     }
 
-    abstract function bombardStrength();
+    abstract public function bombardStrength();
 }

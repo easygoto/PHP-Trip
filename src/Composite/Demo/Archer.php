@@ -3,9 +3,10 @@
 
 namespace Trink\Dp\Composite\Demo;
 
-
-class Archer extends Unit {
-    function bombardStrength() {
+class Archer extends Unit
+{
+    public function bombardStrength()
+    {
         return 4;
     }
 }
