@@ -13,6 +13,9 @@ use Trink\Dp\Factory\Electronics\Phone;
 use Trink\Dp\Factory\Electronics\Phone\Andriod;
 use Trink\Dp\Factory\Electronics\Phone\IOS;
 use Trink\Dp\Factory\Electronics\Phone\Symbian;
+use Trink\Dp\Factory\Electronics\Watch;
+use Trink\Dp\Factory\Electronics\Watch\DigitalWatch;
+use Trink\Dp\Factory\Electronics\Watch\QuartzWatch;
 
 class FactoryTest extends TestCase {
 
@@ -109,5 +112,29 @@ class FactoryTest extends TestCase {
         $this->assertTrue($symbian instanceof Symbian);
         $this->assertTrue($symbian instanceof Phone);
         $symbian->open()->call();
+    }
+
+    /**
+     * @test
+     * @group electronics
+     * @group watch
+     */
+    function digitalWatch() {
+        $digitalWatch = Electronics::watch('DigitalWatch');
+        $this->assertTrue($digitalWatch instanceof DigitalWatch);
+        $this->assertTrue($digitalWatch instanceof Watch);
+        $digitalWatch->run();
+    }
+
+    /**
+     * @test
+     * @group electronics
+     * @group watch
+     */
+    function quartzWatch() {
+        $quartzWatch = Electronics::watch('QuartzWatch');
+        $this->assertTrue($quartzWatch instanceof QuartzWatch);
+        $this->assertTrue($quartzWatch instanceof Watch);
+        $quartzWatch->run();
     }
 }
