@@ -1,5 +1,6 @@
 <?php
 
+namespace Test;
 
 use PHPUnit\Framework\TestCase;
 use Trink\Dp\Composite\Demo\Archer;
@@ -32,17 +33,15 @@ use Trink\Dp\Strategy\Demo\MatchMarker;
 use Trink\Dp\Strategy\Demo\RegexMarker;
 use Trink\Dp\Strategy\Demo\TextQuestion;
 
-
-require_once '../vendor/autoload.php';
-
-
-class BaseTest extends TestCase {
-
-    public function testAbstractFactoryDemo() {
+class BaseTest extends TestCase
+{
+    public function testAbstractFactoryDemo()
+    {
         $this->assertTrue(true);
     }
 
-    public function testCompositeDemo() {
+    public function testCompositeDemo()
+    {
         try {
             $mainArmy = new Army();
             $mainArmy->addUnit(new Archer());
@@ -64,7 +63,8 @@ class BaseTest extends TestCase {
         $this->assertTrue(true);
     }
 
-    public function testDecoratorDemo() {
+    public function testDecoratorDemo()
+    {
         $tile = new Plains();
         print $tile->getWealthFactor();
         print "\n";
@@ -79,7 +79,8 @@ class BaseTest extends TestCase {
         $this->assertTrue(true);
     }
 
-    public function testDecoratorDemo2() {
+    public function testDecoratorDemo2()
+    {
         $process = new AuthenticateRequest(
             new StructureRequest(
                 new LogRequest(
@@ -91,13 +92,15 @@ class BaseTest extends TestCase {
         $this->assertTrue(true);
     }
 
-    public function testFacadeDemo() {
+    public function testFacadeDemo()
+    {
         $facade = new ProductFacade('facade.txt');
         var_dump($facade->getProduct(234));
         $this->assertTrue(true);
     }
 
-    public function testInterpreterDemo() {
+    public function testInterpreterDemo()
+    {
         $context = new InterpreterContext();
         $literal = new LiteralExpression('four');
         $literal->interpret($context);
@@ -136,13 +139,15 @@ class BaseTest extends TestCase {
         $this->assertTrue(true);
     }
 
-    public function testObserverDemo() {
+    public function testObserverDemo()
+    {
         $login = new Login();
         $login->attach(new SecurityMonitor());
         $this->assertTrue(true);
     }
 
-    public function testPrototypeDemo() {
+    public function testPrototypeDemo()
+    {
         $factory = new TerrainFactory(
             new EarthSea(),
             new EarthForest(),
@@ -154,7 +159,8 @@ class BaseTest extends TestCase {
         $this->assertTrue(true);
     }
 
-    public function testSingletonConfig() {
+    public function testSingletonConfig()
+    {
         $test = Config::instance()->test;
         var_dump($test);
         $this->assertNull($test);
@@ -168,7 +174,8 @@ class BaseTest extends TestCase {
         $this->assertEquals($host, '127.0.0.1');
     }
 
-    public function testStrategyDemo() {
+    public function testStrategyDemo()
+    {
         $markers = [
             new RegexMarker("/f.ve/"),
             new MatchMarker("five"),
