@@ -3,7 +3,6 @@
 
 namespace Trink\Dp\Strategy\Demo;
 
-
-class AVQuestion extends Question {
-
+class AVQuestion extends Question
+{
 }

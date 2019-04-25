@@ -3,17 +3,19 @@
 
 namespace Trink\Dp\Strategy\Demo;
 
-
-abstract class Question {
+abstract class Question
+{
     protected $prompt;
     protected $marker;
 
-    function __construct($prompt, Marker $marker) {
+    public function __construct($prompt, Marker $marker)
+    {
         $this->marker = $marker;
         $this->prompt = $prompt;
     }
 
-    function mark($response) {
+    public function mark($response)
+    {
         return $this->marker->mark($response);
     }
 }
