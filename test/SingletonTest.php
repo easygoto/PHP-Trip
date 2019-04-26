@@ -6,7 +6,7 @@ namespace Test;
 use PHPUnit\Framework\TestCase;
 use Trink\Dp\Singleton\Config\Config;
 
-class Singleton extends TestCase
+class SingletonTest extends TestCase
 {
     /**
      * @test
