@@ -27,7 +27,6 @@ use Trink\Dp\Prototype\Demo\EarthForest;
 use Trink\Dp\Prototype\Demo\EarthPlains;
 use Trink\Dp\Prototype\Demo\EarthSea;
 use Trink\Dp\Prototype\Demo\TerrainFactory;
-use Trink\Dp\Singleton\Config\Config;
 use Trink\Dp\Strategy\Demo\MarkLogicMarker;
 use Trink\Dp\Strategy\Demo\MatchMarker;
 use Trink\Dp\Strategy\Demo\RegexMarker;
@@ -157,21 +156,6 @@ class BaseTest extends TestCase
         var_dump($factory->getPlains());
         var_dump($factory->getForest());
         $this->assertTrue(true);
-    }
-
-    public function testSingletonConfig()
-    {
-        $test = Config::instance()->test;
-        var_dump($test);
-        $this->assertNull($test);
-
-        $db = Config::instance()->db;
-        var_dump($db);
-        $this->assertIsArray($db);
-
-        $host = $db['host'] ?? 'localhost';
-        var_dump($host);
-        $this->assertEquals($host, '127.0.0.1');
     }
 
     public function testStrategyDemo()
