@@ -17,10 +17,15 @@ abstract class CompositeUnit extends Unit
         return $this->units;
     }
 
+    /**
+     * @param Unit $unit
+     *
+     * @throws UnitException
+     */
     public function addUnit(Unit $unit)
     {
         if (in_array($unit, $this->units, 1)) {
-            return;
+            throw new UnitException("unit exists ...");
         }
         $this->units[] = $unit;
     }
