@@ -5,7 +5,7 @@ namespace Trink\Dp\Singleton\Config;
 
 /**
  * @property array      db
- * @property mixed|null test
+ * @property mixed|null app
  */
 class Config
 {
@@ -24,6 +24,11 @@ class Config
     public function __get($name)
     {
         return $this->props[$name] ?? null;
+    }
+
+    public function __set($name, $value)
+    {
+        $this->props[$name] = $value;
     }
 
     public static function instance()
