@@ -8,7 +8,7 @@ use Redis;
 use ReflectionClass;
 use ReflectionObject;
 use Trink\Demo\Lib\DB;
-use Trink\Demo\Test\AlgorithmBacktracking;
+use Trink\Demo\Test\Algorithm;
 use Trink\Demo\Test\Node;
 use Trink\Demo\Test\Person;
 use ZipArchive;
@@ -33,6 +33,17 @@ class BaseTest extends TestCase
     }
 
     /** @test */
+    public function mergeSort()
+    {
+        $input = [];
+        for ($i = 0; $i < 2000; $i ++) {
+            array_push($input, mt_rand(0, 100000000));
+        }
+        Algorithm::mergeSort($input);
+        $this->assertTrue(true);
+    }
+
+    /** @test */
     public function node()
     {
         $list = Node::fromArray([1, 5, 2, 8, 9, 4, 7, 6, 3]);
@@ -47,7 +58,7 @@ class BaseTest extends TestCase
         $persons1    = ['A', 'B', 'C', 'D'];
         $persons2    = ['a', 'b', 'c', 'd'];
         $exclude_map = ['a' => ['A'], 'c' => ['B', 'C']];
-        AlgorithmBacktracking::match($persons1, $persons2, $exclude_map);
+        Algorithm::match($persons1, $persons2, $exclude_map);
         $this->assertTrue(true);
     }
 
@@ -57,7 +68,7 @@ class BaseTest extends TestCase
         $persons1    = ['A', 'B', 'C', 'D'];
         $persons2    = ['a', 'b', 'c', 'd'];
         $exclude_map = ['a' => ['A'], 'c' => ['B', 'C']];
-        AlgorithmBacktracking::yuMatch($persons1, $persons2, [], $exclude_map);
+        Algorithm::yuMatch($persons1, $persons2, [], $exclude_map);
         $this->assertTrue(true);
     }
 
