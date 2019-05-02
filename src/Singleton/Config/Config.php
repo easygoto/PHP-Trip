@@ -9,6 +9,7 @@ namespace Trink\Dp\Singleton\Config;
  */
 class Config
 {
+    /** @var Config $instance */
     private static $instance;
 
     private $props = [];
@@ -33,11 +34,11 @@ class Config
 
     public static function instance()
     {
-        if (! (self::$instance instanceof self)) {
-            self::$instance        = new self();
-            self::$instance->props = require_once __DIR__ . '/config/config.php';
-            return self::$instance;
+        if (!self::$instance instanceof self) {
+            self::$instance = new self();
         }
-        return self::$instance;
+        $instance        = self::$instance;
+        $instance->props = require_once __DIR__ . '/config/config.php';
+        return $instance;
     }
 }
