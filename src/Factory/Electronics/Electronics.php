@@ -8,7 +8,7 @@ use ReflectionClass;
 /**
  * @method static Computer computer(string $class_name)
  * @method static Phone phone(string $class_name)
- * @method static Watch watch(string $string)
+ * @method static Watch watch(string $class_name)
  */
 class Electronics
 {
