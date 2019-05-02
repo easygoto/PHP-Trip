@@ -7,7 +7,6 @@
         </li>
         {/loop}
     </ul>
-    <?php echo $pai*2;?>
     {if $data=='abc'}
     我是abc 
     {elseif $data=='def'} 

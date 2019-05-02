@@ -1,9 +1,14 @@
 <?php
 
+namespace Trink\Demo\Lib;
+
 /**
  * Class CompileClass
+ *
+ * @property array vars
  */
-class CompileClass {
+class Compile
+{
     private $template;
     //待编译的文件
     private $content;
@@ -27,7 +32,8 @@ class CompileClass {
      * @param $compileFile
      * @param $config
      */
-    public function __construct($template, $compileFile, $config) {
+    public function __construct($template, $compileFile, $config)
+    {
         $this->template = $template;
         $this->comfile  = $compileFile;
         $this->content  = file_get_contents($template);
@@ -43,36 +49,41 @@ class CompileClass {
         $this->T_P[] = "#\{(else if|elseif)(.*?)\}#i";
         $this->T_P[] = "#\{else\}#i";
         $this->T_P[] = "#\{(\#|\*)(.*?)(\#|\*)\}#";
-        $this->T_R[] = "<?php echo\$this->value['\\1']; ?>";
-        $this->T_R[] = "<?php foreach((array)\$this->value['\\2']as\$K=>\$V){?>";
-        $this->T_R[] = "<?php}?>";
-        $this->T_R[] = "<?php echo\$\\1; ?>";
-        $this->T_R[] = '<?php if(\\1){?>';
-        $this->T_R[] = '<?php}else if(\\2){?>';
-        $this->T_R[] = '<?php}else{?>';
+        $this->T_R[] = "<?php echo \$this->value['\\1']; ?>";
+        $this->T_R[] = "<?php foreach ((array)(\$this->value['\\2']) as \$K => \$V) { ?>";
+        $this->T_R[] = "<?php } ?>";
+        $this->T_R[] = "<?php echo \$\\1; ?>";
+        $this->T_R[] = '<?php if(\\1) { ?>';
+        $this->T_R[] = '<?php } elseif(\\2) { ?>';
+        $this->T_R[] = '<?php } else { ?>';
         $this->T_R[] = '';
     }
 
-    public function compile() {
-        $this->c_var2();
-        $this->c_staticFile();
+    public function compile()
+    {
+        $this->compileVariable();
+        $this->compileStaticFile();
         file_put_contents($this->comfile, $this->content);
     }
 
-    public function c_var2() {
+    public function compileVariable()
+    {
         $this->content = preg_replace($this->T_P, $this->T_R, $this->content);
     }
 
     //加入对静态JavaScript文件的解析
-    public function c_staticFile() {
-        $this->content = preg_replace('#\{\!(.*?)\!\}#', '<script src=\\1' . '?t=' . time() . '></script>', $this->content);
+    public function compileStaticFile()
+    {
+        $pattern       = '#\{\!(.*?)\!\}#';
+        $this->content = preg_replace($pattern, '<script src=\\1?t=' . time() . '></script>', $this->content);
     }
 
     /**
      * @param $name
      * @param $value
      */
-    public function set($name, $value) {
+    public function set($name, $value)
+    {
         $this->$name = $value;
     }
 
@@ -81,7 +92,8 @@ class CompileClass {
      *
      * @return mixed
      */
-    public function get($name) {
+    public function get($name)
+    {
         return $this->$name;
     }
 }

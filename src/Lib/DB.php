@@ -19,16 +19,8 @@ class DB
 
     public static function instance(): Juggler
     {
+        $config = require_once dirname(dirname(__DIR__)) . '/config/db.php';
         if (!self::$instance instanceof self) {
-            $config = [
-                'host' => '127.0.0.1',
-                'port' => 3306,
-                'dbname' => 'test',
-                'username' => 'root',
-                'password' => '123123',
-                'charset' => 'utf8',
-            ];
-
             self::$instance = new Juggler($config);
         }
         return self::$instance;

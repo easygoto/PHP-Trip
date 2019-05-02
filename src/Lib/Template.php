@@ -1,16 +1,18 @@
 <?php
 
+namespace Trink\Demo\Lib;
+
 /**
  *一个简单的模板引擎
  */
-class Template {
-
+class Template
+{
     private $arrayConfig = [
         'suffix'        => '.m',
         //设置模板文件的后缀
-        'templateDir'   => 'template/',
+        'template_dir'  => 'template/',
         //设置模板所在的文件夹
-        'compiledir'    => 'cache/',
+        'compile_dir'   => 'cache/',
         //设置编译后存放的目录
         'cache_htm'     => false,
         //是否需要编译成静态的HTML文件
@@ -23,41 +25,44 @@ class Template {
         'cache_control' => 'control.dat',
         'debug'         => false,
     ];
-    public  $file;
+
     //模板文件名,不带路径
-    private $value = [];
-    //值栈
-    private $compileTool;
-    //编译器
-    private static $instance = null;
-    public         $debug    = [];
+    public $file;
     //调试信息
-    private $controlData = [];
+    public $debug    = [];
+
+    //值栈
+    private $value = [];
+    //编译器
+    private $compileTool;
+
+    private static $instance = null;
 
     /**
      * Template constructor.
      *
      * @param array $arrayConfig
      */
-    public function __construct($arrayConfig = []) {
+    public function __construct($arrayConfig = [])
+    {
         $this->debug['begin'] = microtime(true);
         $this->arrayConfig    = $arrayConfig + $this->arrayConfig;
         $this->getPath();
-        if (! is_dir($this->arrayConfig['templateDir'])) {
+        if (!is_dir($this->arrayConfig['template_dir'])) {
             exit("template dir isn't found");
         }
-        if (! is_dir($this->arrayConfig['compiledir'])) {
-            mkdir($this->arrayConfig['compiledir'], 0770, true);
+        if (!is_dir($this->arrayConfig['compile_dir'])) {
+            mkdir($this->arrayConfig['compile_dir'], 0770, true);
         }
-        include 'CompileClass.php';
     }
 
     /**
      *路径处理为绝对路径
      */
-    public function getPath() {
-        $this->arrayConfig['templateDir'] = strtr(realpath($this->arrayConfig['templateDir']), '\\', '/') . '/';
-        $this->arrayConfig['compiledir']  = strtr(realpath($this->arrayConfig['compiledir']), '\\', '/') . '/';
+    public function getPath()
+    {
+        $this->arrayConfig['template_dir'] = strtr(realpath($this->arrayConfig['template_dir']), '\\', '/') . '/';
+        $this->arrayConfig['compile_dir']  = strtr(realpath($this->arrayConfig['compile_dir']), '\\', '/') . '/';
     }
 
     /**
@@ -67,7 +72,8 @@ class Template {
      * @access public
      * @static
      */
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (is_null(self::$instance)) {
             self::$instance = new Template();
         }
@@ -80,7 +86,8 @@ class Template {
      * @param      $key
      * @param null $value
      */
-    public function setConfig($key, $value = null) {
+    public function setConfig($key, $value = null)
+    {
         if (is_array($key)) {
             $this->arrayConfig = $key + $this->arrayConfig;
         } else {
@@ -95,7 +102,8 @@ class Template {
      *
      * @return array
      */
-    public function getConfig($key = null) {
+    public function getConfig($key = null)
+    {
         if ($key) {
             return $this->arrayConfig[$key];
         } else {
@@ -111,7 +119,8 @@ class Template {
      *
      * @return void
      */
-    public function assign($key, $value) {
+    public function assign($key, $value)
+    {
         $this->value[$key] = $value;
     }
 
@@ -120,7 +129,8 @@ class Template {
      *
      * @param array $array
      */
-    public function assignArray($array) {
+    public function assignArray($array)
+    {
         if (is_array($array)) {
             foreach ($array as $k => $v) {
                 $this->value[$k] = $v;
@@ -131,8 +141,9 @@ class Template {
     /**
      * @return string
      */
-    public function path() {
-        return $this->arrayConfig['templateDir'] . $this->file . $this->arrayConfig['suffix'];
+    public function path()
+    {
+        return $this->arrayConfig['template_dir'] . $this->file . $this->arrayConfig['suffix'];
     }
 
     /**
@@ -140,7 +151,8 @@ class Template {
      *
      * @return mixed
      */
-    public function needCache() {
+    public function needCache()
+    {
         return $this->arrayConfig['cache_htm'];
     }
 
@@ -151,9 +163,10 @@ class Template {
      *
      * @return bool
      */
-    public function reCache($file) {
+    public function reCache($file)
+    {
         $flag      = false;
-        $cacheFile = $this->arrayConfig['compiledir'] . md5($file) . '.htm';
+        $cacheFile = $this->arrayConfig['compile_dir'] . md5($file) . '.htm';
         if ($this->arrayConfig['cache_htm'] === true) {
             //是否需要缓存
             $timeFlag = (time() - @filemtime($cacheFile)) < $this->arrayConfig['cache_time'] ? true : false;
@@ -172,21 +185,22 @@ class Template {
      *
      * @param$file
      */
-    public function show($file) {
+    public function show($file)
+    {
         $this->file = $file;
-        if (! is_file($this->path())) {
+        if (!is_file($this->path())) {
             exit('找不到对应的模板');
         }
-        $compileFile = $this->arrayConfig['compiledir'] . md5($file) . '.php';
-        $cacheFile   = $this->arrayConfig['compiledir'] . md5($file) . '.htm';
+        $compileFile = $this->arrayConfig['compile_dir'] . md5($file) . '.php';
+        $cacheFile   = $this->arrayConfig['compile_dir'] . md5($file) . '.htm';
         if ($this->reCache($file) === false) {
             $this->debug['cached'] = 'false';
-            $this->compileTool     = new CompileClass($this->path(), $compileFile, $this->arrayConfig);
+            $this->compileTool     = new Compile($this->path(), $compileFile, $this->arrayConfig);
             if ($this->needCache()) {
                 ob_start();
             }
             extract($this->value, EXTR_OVERWRITE);
-            if (! is_file($compileFile) || filemtime($compileFile) < filemtime($this->path())) {
+            if (!is_file($compileFile) || filemtime($compileFile) < filemtime($this->path())) {
                 $this->compileTool->vars = $this->value;
                 $this->compileTool->compile();
                 include $compileFile;
@@ -203,10 +217,11 @@ class Template {
         }
         $this->debug['spend'] = microtime(true) - $this->debug['begin'];
         $this->debug['count'] = count($this->value);
-        $this->debug_info();
+        $this->debugInfo();
     }
 
-    public function debug_info() {
+    public function debugInfo()
+    {
         if ($this->arrayConfig['debug'] === true) {
             echo PHP_EOL, '——debug info——', PHP_EOL;
             echo '程序运行日期:', date("Y-m-d h:i:s"), PHP_EOL;
@@ -222,12 +237,13 @@ class Template {
      *
      * @param null $path
      */
-    public function clean($path = null) {
+    public function clean($path = null)
+    {
         if ($path === null) {
-            $path = $this->arrayConfig['compiledir'];
+            $path = $this->arrayConfig['compile_dir'];
             $path = glob($path . '*' . $this->arrayConfig['suffix_cache']);
         } else {
-            $path = $this->arrayConfig['compiledir'] . md5($path) . '.htm';
+            $path = $this->arrayConfig['compile_dir'] . md5($path) . '.htm';
         }
         foreach ((array)$path as $v) {
             unlink($v);
