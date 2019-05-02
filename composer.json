@@ -1,0 +1,17 @@
+{
+  "autoload": {
+    "psr-4": {
+      "Trink\\Demo\\": "src"
+    }
+  },
+  "require": {
+    "phpunit/phpunit": "^8.1",
+    "ext-json": "^1.7",
+    "ext-redis": "^4.2",
+    "ext-zip": "^1.15",
+    "ext-bcmath": "^7.3",
+    "ext-mysqli": "^7.3",
+    "ext-mbstring": "^7.3",
+    "upfor/juggler": "^1.0"
+  }
+}
