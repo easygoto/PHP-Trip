@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Test;
+namespace Dp\Test;
 
 use PHPUnit\Framework\TestCase;
 use Trink\Dp\Singleton\Config\Config;
