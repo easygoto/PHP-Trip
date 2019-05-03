@@ -19,9 +19,16 @@ class DB
 
     public static function instance(): Juggler
     {
-        $config = require_once dirname(dirname(__DIR__)) . '/config/db.php';
         if (!self::$instance instanceof self) {
-            self::$instance = new Juggler($config);
+            $db = Config::instance()->db;
+
+            self::$instance = new Juggler([
+                'host'     => $db['host'],
+                'username' => $db['username'],
+                'password' => $db['password'],
+                'dbname'   => $db['name'],
+                'charset'  => $db['charset'],
+            ]);
         }
         return self::$instance;
     }
