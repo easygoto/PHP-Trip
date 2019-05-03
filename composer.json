@@ -12,6 +12,7 @@
     "ext-bcmath": "^7.3",
     "ext-mysqli": "^7.3",
     "ext-mbstring": "^7.3",
+    "ext-PDO": "^7.3",
     "upfor/juggler": "^1.0"
   }
 }
