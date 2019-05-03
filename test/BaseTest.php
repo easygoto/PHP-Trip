@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Redis;
 use ReflectionClass;
 use ReflectionObject;
-use Trink\Demo\Lib\DB;
+use Trink\Demo\Util\DB;
 use Trink\Demo\Test\Algorithm;
 use Trink\Demo\Test\Node;
 use Trink\Demo\Test\Person;

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Demo\Lib;
+namespace Trink\Demo\Util;
 
 /**
  * @property  array db
