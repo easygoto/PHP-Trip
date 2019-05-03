@@ -20,6 +20,14 @@ use ZipArchive;
  */
 class BaseTest extends TestCase
 {
+    private $res_dir;
+
+    /** @before */
+    public function init()
+    {
+        $this->res_dir = dirname(__DIR__) . '/res/';
+    }
+
     public function test()
     {
         $result = DB::instance()
@@ -36,7 +44,7 @@ class BaseTest extends TestCase
     public function zone2Db()
     {
         $zoneArray = [];
-        $fp      = fopen('res/zone_code.csv', 'r');
+        $fp      = fopen($this->res_dir . 'zone_code.csv', 'r');
         while (($content = fgetcsv($fp)) != null) {
             $zoneArray[$content[1]] = $content[0];
         }
@@ -88,7 +96,7 @@ class BaseTest extends TestCase
         $sql = /** @lang text */
             'insert into `address` (`name`,`code`,`parent_code`,`path`,`code_path`,`type`) values ';
         $sql .= implode(',', $zoneList);
-        file_put_contents('res/address.sql', $sql);
+        file_put_contents($this->res_dir . 'address.sql', $sql);
 
         //$pdo = new PDO('mysql:host=localhost;dbname=test;port=3306', 'root', '123123');
         //var_dump($pdo->query($sql));
@@ -99,7 +107,7 @@ class BaseTest extends TestCase
     /** @test */
     public function patchAllMethod()
     {
-        $filename = __DIR__ . '/res/wxapp.txt';
+        $filename = $this->res_dir . 'wxapp.txt';
         $docs     = file_get_contents($filename);
         $pattern = "/public\s+?function\s+?doPage(\w+)\s*?\(\s*?\)/";
         $total = preg_match_all($pattern, $docs, $matches, PREG_OFFSET_CAPTURE);
@@ -141,7 +149,7 @@ class BaseTest extends TestCase
                     $formattedContent .= "\n";
 
                     $methodName = strtolower($methodName);
-                    file_put_contents(__DIR__ . "/res/inc/{$methodName}.inc.php", $formattedContent);
+                    file_put_contents($this->res_dir . "inc/{$methodName}.inc.php", $formattedContent);
                     break;
                 }
             }
@@ -194,23 +202,18 @@ class BaseTest extends TestCase
     /** @test */
     public function zip()
     {
-        $filename = "./" . date('YmdH') . ".zip"; // 最终生成的文件名（含路径）
-        // 生成文件
-        $zip = new ZipArchive(); // 使用本类，linux需开启zlib，windows需取消php_zip.dll前的注释
-        if ($zip->open($filename, \ZipArchive::OVERWRITE) !== true) {  //OVERWRITE 参数会覆写压缩包的文件 文件必须已经存在
-            if ($zip->open($filename, \ZipArchive::CREATE) !== true) {
+        $filename = $this->res_dir . date('Y_m_d_H_i_s') . ".zip";
+        $zip = new ZipArchive();
+        if ($zip->open($filename, ZipArchive::OVERWRITE) !== true) {
+            if ($zip->open($filename, ZipArchive::CREATE) !== true) {
                 exit('无法打开文件，或者文件创建失败');
             }
         }
-
-        $fileName = "main.js"; //存放文件的真实路径
-
-        if (file_exists($fileName)) {
-            $zip->addFile($fileName, basename('main.js'));//第二个参数是放在压缩包中的文件名称，如果文件可能会有重复，就需要注意一下 写上目录就会存放至目录
-            $zip->addFile($fileName, basename('test.php'));//第二个参数是放在压缩包中的文件名称，如果文件可能会有重复，就需要注意一下 写上目录就会存放至目录
+        $addFileName = $this->res_dir . "address.sql";
+        if (file_exists($addFileName)) {
+            $zip->addFile($addFileName, basename($addFileName));
         }
-
-        $zip->close(); // 关闭
+        $zip->close();
         $this->assertTrue(true);
     }
 

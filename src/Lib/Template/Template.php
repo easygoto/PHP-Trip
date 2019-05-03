@@ -10,9 +10,9 @@ class Template
     private $arrayConfig = [
         'suffix'        => '.m',
         //设置模板文件的后缀
-        'template_dir'  => 'res/template/',
+        'template_dir'  => '',
         //设置模板所在的文件夹
-        'compile_dir'   => 'res/cache/',
+        'compile_dir'   => '',
         //设置编译后存放的目录
         'cache_htm'     => false,
         //是否需要编译成静态的HTML文件
