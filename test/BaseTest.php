@@ -33,6 +33,61 @@ class BaseTest extends TestCase
     }
 
     /** @test */
+    public function patchAllMethod()
+    {
+        $filename = __DIR__ . '/res/wxapp.txt';
+        $docs     = file_get_contents($filename);
+        $pattern = "/public\s+?function\s+?doPage(\w+)\s*?\(\s*?\)/";
+        $total = preg_match_all($pattern, $docs, $matches, PREG_OFFSET_CAPTURE);
+        $spaceCount = 8;
+
+        $methodList    = array_column($matches[1], 1, 0);
+
+        foreach ($methodList as $methodName => $methodTag) {
+            $inMethod        = false;
+            $tagCount        = 0;
+
+            for ($currentIndex = $methodTag; $currentIndex < strlen($docs); $currentIndex ++) {
+                $currentChar = $docs[$currentIndex];
+                if ($currentChar === '{') {
+                    $tagCount ++;
+                    if (! $inMethod) {
+                        $methodStart = $currentIndex + 1;
+                        $inMethod    = true;
+                    }
+                } elseif ($currentChar === '}') {
+                    $tagCount --;
+                }
+                if ($inMethod && $tagCount === 0 && isset($methodStart)) {
+                    $content = substr($docs, $methodStart, $currentIndex - $methodStart);
+
+                    $lineList = [];
+                    array_map(function ($line) use (&$lineList) {
+                        if (trim($line)) {
+                            $lineList[] = $line;
+                        }
+                    }, explode("\n", $content));
+
+                    foreach ($lineList as $lineIndex => $line) {
+                        $lineList[$lineIndex] = substr($line, $spaceCount);
+                    }
+
+                    $formattedContent = "<?php\n\n";
+                    $formattedContent .= implode("\n", $lineList);
+                    $formattedContent .= "\n";
+
+                    $methodName = strtolower($methodName);
+                    file_put_contents(__DIR__ . "/res/inc/{$methodName}.inc.php", $formattedContent);
+                    break;
+                }
+            }
+        }
+
+        print "{$total}\n";
+        $this->assertTrue(true);
+    }
+
+    /** @test */
     public function mergeSort()
     {
         $input = [];
