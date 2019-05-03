@@ -105,7 +105,7 @@ class BaseTest extends TestCase
 
         $pattern = '#\[url\](?<WORD>\d\.gif)\[\/url\]#';
         $text    = '[url]1.gif[/url][url]2.gif[/url][url]3.gif[/url]';
-        var_dump(preg_replace($pattern, "<img src=http://image.ai.com/upload/$1>", $text));
+        var_dump(preg_replace($pattern, "<img src=http://image.ai.com/upload/$1 alt>", $text));
         $this->assertTrue(true);
     }
 
