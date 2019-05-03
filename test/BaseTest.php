@@ -33,6 +33,70 @@ class BaseTest extends TestCase
     }
 
     /** @test */
+    public function zone2Db()
+    {
+        $zoneArray = [];
+        $fp      = fopen('res/zone_code.csv', 'r');
+        while (($content = fgetcsv($fp)) != null) {
+            $zoneArray[$content[1]] = $content[0];
+        }
+
+        $zoneList = [];
+        foreach ($zoneArray as $key => $value) {
+            $name = $value;
+            $code = (int)$key;
+            if (in_array($code, [100000, 900000])) {
+                $type = 'country';
+                continue;
+            }
+            if ($code % 10000 == 0) {
+                // 省
+                $type         = 'province';
+                $areaCode     = '';
+                $areaName     = '';
+                $cityCode     = '';
+                $cityName     = '';
+                $provinceCode = $code;
+                $provinceName = $zoneArray["$provinceCode"] ?? '';
+                $parentCode   = 100000;
+            } elseif ($code % 100 == 0) {
+                // 市
+                $type         = 'city';
+                $areaCode     = '';
+                $areaName     = '';
+                $cityCode     = $code;
+                $cityName     = $zoneArray["$cityCode"] ?? '';
+                $provinceCode = intval($code / 10000) * 10000;
+                $provinceName = $zoneArray["$provinceCode"] ?? '';
+                $parentCode   = $provinceCode;
+            } else {
+                // 区
+                $type         = 'area';
+                $areaCode     = $code;
+                $areaName     = $zoneArray["$code"] ?? '';
+                $cityCode     = intval($code / 100) * 100;
+                $cityName     = $zoneArray["$cityCode"] ?? '';
+                $provinceCode = intval($code / 10000) * 10000;
+                $provinceName = $zoneArray["$provinceCode"] ?? '';
+                $parentCode   = $cityCode;
+            }
+            $path       = trim($provinceName . '|' . $cityName . '|' . $areaName, '|');
+            $codePath   = trim($provinceCode . '|' . $cityCode . '|' . $areaCode, '|');
+            $zoneList[] = sprintf("('%s',%d,%d,'%s','%s','%s')", $name, $code, $parentCode, $path, $codePath, $type);
+        }
+
+        $sql = /** @lang text */
+            'insert into `address` (`name`,`code`,`parent_code`,`path`,`code_path`,`type`) values ';
+        $sql .= implode(',', $zoneList);
+        file_put_contents('res/address.sql', $sql);
+
+        //$pdo = new PDO('mysql:host=localhost;dbname=test;port=3306', 'root', '123123');
+        //var_dump($pdo->query($sql));
+
+        $this->assertTrue(true);
+    }
+
+    /** @test */
     public function patchAllMethod()
     {
         $filename = __DIR__ . '/res/wxapp.txt';
