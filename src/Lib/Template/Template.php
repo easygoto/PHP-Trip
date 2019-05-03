@@ -1,6 +1,6 @@
 <?php
 
-namespace Trink\Demo\Lib;
+namespace Trink\Demo\Lib\Template;
 
 /**
  *一个简单的模板引擎
