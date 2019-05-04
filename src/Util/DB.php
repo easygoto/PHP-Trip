@@ -24,8 +24,8 @@ class DB
 
             self::$instance = new Juggler([
                 'host'     => $db['host'],
-                'username' => $db['username'],
-                'password' => $db['password'],
+                'username' => $db['user'],
+                'password' => $db['pass'],
                 'dbname'   => $db['name'],
                 'charset'  => $db['charset'],
             ]);
