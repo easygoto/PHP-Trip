@@ -20,10 +20,7 @@ use Trink\Dp\Factory\Electronics\Watch\QuartzWatch;
 
 class FactoryTest extends TestCase
 {
-    /**
-     * @test
-     */
-    public function demo()
+    public function test()
     {
         $bcm = new BloggsCommsManager();
         echo $bcm->getHeaderText();
@@ -39,7 +36,7 @@ class FactoryTest extends TestCase
      */
     public function aio()
     {
-        $aio = Electronics::computer('AIO');
+        $aio = Electronics::computer(AIO::class);
         $this->assertTrue($aio instanceof AIO);
         $this->assertTrue($aio instanceof Computer);
         $aio->run()->play()->close();
@@ -52,7 +49,7 @@ class FactoryTest extends TestCase
      */
     public function laptop()
     {
-        $laptop = Electronics::computer('Laptop');
+        $laptop = Electronics::computer(Laptop::class);
         $this->assertTrue($laptop instanceof Laptop);
         $this->assertTrue($laptop instanceof Computer);
         $laptop->run()->play()->close();
@@ -65,7 +62,7 @@ class FactoryTest extends TestCase
      */
     public function pc()
     {
-        $pc = Electronics::computer('PC');
+        $pc = Electronics::computer(PC::class);
         $this->assertTrue($pc instanceof PC);
         $this->assertTrue($pc instanceof Computer);
         $pc->run()->play()->close();
@@ -78,7 +75,7 @@ class FactoryTest extends TestCase
      */
     public function tablet()
     {
-        $tablet = Electronics::computer('Tablet');
+        $tablet = Electronics::computer(Tablet::class);
         $this->assertTrue($tablet instanceof Tablet);
         $this->assertTrue($tablet instanceof Computer);
         $tablet->run()->play()->close();
@@ -91,7 +88,7 @@ class FactoryTest extends TestCase
      */
     public function ios()
     {
-        $ios = Electronics::phone('IOS');
+        $ios = Electronics::phone(IOS::class);
         $this->assertTrue($ios instanceof IOS);
         $this->assertTrue($ios instanceof Phone);
         $ios->open()->call();
@@ -104,7 +101,7 @@ class FactoryTest extends TestCase
      */
     public function andriod()
     {
-        $andriod = Electronics::phone('Andriod');
+        $andriod = Electronics::phone(Andriod::class);
         $this->assertTrue($andriod instanceof Andriod);
         $this->assertTrue($andriod instanceof Phone);
         $andriod->open()->call();
@@ -117,7 +114,7 @@ class FactoryTest extends TestCase
      */
     public function symbian()
     {
-        $symbian = Electronics::phone('Symbian');
+        $symbian = Electronics::phone(Symbian::class);
         $this->assertTrue($symbian instanceof Symbian);
         $this->assertTrue($symbian instanceof Phone);
         $symbian->open()->call();
@@ -130,7 +127,7 @@ class FactoryTest extends TestCase
      */
     public function digitalWatch()
     {
-        $digitalWatch = Electronics::watch('DigitalWatch');
+        $digitalWatch = Electronics::watch(DigitalWatch::class);
         $this->assertTrue($digitalWatch instanceof DigitalWatch);
         $this->assertTrue($digitalWatch instanceof Watch);
         $digitalWatch->run();
@@ -143,7 +140,7 @@ class FactoryTest extends TestCase
      */
     public function quartzWatch()
     {
-        $quartzWatch = Electronics::watch('QuartzWatch');
+        $quartzWatch = Electronics::watch(QuartzWatch::class);
         $this->assertTrue($quartzWatch instanceof QuartzWatch);
         $this->assertTrue($quartzWatch instanceof Watch);
         $quartzWatch->run();
