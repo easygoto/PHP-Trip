@@ -9,5 +9,5 @@ interface Computer
 
     public function memory(): array;
 
-    public function cpu(): Processor;
+    public function cpu(): CPU;
 }

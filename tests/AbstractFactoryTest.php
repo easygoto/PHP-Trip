@@ -6,6 +6,9 @@ namespace Dp\Test;
 use PHPUnit\Framework\TestCase;
 use Trink\Dp\AbstractFactory\ComputerSetting\Computer\High4PC;
 use Trink\Dp\AbstractFactory\ComputerSetting\Computer\Low4PC;
+use Trink\Dp\AbstractFactory\ComputerSetting\CPU;
+use Trink\Dp\AbstractFactory\ComputerSetting\CPU\CPU2400MHzCore4;
+use Trink\Dp\AbstractFactory\ComputerSetting\CPU\CPU4000MHzCore8;
 use Trink\Dp\AbstractFactory\ComputerSetting\HardDisk;
 use Trink\Dp\AbstractFactory\ComputerSetting\HardDisk\HDD256G5400RPM;
 use Trink\Dp\AbstractFactory\ComputerSetting\HardDisk\SSD256G;
@@ -16,6 +19,16 @@ use Trink\Dp\AbstractFactory\ComputerSetting\Memory\Memory8G;
 
 class AbstractFactoryTest extends TestCase
 {
+    /** @test */
+    public function cpu()
+    {
+        $CPU2400_4 = (new CPU2400MHzCore4)->showCore()->showFrequency();
+        $this->assertTrue($CPU2400_4 instanceof CPU);
+
+        $CPU4000_8 = (new CPU4000MHzCore8)->showCore()->showFrequency();
+        $this->assertTrue($CPU4000_8 instanceof CPU);
+    }
+
     /** @test */
     public function memory()
     {

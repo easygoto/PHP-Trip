@@ -7,8 +7,8 @@ use Trink\Dp\AbstractFactory\ComputerSetting\Computer;
 use Trink\Dp\AbstractFactory\ComputerSetting\HardDisk;
 use Trink\Dp\AbstractFactory\ComputerSetting\HardDisk\HDD1T5400RPM;
 use Trink\Dp\AbstractFactory\ComputerSetting\Memory\Memory2G;
-use Trink\Dp\AbstractFactory\ComputerSetting\Processor;
-use Trink\Dp\AbstractFactory\ComputerSetting\Processor\CPU2400MHzCore4;
+use Trink\Dp\AbstractFactory\ComputerSetting\CPU;
+use Trink\Dp\AbstractFactory\ComputerSetting\CPU\CPU2400MHzCore4;
 
 class Low4PC implements Computer
 {
@@ -25,7 +25,7 @@ class Low4PC implements Computer
         ];
     }
 
-    public function cpu(): Processor
+    public function cpu(): CPU
     {
         return new CPU2400MHzCore4();
     }
