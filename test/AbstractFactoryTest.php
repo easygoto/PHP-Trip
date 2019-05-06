@@ -10,6 +10,12 @@ use Trink\Dp\AbstractFactory\ComputerSetting\Memory;
 
 class AbstractFactoryTest extends TestCase
 {
+    public function test()
+    {
+
+        $this->assertTrue(true);
+    }
+
     /** @test */
     public function high()
     {
