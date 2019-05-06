@@ -10,9 +10,25 @@ use Trink\Dp\AbstractFactory\ComputerSetting\HardDisk;
 use Trink\Dp\AbstractFactory\ComputerSetting\HardDisk\HDD256G5400RPM;
 use Trink\Dp\AbstractFactory\ComputerSetting\HardDisk\SSD256G;
 use Trink\Dp\AbstractFactory\ComputerSetting\Memory;
+use Trink\Dp\AbstractFactory\ComputerSetting\Memory\Memory2G;
+use Trink\Dp\AbstractFactory\ComputerSetting\Memory\Memory4G;
+use Trink\Dp\AbstractFactory\ComputerSetting\Memory\Memory8G;
 
 class AbstractFactoryTest extends TestCase
 {
+    /** @test */
+    public function memory()
+    {
+        $G2 = (new Memory2G)->showSize();
+        $this->assertTrue($G2 instanceof Memory);
+
+        $G4 = (new Memory4G)->showSize();
+        $this->assertTrue($G4 instanceof Memory);
+
+        $G8 = (new Memory8G)->showSize();
+        $this->assertTrue($G8 instanceof Memory);
+    }
+
     /** @test */
     public function hardDisk()
     {
