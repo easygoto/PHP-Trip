@@ -6,26 +6,12 @@ namespace Trink\Dp\Filter\Workflow;
 use ReflectionClass;
 use ReflectionException;
 
-class Leave
+abstract class Process
 {
-    /** @var int $days */
-    private $days;
-
     /** @var Worker[] $workers */
-    private $workers = [];
+    protected $workers = [];
 
-    public function getDays(): int
-    {
-        return $this->days;
-    }
-
-    public function setDays(int $days): Leave
-    {
-        $this->days = $days;
-        return $this;
-    }
-
-    public function addWorker($workers): Leave
+    public function addWorker($workers): Process
     {
         if (is_array($workers)) {
             $this->workers = array_merge($this->workers, array_map(function ($worker) {
@@ -45,11 +31,5 @@ class Leave
         return $this->workers;
     }
 
-    public function exec(): Leave
-    {
-        foreach ($this->workers as $worker) {
-            $worker->handleLeave($this->days);
-        }
-        return $this;
-    }
+    abstract public function exec(): Process;
 }

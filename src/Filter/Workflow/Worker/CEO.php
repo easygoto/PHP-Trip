@@ -1,7 +1,9 @@
 <?php
 
 
-namespace Trink\Dp\Filter\Workflow;
+namespace Trink\Dp\Filter\Workflow\Worker;
+
+use Trink\Dp\Filter\Workflow\Worker;
 
 class CEO implements Worker
 {
