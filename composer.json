@@ -1,12 +1,12 @@
 {
   "autoload": {
     "psr-4": {
-      "Trink\\Dp\\": "src"
+      "Trink\\Dp\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Tests\\": "tests/"
+      "Tests\\Dp\\": "tests/"
     }
   },
   "require": {

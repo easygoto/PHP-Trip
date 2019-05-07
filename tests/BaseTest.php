@@ -1,6 +1,6 @@
 <?php
 
-namespace Dp\Test;
+namespace Tests\Dp;
 
 use PHPUnit\Framework\TestCase;
 use Trink\Dp\Composite\Demo\Archer;
