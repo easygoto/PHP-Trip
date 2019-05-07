@@ -4,11 +4,11 @@
 namespace Dp\Test;
 
 use PHPUnit\Framework\TestCase;
-use Trink\Dp\Filter\Workflow\CEO;
-use Trink\Dp\Filter\Workflow\Director;
-use Trink\Dp\Filter\Workflow\Leader;
-use Trink\Dp\Filter\Workflow\Leave;
-use Trink\Dp\Filter\Workflow\Manager;
+use Trink\Dp\Filter\Workflow\Process\Leave;
+use Trink\Dp\Filter\Workflow\Worker\CEO;
+use Trink\Dp\Filter\Workflow\Worker\Director;
+use Trink\Dp\Filter\Workflow\Worker\Leader;
+use Trink\Dp\Filter\Workflow\Worker\Manager;
 
 class FilterTest extends TestCase
 {
