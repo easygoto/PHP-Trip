@@ -4,8 +4,9 @@
 namespace Dp\Test;
 
 use PHPUnit\Framework\TestCase;
-use Trink\Dp\AbstractFactory\ComputerSetting\Computer\High4PC;
-use Trink\Dp\AbstractFactory\ComputerSetting\Computer\Low4PC;
+use Trink\Dp\AbstractFactory\ComputerSetting\Computer;
+use Trink\Dp\AbstractFactory\ComputerSetting\Computer\HighPC;
+use Trink\Dp\AbstractFactory\ComputerSetting\Computer\LowPC;
 use Trink\Dp\AbstractFactory\ComputerSetting\CPU;
 use Trink\Dp\AbstractFactory\ComputerSetting\CPU\CPU2400MHzCore4;
 use Trink\Dp\AbstractFactory\ComputerSetting\CPU\CPU4000MHzCore8;
@@ -61,26 +62,16 @@ class AbstractFactoryTest extends TestCase
     /** @test */
     public function high()
     {
-        $highPC = new High4PC();
-        $highPC->cpu()->showCore()->showFrequency();
-        $highPC->hardDisk()->showSize()->showSpeed();
-        array_map(function ($memory) {
-            /** @var Memory $memory */
-            $memory->showSize();
-        }, $highPC->memory());
-        $this->assertTrue(true);
+        $highPC = HighPC::instance()->info();
+        $this->assertTrue($highPC instanceof HighPC);
+        $this->assertTrue($highPC instanceof Computer);
     }
 
     /** @test */
     public function low()
     {
-        $highPC = new Low4PC();
-        $highPC->cpu()->showCore()->showFrequency();
-        $highPC->hardDisk()->showSize()->showSpeed();
-        array_map(function ($memory) {
-            /** @var Memory $memory */
-            $memory->showSize();
-        }, $highPC->memory());
-        $this->assertTrue(true);
+        $lowPC = LowPC::instance()->info();
+        $this->assertTrue($lowPC instanceof LowPC);
+        $this->assertTrue($lowPC instanceof Computer);
     }
 }
