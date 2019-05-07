@@ -4,6 +4,11 @@
       "Trink\\Dp\\": "src"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
   "require": {
     "phpunit/phpunit": "^8.1.3"
   }
