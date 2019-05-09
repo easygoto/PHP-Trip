@@ -23,7 +23,7 @@ class ComposerStaticInitfc015b9dfd4caa0944ea72d6c5876ac7
         'T' => 
         array (
             'Trink\\Dp\\' => 9,
-            'Tests\\' => 6,
+            'Tests\\Dp\\' => 9,
         ),
         'S' => 
         array (
@@ -51,7 +51,7 @@ class ComposerStaticInitfc015b9dfd4caa0944ea72d6c5876ac7
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'Tests\\' => 
+        'Tests\\Dp\\' => 
         array (
             0 => __DIR__ . '/../..' . '/tests',
         ),
