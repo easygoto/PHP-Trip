@@ -19,9 +19,9 @@ class CommandContext
         return $this;
     }
 
-    public function get($key)
+    public function get($key, $dev = '')
     {
-        return $this->params[$key];
+        return $this->params[$key] ?? $dev;
     }
 
     public function getError(): string
