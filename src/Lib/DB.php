@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Demo\Util;
+namespace Trink\Demo\Lib;
 
 use Upfor\Juggler\Juggler;
 
