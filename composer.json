@@ -4,6 +4,11 @@
       "Trink\\Demo\\": "src"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Test\\Demo\\": "tests"
+    }
+  },
   "require": {
     "phpunit/phpunit": "^8.1",
     "ext-json": "^1.7",
