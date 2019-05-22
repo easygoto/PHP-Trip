@@ -7,8 +7,10 @@ use PHPUnit\Framework\TestCase;
 use Redis;
 use ReflectionClass;
 use ReflectionObject;
-use Trink\Demo\Util\DB;
+use Trink\Demo\Lib\DB;
+use Trink\Demo\Lib\ReturnResult;
 use Trink\Demo\Test\Algorithm;
+use Trink\Demo\Test\FaceOrder;
 use Trink\Demo\Test\Node;
 use Trink\Demo\Test\Person;
 use ZipArchive;
@@ -41,10 +43,35 @@ class BaseTest extends TestCase
     }
 
     /** @test */
+    public function returnResult()
+    {
+
+        $result = ReturnResult::result(0, '213', ['1', '2', '3'], ['ss' => 'qq', 'as' => '21']);
+        echo $result->asJson();
+        $this->assertTrue(true);
+    }
+
+    /** @test */
+    public function orderPay()
+    {
+        FaceOrder::payByStore(123);
+        FaceOrder::pay();
+        $this->assertTrue(true);
+    }
+
+    /** @test */
+    public function date()
+    {
+        $now = strtotime('2020-01-31');
+        $this->assertEquals('2020-01-01', date('Y-m-d', strtotime('first day of this month', $now)));
+        $this->assertEquals('2020-02-29', date('Y-m-d', strtotime('last day of next month', $now)));
+    }
+
+    /** @test */
     public function zone2Db()
     {
         $zoneArray = [];
-        $fp      = fopen($this->res_dir . 'zone_code.csv', 'r');
+        $fp        = fopen($this->res_dir . 'zone_code.csv', 'r');
         while (($content = fgetcsv($fp)) != null) {
             $zoneArray[$content[1]] = $content[0];
         }
@@ -107,28 +134,28 @@ class BaseTest extends TestCase
     /** @test */
     public function patchAllMethod()
     {
-        $filename = $this->res_dir . 'wxapp.txt';
-        $docs     = file_get_contents($filename);
-        $pattern = "/public\s+?function\s+?doPage(\w+)\s*?\(\s*?\)/";
-        $total = preg_match_all($pattern, $docs, $matches, PREG_OFFSET_CAPTURE);
+        $filename   = $this->res_dir . 'wxapp.txt';
+        $docs       = file_get_contents($filename);
+        $pattern    = "/public\s+?function\s+?doPage(\w+)\s*?\(\s*?\)/";
+        $total      = preg_match_all($pattern, $docs, $matches, PREG_OFFSET_CAPTURE);
         $spaceCount = 8;
 
-        $methodList    = array_column($matches[1], 1, 0);
+        $methodList = array_column($matches[1], 1, 0);
 
         foreach ($methodList as $methodName => $methodTag) {
-            $inMethod        = false;
-            $tagCount        = 0;
+            $inMethod = false;
+            $tagCount = 0;
 
-            for ($currentIndex = $methodTag; $currentIndex < strlen($docs); $currentIndex ++) {
+            for ($currentIndex = $methodTag; $currentIndex < strlen($docs); $currentIndex++) {
                 $currentChar = $docs[$currentIndex];
                 if ($currentChar === '{') {
-                    $tagCount ++;
-                    if (! $inMethod) {
+                    $tagCount++;
+                    if (!$inMethod) {
                         $methodStart = $currentIndex + 1;
                         $inMethod    = true;
                     }
                 } elseif ($currentChar === '}') {
-                    $tagCount --;
+                    $tagCount--;
                 }
                 if ($inMethod && $tagCount === 0 && isset($methodStart)) {
                     $content = substr($docs, $methodStart, $currentIndex - $methodStart);
@@ -163,7 +190,7 @@ class BaseTest extends TestCase
     public function mergeSort()
     {
         $input = [];
-        for ($i = 0; $i < 2000; $i ++) {
+        for ($i = 0; $i < 2000; $i++) {
             array_push($input, mt_rand(0, 100000000));
         }
         Algorithm::mergeSort($input);
@@ -203,7 +230,7 @@ class BaseTest extends TestCase
     public function zip()
     {
         $filename = $this->res_dir . date('Y_m_d_H_i_s') . ".zip";
-        $zip = new ZipArchive();
+        $zip      = new ZipArchive();
         if ($zip->open($filename, ZipArchive::OVERWRITE) !== true) {
             if ($zip->open($filename, ZipArchive::CREATE) !== true) {
                 exit('无法打开文件，或者文件创建失败');
