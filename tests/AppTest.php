@@ -4,7 +4,7 @@
 namespace Test\Demo;
 
 use PHPUnit\Framework\TestCase;
-use Trink\Demo\Lib\Template\Template;
+use Trink\Demo\Component\Template\Template;
 
 class AppTest extends TestCase
 {
