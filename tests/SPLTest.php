@@ -92,7 +92,11 @@ class SPLTest extends TestCase
         print $queue->serialize() . "\n";
         $this->assertEquals(1, $queue->dequeue());
         print $queue->serialize() . "\n";
+    }
 
+    /** @test */
+    public function priorityQueue()
+    {
         // 根据第二个参数(优先级)排序的队列
         $priorityQueue = new SplPriorityQueue();
         $priorityQueue->insert(4563, 2);
