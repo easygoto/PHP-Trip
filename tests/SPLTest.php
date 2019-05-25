@@ -14,6 +14,7 @@ class SPLTest extends TestCase
     /** @test */
     public function doublyLinkedList()
     {
+        // SplDoublyLinkedList::flags = 0
         $linked_list = new SplDoublyLinkedList;
 
         // push 尾部加入
@@ -54,10 +55,66 @@ class SPLTest extends TestCase
     }
 
     /** @test */
-    public function test()
+    public function stack()
     {
+        // 继承 SplDoublyLinkedList 类，未添加方法
         $stack = new SplStack;
+
+        $stack->push(1);
+        $stack->push(3);
+        $stack->push(4);
+        $stack->push(7);
+        $stack->push(9);
+
+        // *SplDoublyLinkedList*flags = 6
+        print $stack->serialize();
+
+        $this->assertEquals(9, $stack->top());
+        $this->assertEquals(1, $stack->bottom());
+
+        $this->assertEquals(9, $stack->pop());
+        $this->assertEquals(7, $stack->top());
+        print $stack->serialize() . "\n";
+    }
+
+    /** @test */
+    public function queue()
+    {
+        // 继承 SplDoublyLinkedList 类
         $queue = new SplQueue();
+        $queue->enqueue(1);
+        $queue->enqueue(2);
+        $queue->enqueue(3);
+        $queue->enqueue(4);
+        $queue->enqueue(5);
+
+        // *SplDoublyLinkedList*flags = 4
+        print $queue->serialize() . "\n";
+        $this->assertEquals(1, $queue->dequeue());
+        print $queue->serialize() . "\n";
+
+        // 根据第二个参数(优先级)排序的队列
         $priorityQueue = new SplPriorityQueue();
+        $priorityQueue->insert(4563, 2);
+        $priorityQueue->insert(8563, 2);
+        $priorityQueue->insert(2776, 10);
+        $priorityQueue->insert(1324, 5);
+
+        $priorityQueue->rewind();
+        $this->assertEquals(2776, $priorityQueue->top());
+        $this->assertEquals(2776, $priorityQueue->current());
+        $priorityQueue->next();
+        $this->assertEquals(1324, $priorityQueue->current());
+
+        $priorityQueue->insert(8562, 3);
+        $priorityQueue->insert(5562, 4);
+        $priorityQueue->insert(7524, 4);
+
+        $priorityQueue->next();
+        $this->assertEquals(5562, $priorityQueue->current());
+        $priorityQueue->next();
+        $this->assertEquals(7524, $priorityQueue->current());
+        $priorityQueue->next();
+        $this->assertEquals(8562, $priorityQueue->current());
     }
 }
