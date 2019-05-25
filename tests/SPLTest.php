@@ -3,6 +3,7 @@
 
 namespace Test\Demo;
 
+use ArrayObject;
 use PHPUnit\Framework\TestCase;
 use SplDoublyLinkedList;
 use SplPriorityQueue;
@@ -120,5 +121,53 @@ class SPLTest extends TestCase
         $this->assertEquals(7524, $priorityQueue->current());
         $priorityQueue->next();
         $this->assertEquals(8562, $priorityQueue->current());
+    }
+
+    /** @test */
+    public function arrayIterator()
+    {
+        $fruit_list = [
+            'apple'  => 'apple value',
+            'orange' => 'orange value',
+            'grape'  => 'grape value',
+            'plum'   => 'plum value',
+        ];
+
+        $obj = new ArrayObject($fruit_list);
+        $it = $obj->getIterator();
+        foreach ($it as $key => $value) {
+            print "{$key} : {$value}\n";
+        }
+
+        print "\n---------------------\n\n";
+
+        $it->rewind();
+        while ($it->valid()) {
+            print "{$it->key()} : {$it->current()}\n";
+            $it->next();
+        }
+
+        print "\n---------------------\n\n";
+
+        $it->rewind();
+        if ($it->valid()) {
+            $it->seek(2);
+            while ($it->valid()) {
+                print "{$it->key()} : {$it->current()}\n";
+                $it->next();
+            }
+        }
+
+        print "\n---------------------\n\n";
+
+        $it->rewind();
+        $it->ksort();
+        while ($it->valid()) {
+            print "{$it->key()} : {$it->current()}\n";
+            $it->next();
+        }
+
+
+        $this->assertTrue(true);
     }
 }
