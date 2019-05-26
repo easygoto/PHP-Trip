@@ -13,6 +13,8 @@ use SplDoublyLinkedList;
 use SplPriorityQueue;
 use SplQueue;
 use SplStack;
+use Trink\Demo\Test\Counter;
+use Trink\Demo\Test\OuterImpl;
 
 class SPLTest extends TestCase
 {
@@ -31,7 +33,7 @@ class SPLTest extends TestCase
         // unshift 头部加入
         $linked_list->unshift(10);
         $linked_list->unshift(100);
-        $this->assertEquals(7, $linked_list->count());
+        $this->assertCount(7, $linked_list);
 
         // 指向头节点
         $linked_list->rewind();
@@ -72,8 +74,9 @@ class SPLTest extends TestCase
         $stack->push(9);
 
         // *SplDoublyLinkedList*flags = 6
-        print $stack->serialize();
+        print $stack->serialize() . "\n";
 
+        $this->assertCount(5, $stack);
         $this->assertEquals(9, $stack->top());
         $this->assertEquals(1, $stack->bottom());
 
@@ -228,12 +231,40 @@ class SPLTest extends TestCase
             printf(
                 "%-30s%-8s%15s  %s\n",
                 date('Y-m-d H:i:s', $fit->getMTime()),
-                ($fit->isDir() ? '<DIR>' : '<FILE>'),
+                ($fit->isDir() ? '[DIR]' : '[FILE]'),
                 number_format($fit->getSize()),
                 $fit->getFilename()
             );
             $fit->getPathname();
             $fit->next();
+        }
+        $this->assertTrue(true);
+    }
+
+    /** @test */
+    public function countable()
+    {
+        $list = [
+            ['id' => 1, 'name' => 'LiJ'],
+            ['id' => 2, 'name' => 'easy'],
+            ['id' => 3, 'name' => 'trink'],
+        ];
+        $this->assertCount(3, $list);
+        $this->assertCount(5, (new Counter));
+    }
+
+    /** @test */
+    public function outerIterator()
+    {
+        // 失败了，咋回事？
+        $outer = new OuterImpl(new ArrayObject([
+            'key1' => 'value1',
+            'key2' => 'value2',
+            'key3' => 'value3',
+        ]));
+        while ($outer->valid()) {
+            print "{$outer->key()}-{$outer->current()}\n";
+            $outer->next();
         }
         $this->assertTrue(true);
     }
