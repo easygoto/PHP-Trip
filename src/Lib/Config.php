@@ -31,9 +31,8 @@ class Config
     {
         if (!self::$instance instanceof self) {
             self::$instance = new self();
+            self::$instance->props = require_once dirname(dirname(__DIR__)) . '/config/config.php';
         }
-        $instance        = self::$instance;
-        $instance->props = require_once dirname(dirname(__DIR__)) . '/config/config.php';
         return self::$instance;
     }
 }

@@ -73,9 +73,9 @@ class ReturnResult
     }
 
     /**
-     * @return false|mixed|string
+     * @return array
      */
-    public function asJson()
+    public function asArray()
     {
         $properties      = [];
         $object          = new ReflectionObject($this);
@@ -84,8 +84,15 @@ class ReturnResult
         foreach ($field_name_list as $field_name) {
             $properties[$field_name] = $this->$field_name;
         }
-        $properties = array_merge($properties, get_object_vars($this));
-        return json_encode($properties);
+        return array_merge($properties, get_object_vars($this));
+    }
+
+    /**
+     * @return false|mixed|string
+     */
+    public function asJson()
+    {
+        return json_encode($this->asArray());
     }
 
     /**
@@ -97,9 +104,9 @@ class ReturnResult
      *
      * @return ReturnResult
      */
-    public static function fail(string $msg, array $debug, int $status = 1): ReturnResult
+    public static function fail(string $msg, array $debug = [], int $status = 1): ReturnResult
     {
-        $message        = new self($status, $msg, null);
+        $message        = new self($status, $msg, []);
         $message->debug = $debug;
         return $message;
     }
@@ -113,7 +120,7 @@ class ReturnResult
      *
      * @return ReturnResult
      */
-    public static function success(array $data, string $msg = '', int $status = 0): ReturnResult
+    public static function success(array $data = [], string $msg = '', int $status = 0): ReturnResult
     {
         return new self($status, $msg, $data);
     }
