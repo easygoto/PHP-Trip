@@ -9,6 +9,8 @@ use ArrayObject;
 use FilesystemIterator;
 use MultipleIterator;
 use PHPUnit\Framework\TestCase;
+use RecursiveIterator;
+use SeekableIterator;
 use SplDoublyLinkedList;
 use SplPriorityQueue;
 use SplQueue;
@@ -266,6 +268,13 @@ class SPLTest extends TestCase
             print "{$outer->key()}-{$outer->current()}\n";
             $outer->next();
         }
+        $this->assertTrue(true);
+    }
+
+    public function others()
+    {
+        RecursiveIterator::class; // 接口，多层结构遍历
+        SeekableIterator::class; // 接口，迭代器中定位
         $this->assertTrue(true);
     }
 }
