@@ -275,6 +275,5 @@ class SPLTest extends TestCase
     {
         RecursiveIterator::class; // 接口，多层结构遍历
         SeekableIterator::class; // 接口，迭代器中定位
-        $this->assertTrue(true);
     }
 }
