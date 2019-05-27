@@ -20,10 +20,6 @@ class ComposerStaticInite4d70f376bc1b7e48b5009d53877f1c2
         array (
             'Webmozart\\Assert\\' => 17,
         ),
-        'U' => 
-        array (
-            'Upfor\\Juggler\\' => 14,
-        ),
         'T' => 
         array (
             'Trink\\Demo\\' => 11,
@@ -32,6 +28,10 @@ class ComposerStaticInite4d70f376bc1b7e48b5009d53877f1c2
         'S' => 
         array (
             'Symfony\\Polyfill\\Ctype\\' => 23,
+        ),
+        'M' => 
+        array (
+            'Medoo\\' => 6,
         ),
         'D' => 
         array (
@@ -51,10 +51,6 @@ class ComposerStaticInite4d70f376bc1b7e48b5009d53877f1c2
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
         ),
-        'Upfor\\Juggler\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/upfor/juggler/src',
-        ),
         'Trink\\Demo\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
@@ -66,6 +62,10 @@ class ComposerStaticInite4d70f376bc1b7e48b5009d53877f1c2
         'Symfony\\Polyfill\\Ctype\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
+        'Medoo\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/catfan/medoo/src',
         ),
         'Doctrine\\Instantiator\\' => 
         array (
