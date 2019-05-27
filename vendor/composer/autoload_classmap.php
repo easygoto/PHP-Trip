@@ -6,7 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Help' => $vendorDir . '/phpunit/phpunit/src/Util/Help.php',
     'PHPUnit\\Exception' => $vendorDir . '/phpunit/phpunit/src/Exception.php',
     'PHPUnit\\Framework\\Assert' => $vendorDir . '/phpunit/phpunit/src/Framework/Assert.php',
     'PHPUnit\\Framework\\AssertionFailedError' => $vendorDir . '/phpunit/phpunit/src/Framework/AssertionFailedError.php',
@@ -161,7 +160,7 @@ return array(
     'PHPUnit\\Runner\\Filter\\IncludeGroupFilterIterator' => $vendorDir . '/phpunit/phpunit/src/Runner/Filter/IncludeGroupFilterIterator.php',
     'PHPUnit\\Runner\\Filter\\NameFilterIterator' => $vendorDir . '/phpunit/phpunit/src/Runner/Filter/NameFilterIterator.php',
     'PHPUnit\\Runner\\Hook' => $vendorDir . '/phpunit/phpunit/src/Runner/Hook/Hook.php',
-    'PHPUnit\\Runner\\NullTestResultCache' => $vendorDir . '/phpunit/phpunit/src/Util/NullTestResultCache.php',
+    'PHPUnit\\Runner\\NullTestResultCache' => $vendorDir . '/phpunit/phpunit/src/Runner/NullTestResultCache.php',
     'PHPUnit\\Runner\\PhptTestCase' => $vendorDir . '/phpunit/phpunit/src/Runner/PhptTestCase.php',
     'PHPUnit\\Runner\\ResultCacheExtension' => $vendorDir . '/phpunit/phpunit/src/Runner/ResultCacheExtension.php',
     'PHPUnit\\Runner\\StandardTestSuiteLoader' => $vendorDir . '/phpunit/phpunit/src/Runner/StandardTestSuiteLoader.php',
@@ -172,6 +171,7 @@ return array(
     'PHPUnit\\Runner\\TestSuiteSorter' => $vendorDir . '/phpunit/phpunit/src/Runner/TestSuiteSorter.php',
     'PHPUnit\\Runner\\Version' => $vendorDir . '/phpunit/phpunit/src/Runner/Version.php',
     'PHPUnit\\TextUI\\Command' => $vendorDir . '/phpunit/phpunit/src/TextUI/Command.php',
+    'PHPUnit\\TextUI\\Help' => $vendorDir . '/phpunit/phpunit/src/TextUI/Help.php',
     'PHPUnit\\TextUI\\ResultPrinter' => $vendorDir . '/phpunit/phpunit/src/TextUI/ResultPrinter.php',
     'PHPUnit\\TextUI\\TestRunner' => $vendorDir . '/phpunit/phpunit/src/TextUI/TestRunner.php',
     'PHPUnit\\Util\\Blacklist' => $vendorDir . '/phpunit/phpunit/src/Util/Blacklist.php',

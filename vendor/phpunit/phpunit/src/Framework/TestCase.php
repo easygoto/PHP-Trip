@@ -54,7 +54,7 @@ use SebastianBergmann\ObjectEnumerator\Enumerator;
 use Text_Template;
 use Throwable;
 
-abstract class TestCase extends Assert implements Test, SelfDescribing
+abstract class TestCase extends Assert implements SelfDescribing, Test
 {
     private const LOCALE_CATEGORIES = [\LC_ALL, \LC_COLLATE, \LC_CTYPE, \LC_MONETARY, \LC_NUMERIC, \LC_TIME];
 
@@ -920,7 +920,7 @@ abstract class TestCase extends Assert implements Test, SelfDescribing
 
         \clearstatcache();
 
-        if ($currentWorkingDirectory != \getcwd()) {
+        if ($currentWorkingDirectory !== \getcwd()) {
             \chdir($currentWorkingDirectory);
         }
 
@@ -1778,17 +1778,17 @@ abstract class TestCase extends Assert implements Test, SelfDescribing
 
                 if (!isset($passedKeys[$dependency])) {
                     if (!\is_callable($dependency, false, $callableName) || $dependency !== $callableName) {
-                        $this->markWarningForUncallableDependency($dependency);
+                        $this->warnAboutDependencyThatDoesNotExist($dependency);
                     } else {
-                        $this->markSkippedForMissingDependecy($dependency);
+                        $this->markSkippedForMissingDependency($dependency);
                     }
 
                     return false;
                 }
 
                 if (isset($passed[$dependency])) {
-                    if ($passed[$dependency]['size'] != \PHPUnit\Util\Test::UNKNOWN &&
-                        $this->getSize() != \PHPUnit\Util\Test::UNKNOWN &&
+                    if ($passed[$dependency]['size'] !== \PHPUnit\Util\Test::UNKNOWN &&
+                        $this->getSize() !== \PHPUnit\Util\Test::UNKNOWN &&
                         $passed[$dependency]['size'] > $this->getSize()) {
                         $this->result->addError(
                             $this,
@@ -1820,10 +1820,12 @@ abstract class TestCase extends Assert implements Test, SelfDescribing
         return true;
     }
 
-    private function markSkippedForMissingDependecy(string $dependency): void
+    private function markSkippedForMissingDependency(string $dependency): void
     {
         $this->status = BaseTestRunner::STATUS_SKIPPED;
+
         $this->result->startTest($this);
+
         $this->result->addError(
             $this,
             new SkippedTestError(
@@ -1834,13 +1836,16 @@ abstract class TestCase extends Assert implements Test, SelfDescribing
             ),
             0
         );
+
         $this->result->endTest($this, 0);
     }
 
-    private function markWarningForUncallableDependency(string $dependency): void
+    private function warnAboutDependencyThatDoesNotExist(string $dependency): void
     {
         $this->status = BaseTestRunner::STATUS_WARNING;
+
         $this->result->startTest($this);
+
         $this->result->addWarning(
             $this,
             new Warning(
@@ -1851,6 +1856,7 @@ abstract class TestCase extends Assert implements Test, SelfDescribing
             ),
             0
         );
+
         $this->result->endTest($this, 0);
     }
 
@@ -1908,7 +1914,7 @@ abstract class TestCase extends Assert implements Test, SelfDescribing
             return;
         }
 
-        $this->snapshot = $this->createGlobalStateSnapshot($this->backupGlobals);
+        $this->snapshot = $this->createGlobalStateSnapshot($this->backupGlobals === true);
     }
 
     /**
@@ -1926,7 +1932,7 @@ abstract class TestCase extends Assert implements Test, SelfDescribing
             try {
                 $this->compareGlobalStateSnapshots(
                     $this->snapshot,
-                    $this->createGlobalStateSnapshot($this->backupGlobals)
+                    $this->createGlobalStateSnapshot($this->backupGlobals === true)
                 );
             } catch (RiskyTestError $rte) {
                 // Intentionally left empty

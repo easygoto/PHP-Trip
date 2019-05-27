@@ -2,6 +2,24 @@
 
 All notable changes of the PHPUnit 8.1 release series are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [8.1.5] - 2019-05-14
+
+### Fixed
+
+* Fixed [#3683](https://github.com/sebastianbergmann/phpunit/issues/3683): Regression in PHPUnit 8.1.4 with regard to Exception stubbing/mocking
+
+## [8.1.4] - 2019-05-09
+
+### Fixed
+
+* Fixed [#3414](https://github.com/sebastianbergmann/phpunit/pull/3414): `willThrowException()` only accepts `Exception`, not `Throwable`
+* Fixed [#3559](https://github.com/sebastianbergmann/phpunit/issues/3559): No diff for failed PHPT EXPECT
+* Fixed [#3587](https://github.com/sebastianbergmann/phpunit/issues/3587): `.phpunit.result.cache` file is all over the place
+* Fixed [#3596](https://github.com/sebastianbergmann/phpunit/issues/3596): Mocking an interface that extends another interface forgets to mock its own methods
+* Fixed [#3599](https://github.com/sebastianbergmann/phpunit/issues/3599): Type error in `TestCase::createGlobalStateSnapshot()`
+* Fixed [#3614](https://github.com/sebastianbergmann/phpunit/pull/3599): `PHPUnit\Framework\Constraint\Attribute` should be deprecated (and ignored from code coverage)
+* Fixed [#3674](https://github.com/sebastianbergmann/phpunit/issues/3674): `TypeError` when an incorrect file path is given
+
 ## [8.1.3] - 2019-04-19
 
 ### Fixed
@@ -35,7 +53,9 @@ All notable changes of the PHPUnit 8.1 release series are documented in this fil
 
 * The `groups` attribute on the `test` element in the TestDox XML report is now deprecated
 
-[8.1.3]: https://github.com/sebastianbergmann/phpunit/compare/8.1.3...8.1.3
+[8.1.5]: https://github.com/sebastianbergmann/phpunit/compare/8.1.4...8.1.5
+[8.1.4]: https://github.com/sebastianbergmann/phpunit/compare/8.1.3...8.1.4
+[8.1.3]: https://github.com/sebastianbergmann/phpunit/compare/8.1.2...8.1.3
 [8.1.2]: https://github.com/sebastianbergmann/phpunit/compare/8.1.1...8.1.2
 [8.1.1]: https://github.com/sebastianbergmann/phpunit/compare/8.1.0...8.1.1
 [8.1.0]: https://github.com/sebastianbergmann/phpunit/compare/8.0.6...8.1.0
