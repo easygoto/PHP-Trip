@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
 use RecursiveIterator;
 use SeekableIterator;
 use SplDoublyLinkedList;
+use SplMinHeap;
 use SplPriorityQueue;
 use SplQueue;
 use SplStack;
@@ -130,6 +131,26 @@ class SPLTest extends TestCase
         $this->assertEquals(7524, $priorityQueue->current());
         $priorityQueue->next();
         $this->assertEquals(8562, $priorityQueue->current());
+    }
+
+    /** @test */
+    public function minHeap()
+    {
+        $heap = new SplMinHeap();
+
+        $heap->insert(5);
+        $heap->insert(4);
+        $heap->insert(1);
+        $heap->insert(3);
+        $heap->insert(7);
+        $heap->insert(6);
+        $heap->insert(9);
+
+        while ($heap->valid()) {
+            echo $heap->extract();
+        }
+
+        $this->assertTrue(true);
     }
 
     /** @test */
