@@ -32,20 +32,39 @@ class BaseTest extends TestCase
 
     public function test()
     {
-        $result = DB::instance()
-            ->table('order')
-            ->where([
-                'id' => 12,
-            ])
-            ->getRow();
-        var_dump($result);
+        $arr = [
+            [
+                'id'  => 19,
+                'num' => 2,
+            ],
+            [
+                'id'  => 20,
+                'num' => 5,
+            ],
+            [
+                'id'  => 21,
+                'num' => 3,
+            ],
+            [
+                'id'  => 20,
+                'num' => 3,
+            ],
+        ];
+        $handle_arr = array_reduce($arr, function ($result, $value) {
+            if (isset($result[$value['id']])) {
+                $result[$value['id']] += (int)$value['num'];
+            } else {
+                $result[$value['id']] = (int)$value['num'];
+            }
+            return $result;
+        });
+        print_r($handle_arr);
         $this->assertTrue(true);
     }
 
     /** @test */
     public function returnResult()
     {
-
         $result = ReturnResult::result(0, '213', ['1', '2', '3'], ['ss' => 'qq', 'as' => '21']);
         echo $result->asJson();
         $this->assertTrue(true);

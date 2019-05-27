@@ -10,7 +10,7 @@ class SpikeTest extends TestCase
     /** @test */
     public function mysql()
     {
-        require_once './spike/mysql.php';
+        require_once __DIR__ . '/spike/mysql.php';
         $this->assertTrue(true);
     }
 }
