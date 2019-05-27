@@ -3,7 +3,7 @@
 
 namespace Trink\Demo\Lib;
 
-use Upfor\Juggler\Juggler;
+use Medoo\Medoo;
 
 class DB
 {
@@ -17,17 +17,17 @@ class DB
     {
     }
 
-    public static function instance(): Juggler
+    public static function instance(): Medoo
     {
         if (!self::$instance instanceof self) {
             $db = Config::instance()->db;
 
-            self::$instance = new Juggler([
-                'host'     => $db['host'],
-                'username' => $db['user'],
-                'password' => $db['pass'],
-                'dbname'   => $db['name'],
-                'charset'  => $db['charset'],
+            self::$instance = new Medoo([
+                'database_type' => 'mysql',
+                'database_name' => $db['name'],
+                'server'        => $db['host'],
+                'username'      => $db['user'],
+                'password'      => $db['pass'],
             ]);
         }
         return self::$instance;

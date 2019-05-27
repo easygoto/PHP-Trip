@@ -47,18 +47,18 @@ class Spike
             return ReturnResult::fail('非正常订单(3)')->asArray();
         }
 
-        if (!$db->beginTransaction()) {
+        if (!$db->pdo->beginTransaction()) {
             return ReturnResult::fail('系统维护中...')->asArray();
         }
 
         $message_list = [];
         try {
             // 2、取出当前订单信息，进一步判断库存
-            $goods_list = $db->table('goods')->where([
+            $goods_list = $db->select('goods', '*', [
                 'id'        => array_keys($goods_id_num_list),
                 'status'    => 1,
                 'is_delete' => 0,
-            ])->getList();
+            ]);
 
             if ((count($goods_id_num_list) != count($goods_list))) {
                 throw new Exception('秒杀失败，商品出错');
@@ -87,7 +87,7 @@ class Spike
                 return (float)$result + (float)$goods['selling_price'] * (int)$goods['goods_num'];
             }), 2);
 
-            $order_id = $db->table('order')->insert([
+            $order_insert_result = $db->insert('order', [
                 'uid'         => (int)$uid,
                 'order_sn'    => $order_sn,
                 'total_price' => (float)$total_price,
@@ -97,12 +97,13 @@ class Spike
                 'status'      => 1,
                 'is_delete'   => 0,
             ]);
-            if (!$order_id) {
+            if (!$order_insert_result) {
                 throw new Exception('订单添加失败');
             }
+            $order_id = $db->id();
 
             foreach ($goods_list as $key => $goods) {
-                if (!$db->table('order_goods')->insert([
+                if (!$db->insert('order_goods', [
                     'order_id'      => (int)$order_id,
                     'goods_id'      => (int)$goods['id'],
                     'goods_name'    => $goods['name'],
@@ -117,19 +118,19 @@ class Spike
 
             // 4、商品表减去相应的库存
             foreach ($goods_list as $goods) {
-                $goods_id  = (int)$goods['id'];
-                $goods_num = (int)$goods['goods_num'];
-                if (!$db->exec(/** @lang text */
-                    "UPDATE `goods` SET `inventory` = `inventory` - {$goods_num} WHERE `id` = {$goods_id}"
-                )) {
+                if (!$db->update('goods', [
+                    'inventory[-]' => (int)$goods['goods_num'],
+                ], [
+                    'id' => (int)$goods['id'],
+                ])) {
                     throw new Exception('商品库存更新失败');
                 }
             }
 
-            $db->commit();
+            $db->pdo->commit();
             return ReturnResult::success([], '秒杀成功')->asArray();
         } catch (Exception $e) {
-            $db->rollBack();
+            $db->pdo->rollBack();
             return ReturnResult::fail($e->getMessage(), ['message' => $message_list])->asArray();
         }
     }
