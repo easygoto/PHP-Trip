@@ -6,4 +6,5 @@ return [
     'pass'    => '123123',
     'name'    => 'test',
     'charset' => 'utf8',
+    'prefix'  => '',
 ];
