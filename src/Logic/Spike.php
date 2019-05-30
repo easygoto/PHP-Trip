@@ -56,8 +56,7 @@ class Spike
                 ->whereIn('id', array_keys($goods_id_num_list))
                 ->where('status', '=', 1)
                 ->where('is_delete', '=', 0)
-                ->get()
-                ->all();
+                ->get()->toArray();
 
             if ((count($goods_id_num_list) != count($goods_list))) {
                 throw new Exception('秒杀失败，商品出错');
@@ -69,7 +68,13 @@ class Spike
                 $goods_num  = $goods_id_num_list[$goods_id];
 
                 // 将订单中的 num 加到数组中，之后加减库存时需要用到
-                $goods_list[$key]['goods_num'] = $goods_num;
+                if (is_array($goods_list[$key])) {
+                    $goods_list[$key]['goods_num'] = $goods_num;
+                } elseif (is_object($goods_list[$key])) {
+                    $goods_list[$key]->goods_num = $goods_num;
+                } else {
+                    $message_list[$goods_id] = '商品异常';
+                }
 
                 if (ArrayHelper::getInteger($goods, 'inventory') < $goods_num) {
                     $message_list[$goods_id] = $goods_name . '库存不足';
@@ -83,7 +88,9 @@ class Spike
             $now_time    = date('Y-m-d H:i:s');
             $order_sn    = date('YmdHis') . mt_rand(10000000, 99999999);
             $total_price = number_format(array_reduce($goods_list, function ($result, $goods) {
-                return (float)$result + (float)$goods['selling_price'] * (int)$goods['goods_num'];
+                return (float)$result +
+                    ArrayHelper::getDigits($goods, 'selling_price') *
+                    ArrayHelper::getInteger($goods, 'goods_num');
             }), 2);
 
             $order_id = $db->table('order')
@@ -101,24 +108,27 @@ class Spike
                 throw new Exception('订单添加失败');
             }
 
+            $current_goods_list = [];
             foreach ($goods_list as $key => $goods) {
-                if (!$db->table('order_goods')->insert([
+                $current_goods_list[] = [
                     'order_id'      => (int)$order_id,
-                    'goods_id'      => (int)$goods['id'],
-                    'goods_name'    => $goods['name'],
-                    'wholesale'     => (float)$goods['wholesale'],
-                    'selling_price' => (float)$goods['selling_price'],
-                    'market_price'  => (float)$goods['market_price'],
-                    'goods_num'     => (int)$goods['goods_num'],
-                ])) {
-                    throw new Exception('订单商品添加失败');
-                };
+                    'goods_id'      => ArrayHelper::getInteger($goods, 'id'),
+                    'goods_name'    => ArrayHelper::getValue($goods, 'name'),
+                    'wholesale'     => ArrayHelper::getDigits($goods, 'wholesale'),
+                    'selling_price' => ArrayHelper::getDigits($goods, 'selling_price'),
+                    'market_price'  => ArrayHelper::getDigits($goods, 'market_price'),
+                    'goods_num'     => ArrayHelper::getInteger($goods, 'goods_num'),
+                ];
             }
+            if (!$db->table('order_goods')->insert($current_goods_list)) {
+                throw new Exception('订单商品添加失败');
+            };
 
             // 4、商品表减去相应的库存
             foreach ($goods_list as $goods) {
                 if (!$db->table('goods')
-                    ->decrement('inventory', (int)$goods['goods_num'], ['id' => (int)$goods['id']])
+                    ->where('id', '=', ArrayHelper::getInteger($goods, 'id'))
+                    ->decrement('inventory', ArrayHelper::getInteger($goods, 'goods_num'))
                 ) {
                     throw new Exception('商品库存更新失败');
                 }
