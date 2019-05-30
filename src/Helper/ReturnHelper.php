@@ -1,20 +1,20 @@
 <?php
 
-namespace Trink\Demo\Lib;
+namespace Trink\Demo\Helper;
 
 use ReflectionObject;
 
 /**
  * @property array debug
  */
-class ReturnResult
+class ReturnHelper
 {
     private $status;
     private $msg;
     private $data;
 
     /**
-     * ReturnResult constructor.
+     * ReturnHelper constructor.
      *
      * @param int    $status
      * @param string $msg
@@ -102,9 +102,9 @@ class ReturnResult
      * @param array  $debug  调试信息
      * @param int    $status 状态码
      *
-     * @return ReturnResult
+     * @return ReturnHelper
      */
-    public static function fail(string $msg, array $debug = [], int $status = 1): ReturnResult
+    public static function fail(string $msg, array $debug = [], int $status = 1): ReturnHelper
     {
         $message        = new self($status, $msg, []);
         $message->debug = $debug;
@@ -118,9 +118,9 @@ class ReturnResult
      * @param string $msg    返回消息
      * @param int    $status 状态码
      *
-     * @return ReturnResult
+     * @return ReturnHelper
      */
-    public static function success(array $data = [], string $msg = '', int $status = 0): ReturnResult
+    public static function success(array $data = [], string $msg = '', int $status = 0): ReturnHelper
     {
         return new self($status, $msg, $data);
     }
@@ -133,9 +133,9 @@ class ReturnResult
      * @param array  $data   返回数据
      * @param array  $extra  扩展使用
      *
-     * @return ReturnResult
+     * @return ReturnHelper
      */
-    public static function result(int $status, string $msg, array $data, array $extra = []): ReturnResult
+    public static function result(int $status, string $msg, array $data, array $extra = []): ReturnHelper
     {
         $message = new self($status, $msg, $data);
         foreach ($extra as $key => $value) {

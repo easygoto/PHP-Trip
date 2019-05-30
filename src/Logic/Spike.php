@@ -4,9 +4,9 @@
 namespace Trink\Demo\Logic;
 
 use Exception;
-use Trink\Demo\Lib\ArrayHelper;
+use Trink\Demo\Helper\ArrayHelper;
+use Trink\Demo\Helper\ReturnHelper;
 use Trink\Demo\Lib\DB;
-use Trink\Demo\Lib\ReturnResult;
 
 class Spike
 {
@@ -23,7 +23,7 @@ class Spike
         $db = DB::instance();
         // 1、校验订单
         if (!is_array($goods_order) || empty($goods_order)) {
-            return ReturnResult::fail('非正常订单(1)', ['order' => $goods_order])->asArray();
+            return ReturnHelper::fail('非正常订单(1)', ['order' => $goods_order])->asArray();
         }
 
         $check_result = [];
@@ -39,16 +39,16 @@ class Spike
             }
         }
         if (!empty($check_result)) {
-            return ReturnResult::fail('非正常订单(2)', ['check' => $check_result])->asArray();
+            return ReturnHelper::fail('非正常订单(2)', ['check' => $check_result])->asArray();
         }
 
         $goods_id_num_list = array_column($goods_order, 'goods_num', 'goods_id');
         if (count($goods_id_num_list) != count($goods_order)) {
-            return ReturnResult::fail('非正常订单(3)')->asArray();
+            return ReturnHelper::fail('非正常订单(3)')->asArray();
         }
 
         if (!$db->pdo->beginTransaction()) {
-            return ReturnResult::fail('系统维护中...')->asArray();
+            return ReturnHelper::fail('系统维护中...')->asArray();
         }
 
         $message_list = [];
@@ -128,10 +128,10 @@ class Spike
             }
 
             $db->pdo->commit();
-            return ReturnResult::success([], '秒杀成功')->asArray();
+            return ReturnHelper::success([], '秒杀成功')->asArray();
         } catch (Exception $e) {
             $db->pdo->rollBack();
-            return ReturnResult::fail($e->getMessage(), ['message' => $message_list])->asArray();
+            return ReturnHelper::fail($e->getMessage(), ['message' => $message_list])->asArray();
         }
     }
 }

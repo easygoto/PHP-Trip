@@ -7,8 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Redis;
 use ReflectionClass;
 use ReflectionObject;
-use Trink\Demo\Lib\DB;
-use Trink\Demo\Lib\ReturnResult;
+use Trink\Demo\Helper\ReturnHelper;
 use Trink\Demo\Test\Algorithm;
 use Trink\Demo\Test\FaceOrder;
 use Trink\Demo\Test\Node;
@@ -32,7 +31,7 @@ class BaseTest extends TestCase
 
     public function test()
     {
-        $arr = [
+        $arr        = [
             [
                 'id'  => 19,
                 'num' => 2,
@@ -63,9 +62,9 @@ class BaseTest extends TestCase
     }
 
     /** @test */
-    public function returnResult()
+    public function returnHelper()
     {
-        $result = ReturnResult::result(0, '213', ['1', '2', '3'], ['ss' => 'qq', 'as' => '21']);
+        $result = ReturnHelper::result(0, '213', ['1', '2', '3'], ['ss' => 'qq', 'as' => '21']);
         echo $result->asJson();
         $this->assertTrue(true);
     }
