@@ -20,7 +20,7 @@ class Spike
      */
     public static function mysql(int $uid, array $goods_order = [])
     {
-        $db = DB::instance();
+        $db = DB::capsule();
         // 1、校验订单
         if (!is_array($goods_order) || empty($goods_order)) {
             return ReturnHelper::fail('非正常订单(1)', ['order' => $goods_order])->asArray();
@@ -47,18 +47,17 @@ class Spike
             return ReturnHelper::fail('非正常订单(3)')->asArray();
         }
 
-        if (!$db->pdo->beginTransaction()) {
-            return ReturnHelper::fail('系统维护中...')->asArray();
-        }
-
         $message_list = [];
         try {
+            $db->beginTransaction();
+
             // 2、取出当前订单信息，进一步判断库存
-            $goods_list = $db->select('goods', '*', [
-                'id'        => array_keys($goods_id_num_list),
-                'status'    => 1,
-                'is_delete' => 0,
-            ]);
+            $goods_list = $db->table('goods')
+                ->whereIn('id', array_keys($goods_id_num_list))
+                ->where('status', '=', 1)
+                ->where('is_delete', '=', 0)
+                ->get()
+                ->all();
 
             if ((count($goods_id_num_list) != count($goods_list))) {
                 throw new Exception('秒杀失败，商品出错');
@@ -87,23 +86,23 @@ class Spike
                 return (float)$result + (float)$goods['selling_price'] * (int)$goods['goods_num'];
             }), 2);
 
-            $order_insert_result = $db->insert('order', [
-                'uid'         => (int)$uid,
-                'order_sn'    => $order_sn,
-                'total_price' => (float)$total_price,
-                'created_at'  => $now_time,
-                'updated_at'  => $now_time,
-                'operated_at' => $now_time,
-                'status'      => 1,
-                'is_delete'   => 0,
-            ]);
-            if (!$order_insert_result) {
+            $order_id = $db->table('order')
+                ->insertGetId([
+                    'uid'         => (int)$uid,
+                    'order_sn'    => $order_sn,
+                    'total_price' => (float)$total_price,
+                    'created_at'  => $now_time,
+                    'updated_at'  => $now_time,
+                    'operated_at' => $now_time,
+                    'status'      => 1,
+                    'is_delete'   => 0,
+                ]);
+            if (!$order_id) {
                 throw new Exception('订单添加失败');
             }
-            $order_id = $db->id();
 
             foreach ($goods_list as $key => $goods) {
-                if (!$db->insert('order_goods', [
+                if (!$db->table('order_goods')->insert([
                     'order_id'      => (int)$order_id,
                     'goods_id'      => (int)$goods['id'],
                     'goods_name'    => $goods['name'],
@@ -118,19 +117,20 @@ class Spike
 
             // 4、商品表减去相应的库存
             foreach ($goods_list as $goods) {
-                if (!$db->update('goods', [
-                    'inventory[-]' => (int)$goods['goods_num'],
-                ], [
-                    'id' => (int)$goods['id'],
-                ])) {
+                if (!$db->table('goods')
+                    ->decrement('inventory', (int)$goods['goods_num'], ['id' => (int)$goods['id']])
+                ) {
                     throw new Exception('商品库存更新失败');
                 }
             }
 
-            $db->pdo->commit();
+            $db->commit();
             return ReturnHelper::success([], '秒杀成功')->asArray();
         } catch (Exception $e) {
-            $db->pdo->rollBack();
+            try {
+                $db->rollBack();
+            } catch (Exception $e) {
+            }
             return ReturnHelper::fail($e->getMessage(), ['message' => $message_list])->asArray();
         }
     }
