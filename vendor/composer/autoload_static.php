@@ -42,6 +42,7 @@ class ComposerStaticInite4d70f376bc1b7e48b5009d53877f1c2
         array (
             'Psr\\SimpleCache\\' => 16,
             'Psr\\Container\\' => 14,
+            'Predis\\' => 7,
         ),
         'M' => 
         array (
@@ -50,7 +51,8 @@ class ComposerStaticInite4d70f376bc1b7e48b5009d53877f1c2
         'I' => 
         array (
             'Illuminate\\Support\\' => 19,
-            'Illuminate\\Events\\' => 18,
+            'Illuminate\\Redis\\' => 17,
+            'Illuminate\\Database\\' => 20,
             'Illuminate\\Contracts\\' => 21,
             'Illuminate\\Container\\' => 21,
         ),
@@ -113,6 +115,10 @@ class ComposerStaticInite4d70f376bc1b7e48b5009d53877f1c2
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
+        'Predis\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/predis/predis/src',
+        ),
         'Medoo\\' => 
         array (
             0 => __DIR__ . '/..' . '/catfan/medoo/src',
@@ -121,9 +127,13 @@ class ComposerStaticInite4d70f376bc1b7e48b5009d53877f1c2
         array (
             0 => __DIR__ . '/..' . '/illuminate/support',
         ),
-        'Illuminate\\Events\\' => 
+        'Illuminate\\Redis\\' => 
         array (
-            0 => __DIR__ . '/..' . '/illuminate/events',
+            0 => __DIR__ . '/..' . '/illuminate/redis',
+        ),
+        'Illuminate\\Database\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/illuminate/database',
         ),
         'Illuminate\\Contracts\\' => 
         array (

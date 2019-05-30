@@ -2,6 +2,17 @@
 
 All notable changes of the PHPUnit 8.1 release series are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
 
+## [8.1.6] - 2019-05-28
+
+### Changed
+
+* After each test, `libxml_clear_errors()` is now called to clear the libxml error buffer
+
+### Fixed
+
+* Fixed [#3694](https://github.com/sebastianbergmann/phpunit/pull/3694): Constructor arguments for `Throwable` and `Exception` are ignored
+* Fixed [#3709](https://github.com/sebastianbergmann/phpunit/pull/3709): Method-level `@coversNothing` annotation does not prevent code coverage data collection
+
 ## [8.1.5] - 2019-05-14
 
 ### Fixed
@@ -53,6 +64,7 @@ All notable changes of the PHPUnit 8.1 release series are documented in this fil
 
 * The `groups` attribute on the `test` element in the TestDox XML report is now deprecated
 
+[8.1.6]: https://github.com/sebastianbergmann/phpunit/compare/8.1.5...8.1.6
 [8.1.5]: https://github.com/sebastianbergmann/phpunit/compare/8.1.4...8.1.5
 [8.1.4]: https://github.com/sebastianbergmann/phpunit/compare/8.1.3...8.1.4
 [8.1.3]: https://github.com/sebastianbergmann/phpunit/compare/8.1.2...8.1.3

@@ -1,6 +1,12 @@
-# Changes in php-code-coverage 6.1
+# ChangeLog
 
-All notable changes of the php-code-coverage 6.1 release series are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
+All notable changes are documented in this file using the [Keep a CHANGELOG](http://keepachangelog.com/) principles.
+
+## [7.0.4] - 2019-05-29
+
+### Fixed
+
+* Fixed [#682](https://github.com/sebastianbergmann/php-code-coverage/pull/682): Code that is not executed is reported as being executed when using PCOV
 
 ## [7.0.3] - 2019-02-26
 
