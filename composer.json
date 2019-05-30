@@ -19,6 +19,8 @@
     "ext-mbstring": "^7.3",
     "ext-PDO": "^7.3",
     "ext-amqp": "^1.9",
-    "catfan/medoo": "^1.6"
+    "catfan/medoo": "^1.6",
+    "upfor/juggler": "^1.0",
+    "illuminate/events": "^5.8"
   }
 }
