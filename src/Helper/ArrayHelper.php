@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Demo\Helper;
+namespace Trink\Trip\Helper;
 
 class ArrayHelper
 {

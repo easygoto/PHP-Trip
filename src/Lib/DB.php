@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Demo\Lib;
+namespace Trink\Trip\Lib;
 
 use Illuminate\Database\Capsule\Manager as CapsuleManager;
 use Illuminate\Database\Connection as IlluminateConnection;

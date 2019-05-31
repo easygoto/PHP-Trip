@@ -1,0 +1,19 @@
+<?php
+
+
+namespace Trink\Trip\App\Demo;
+
+use IteratorIterator;
+
+class OuterImpl extends IteratorIterator
+{
+    public function current()
+    {
+        return parent::current() . 'outerImpl';
+    }
+
+    public function key()
+    {
+        return parent::key() . 'outerImpl';
+    }
+}

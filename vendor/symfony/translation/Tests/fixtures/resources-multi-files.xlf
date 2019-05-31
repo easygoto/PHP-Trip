@@ -5,17 +5,22 @@
       <trans-unit id="1">
         <source>foo</source>
         <target>bar</target>
-        <note priority="1">foo</note>
       </trans-unit>
-      <trans-unit id="2" resname="extra">
-        <source>extrasource</source>
-        <note from="foo">bar</note>
+    </body>
+  </file>
+  <file source-language="en" datatype="plaintext" original="otherfile.ext">
+    <body>
+      <trans-unit id="2">
+        <source>extra</source>
       </trans-unit>
-      <trans-unit id="123">
+      <trans-unit id="3">
         <source>key</source>
         <target></target>
-        <note>baz</note>
-        <note priority="2" from="bar">qux</note>
+      </trans-unit>
+      <trans-unit id="4">
+        <source>test</source>
+        <target>with</target>
+        <note>note</note>
       </trans-unit>
     </body>
   </file>

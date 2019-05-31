@@ -28,14 +28,15 @@ class ComposerStaticInite4d70f376bc1b7e48b5009d53877f1c2
         ),
         'T' => 
         array (
-            'Trink\\Demo\\' => 11,
-            'Test\\Demo\\' => 10,
+            'Trink\\Trip\\App\\' => 15,
+            'Trink\\Trip\\' => 11,
+            'Test\\Trip\\' => 10,
         ),
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
             'Symfony\\Polyfill\\Ctype\\' => 23,
-            'Symfony\\Contracts\\' => 18,
+            'Symfony\\Contracts\\Translation\\' => 30,
             'Symfony\\Component\\Translation\\' => 30,
         ),
         'P' => 
@@ -83,11 +84,15 @@ class ComposerStaticInite4d70f376bc1b7e48b5009d53877f1c2
         array (
             0 => __DIR__ . '/..' . '/upfor/juggler/src',
         ),
-        'Trink\\Demo\\' => 
+        'Trink\\Trip\\App\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
+        ),
+        'Trink\\Trip\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
-        'Test\\Demo\\' => 
+        'Test\\Trip\\' => 
         array (
             0 => __DIR__ . '/../..' . '/tests',
         ),
@@ -99,9 +104,9 @@ class ComposerStaticInite4d70f376bc1b7e48b5009d53877f1c2
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
-        'Symfony\\Contracts\\' => 
+        'Symfony\\Contracts\\Translation\\' => 
         array (
-            0 => __DIR__ . '/..' . '/symfony/contracts',
+            0 => __DIR__ . '/..' . '/symfony/translation-contracts',
         ),
         'Symfony\\Component\\Translation\\' => 
         array (
