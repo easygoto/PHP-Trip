@@ -1,8 +1,5 @@
 
 .idea/
-
 *.cache
-
-*/cache/
-
 res/
+vendor/
