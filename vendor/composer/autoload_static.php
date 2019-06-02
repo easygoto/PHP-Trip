@@ -22,6 +22,7 @@ class ComposerStaticInitfc015b9dfd4caa0944ea72d6c5876ac7
         ),
         'T' => 
         array (
+            'Trink\\Dp\\App\\' => 13,
             'Trink\\Dp\\' => 9,
             'Tests\\Dp\\' => 9,
         ),
@@ -46,6 +47,10 @@ class ComposerStaticInitfc015b9dfd4caa0944ea72d6c5876ac7
         'Webmozart\\Assert\\' => 
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
+        ),
+        'Trink\\Dp\\App\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/app',
         ),
         'Trink\\Dp\\' => 
         array (
