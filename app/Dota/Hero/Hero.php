@@ -3,6 +3,8 @@
 
 namespace Trink\Dp\App\Dota\Hero;
 
+use Trink\Dp\App\Dota\Skill\Dizziness;
+use Trink\Dp\App\Dota\Skill\Hurt;
 use Trink\Dp\App\Dota\Skill\Skill;
 
 abstract class Hero
@@ -72,9 +74,13 @@ abstract class Hero
     {
         $curSkill = $this->skillList[$action];
         $this->setMagicValue($this->getMagicValue() - $curSkill->getCostMagic());
-        $msg = sprintf("%s%f", '眩晕时间 : ', $curSkill->getDizzinessTime());
-        $hero->setStatus($msg);
-        $hero->setLifeValue($hero->getLifeValue() - $curSkill->getHurtValue());
+        if ($curSkill instanceof Dizziness) {
+            $msg = sprintf("%s%f", '眩晕时间 : ', $curSkill->getDizzinessTime());
+            $hero->setStatus($msg);
+        }
+        if ($curSkill instanceof Hurt) {
+            $hero->setLifeValue($hero->getLifeValue() - $curSkill->getHurtValue());
+        }
     }
 
     public function setStatus(string $status)
