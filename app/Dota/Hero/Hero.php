@@ -3,7 +3,10 @@
 
 namespace Trink\Dp\App\Dota\Hero;
 
+use ReflectionObject;
 use Trink\Dp\App\Dota\DObject;
+use Trink\Dp\App\Dota\Skill\Dizziness;
+use Trink\Dp\App\Dota\Skill\Hurt;
 use Trink\Dp\App\Dota\Skill\Skill;
 
 /**
@@ -47,12 +50,16 @@ abstract class Hero extends DObject
     {
         $curSkill = $this->skillList[$action];
         $this->setMagicValue($this->getMagicValue() - $curSkill->getCostMagic());
-//        if ($curSkill instanceof Dizziness) {
+        $skillObj    = new ReflectionObject($curSkill);
+        $skillTraits = $skillObj->getTraitNames();
+        if (in_array(Dizziness::class, $skillTraits)) {
+            /** @var Dizziness $curSkill */
             $msg = sprintf("眩晕时间 : %.2f 秒", $curSkill->getDizzinessTime());
             $hero->setStatus($msg);
-//        }
-//        if ($curSkill instanceof Hurt) {
+        }
+        if (in_array(Hurt::class, $skillTraits)) {
+            /** @var Hurt $curSkill */
             $hero->setLifeValue($hero->getLifeValue() - $curSkill->getHurtValue());
-//        }
+        }
     }
 }
