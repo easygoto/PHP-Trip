@@ -30,9 +30,10 @@ class RabbitTest extends TestCase
      * @param AMQPEnvelope $envelope
      * @param AMQPQueue    $queue
      */
-    private function processMessage(AMQPEnvelope $envelope, AMQPQueue $queue)
+    public static function processMessage(AMQPEnvelope $envelope, AMQPQueue $queue)
     {
         try {
+            ob_flush();
             $msg = $envelope->getBody();
             echo $msg . "\n"; //处理消息
             $queue->ack($envelope->getDeliveryTag()); //手动发送ACK应答
@@ -66,6 +67,7 @@ class RabbitTest extends TestCase
                 $ip      = rand(1, 255) . '.' . rand(1, 255) . '.' . rand(1, 255) . '.' . rand(1, 255);
                 $message = "测试消息_" . date("Y-m-d H:i:s") . ", 这个是 {$ip} 发送的";
                 $bool    = $ex->publish($message, self::KEY_ROUTE);
+                ob_flush();
                 echo "Send Message: " . ($bool ? '入队成功' : '入队失败') . "\n";
             }
             //$channel->commitTransaction(); //提交事务
