@@ -14,7 +14,7 @@ use AMQPExchangeException;
 use AMQPQueue;
 use AMQPQueueException;
 use PHPUnit\Framework\TestCase;
-use Trink\Trip\Lib\Config;
+use Trink\Core\Library\Config;
 
 class RabbitTest extends TestCase
 {

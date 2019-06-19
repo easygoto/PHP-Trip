@@ -49,7 +49,6 @@ class DemoTest extends TestCase
             $name = $value;
             $code = (int)$key;
             if (in_array($code, [100000, 900000])) {
-                $type = 'country';
                 continue;
             }
             if ($code % 10000 == 0) {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Trip\Lib;
+namespace Trink\Core\Library;
 
 class PCache
 {

@@ -4,7 +4,7 @@
 namespace Test\Trip;
 
 use PHPUnit\Framework\TestCase;
-use Trink\Trip\Component\Template\Template;
+use Trink\Core\Component\Template\Template;
 
 /**
  * Class ComponentTest

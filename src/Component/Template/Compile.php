@@ -1,6 +1,6 @@
 <?php
 
-namespace Trink\Trip\Component\Template;
+namespace Trink\Core\Component\Template;
 
 /**
  * Class CompileClass

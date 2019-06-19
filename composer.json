@@ -1,7 +1,7 @@
 {
   "autoload": {
     "psr-4": {
-      "Trink\\Trip\\": "src",
+      "Trink\\Core\\": "src",
       "Trink\\Trip\\App\\": "app"
     }
   },
