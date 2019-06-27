@@ -3,7 +3,6 @@
 
 namespace Trink\Dp\App\Dota;
 
-
 abstract class DObject
 {
     public function __call($methodName, $arguments)
