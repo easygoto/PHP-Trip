@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Trink\Dp\App\Dota\Skill;
+namespace Trink\Trip\App\Dota\Skill;
 
 /**
  * Trait Hurt
  *
- * @package Trink\Dp\App\Dota\Skill
+ * @package Trink\Trip\App\Dota\Skill
  *
  * @method float getHurtValue()
  * @method void setHurtValue(float $hurtValue)

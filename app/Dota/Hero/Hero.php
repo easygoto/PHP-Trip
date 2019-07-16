@@ -1,18 +1,18 @@
 <?php
 
 
-namespace Trink\Dp\App\Dota\Hero;
+namespace Trink\Trip\App\Dota\Hero;
 
 use ReflectionObject;
-use Trink\Dp\App\Dota\DObject;
-use Trink\Dp\App\Dota\Skill\Dizziness;
-use Trink\Dp\App\Dota\Skill\Hurt;
-use Trink\Dp\App\Dota\Skill\Skill;
+use Trink\Trip\App\Dota\DObject;
+use Trink\Trip\App\Dota\Skill\Dizziness;
+use Trink\Trip\App\Dota\Skill\Hurt;
+use Trink\Trip\App\Dota\Skill\Skill;
 
 /**
  * Class Hero
  *
- * @package Trink\Dp\App\Dota\Hero
+ * @package Trink\Trip\App\Dota\Hero
  *
  * @method float getLifeValue()
  * @method float getMagicValue()

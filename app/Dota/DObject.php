@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\App\Dota;
+namespace Trink\Trip\App\Dota;
 
 abstract class DObject
 {

@@ -4,9 +4,9 @@
 namespace Tests\Dp\App;
 
 use PHPUnit\Framework\TestCase;
-use Trink\Dp\App\Dota\Hero\Axe;
-use Trink\Dp\App\Dota\Hero\Sven;
-use Trink\Dp\App\Dota\Skill\Real\StormHammer;
+use Trink\Trip\App\Dota\Hero\Axe;
+use Trink\Trip\App\Dota\Hero\Sven;
+use Trink\Trip\App\Dota\Skill\Real\StormHammer;
 
 class BaseTest extends TestCase
 {

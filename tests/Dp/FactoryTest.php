@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Dp;
+namespace Test\Trip\Dp;
 
 use PHPUnit\Framework\TestCase;
 use Trink\Dp\Factory\Demo\BloggsCommsManager;
