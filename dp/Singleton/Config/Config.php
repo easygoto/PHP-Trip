@@ -22,6 +22,10 @@ class Config
     {
     }
 
+    private function __wakeup()
+    {
+    }
+
     public function __get($name)
     {
         return $this->props[$name] ?? null;
@@ -34,11 +38,10 @@ class Config
 
     public static function instance()
     {
-        if (!self::$instance instanceof self) {
-            self::$instance = new self();
+        if (!static::$instance instanceof static) {
+            static::$instance        = new static();
+            static::$instance->props = require_once __DIR__ . '/config/config.php';
         }
-        $instance        = self::$instance;
-        $instance->props = require_once __DIR__ . '/config/config.php';
-        return $instance;
+        return static::$instance;
     }
 }

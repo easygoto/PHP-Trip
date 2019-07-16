@@ -14,20 +14,23 @@ class SingletonTest extends TestCase
      */
     public function app()
     {
-        $config = Config::instance();
-        $app    = $config->app;
+        $config1 = Config::instance();
+        $app    = $config1->app;
         var_dump($app);
         $this->assertNull($app);
 
-        $config = Config::instance();
-        $config->app = [
+        $config2 = Config::instance();
+        $config2->app = [
             'id' => 'dp_singleton_config_app',
         ];
 
-        $config = Config::instance();
-        $app    = $config->app;
+        $config3 = Config::instance();
+        $app    = $config3->app;
         var_dump($app);
+
         $this->assertArrayHasKey('id', $app);
+        $this->assertSame($config1, $config2);
+        $this->assertSame($config3, $config2);
     }
 
     /**
