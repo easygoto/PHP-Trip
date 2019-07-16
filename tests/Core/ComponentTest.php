@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Test\Trip;
+namespace Test\Trip\Core;
 
 use PHPUnit\Framework\TestCase;
 use Trink\Core\Component\Template\Template;

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Test\Trip;
+namespace Test\Trip\App;
 
 use PHPUnit\Framework\TestCase;
 

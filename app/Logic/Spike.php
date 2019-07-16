@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Trip\App;
+namespace Trink\Trip\App\Logic;
 
 use Exception;
 use Trink\Core\Helper\ArrayHelper;

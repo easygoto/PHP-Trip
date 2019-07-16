@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Test\Trip\demo;
+namespace Test\Trip\App\Demo;
 
 use AMQPChannel;
 use AMQPChannelException;
