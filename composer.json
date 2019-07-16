@@ -2,12 +2,15 @@
   "autoload": {
     "psr-4": {
       "Trink\\Core\\": "src",
-      "Trink\\Trip\\App\\": "app"
+      "Trink\\Trip\\App\\": "app",
+      "Trink\\Dp\\": "src",
+      "Trink\\Dp\\App\\": "app"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Test\\Trip\\": "tests"
+      "Test\\Trip\\": "tests",
+      "Tests\\Dp\\": "tests"
     }
   },
   "require": {
