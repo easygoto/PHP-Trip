@@ -1,0 +1,19 @@
+<?php
+
+
+namespace Trink\Dp\DependencyInjection\Demo\Concrete;
+
+class DB implements \Trink\Dp\DependencyInjection\Demo\DB
+{
+    private $config;
+
+    public function __construct(Config $config)
+    {
+        $this->config = $config;
+    }
+
+    public function test()
+    {
+        print __METHOD__ . "\n";
+    }
+}
