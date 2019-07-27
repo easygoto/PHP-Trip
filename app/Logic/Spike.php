@@ -4,8 +4,8 @@
 namespace Trink\Trip\App\Logic;
 
 use Exception;
-use Trink\Core\Helper\ArrayHelper;
-use Trink\Core\Helper\ReturnHelper;
+use Trink\Core\Helper\Arrays;
+use Trink\Core\Helper\Result;
 use Trink\Core\Library\DB;
 
 class Spike
@@ -14,134 +14,134 @@ class Spike
      * mysql 版的秒杀
      *
      * @param int   $uid
-     * @param array $goods_order
+     * @param array $goodsOrder
      *
      * @return array
      */
-    public static function mysql(int $uid, array $goods_order = [])
+    public static function mysql(int $uid, array $goodsOrder = [])
     {
         $db = DB::capsule();
         // 1、校验订单
-        if (!is_array($goods_order) || empty($goods_order)) {
-            return ReturnHelper::fail('非正常订单(1)', ['order' => $goods_order])->asArray();
+        if (!is_array($goodsOrder) || empty($goodsOrder)) {
+            return Result::fail('非正常订单(1)', ['order' => $goodsOrder])->asArray();
         }
 
-        $check_result = [];
-        foreach ($goods_order as $a_goods) {
-            $goods_id  = ArrayHelper::getInteger($a_goods, 'goods_id');
-            $goods_num = ArrayHelper::getInteger($a_goods, 'goods_num');
+        $checkResult = [];
+        foreach ($goodsOrder as $aGoods) {
+            $goodsId  = Arrays::getInteger($aGoods, 'goods_id');
+            $goodsNum = Arrays::getInteger($aGoods, 'goods_num');
 
-            if ($goods_id <= 0) {
-                $check_result[$goods_id][] = "goods id is {$goods_id}";
+            if ($goodsId <= 0) {
+                $checkResult[$goodsId][] = "goods id is {$goodsId}";
             }
-            if ($goods_num <= 0) {
-                $check_result[$goods_id][] = "goods num is {$goods_num}";
+            if ($goodsNum <= 0) {
+                $checkResult[$goodsId][] = "goods num is {$goodsNum}";
             }
         }
-        if (!empty($check_result)) {
-            return ReturnHelper::fail('非正常订单(2)', ['check' => $check_result])->asArray();
+        if (!empty($checkResult)) {
+            return Result::fail('非正常订单(2)', ['check' => $checkResult])->asArray();
         }
 
-        $goods_id_num_list = array_column($goods_order, 'goods_num', 'goods_id');
-        if (count($goods_id_num_list) != count($goods_order)) {
-            return ReturnHelper::fail('非正常订单(3)')->asArray();
+        $goodsIdNumList = array_column($goodsOrder, 'goods_num', 'goods_id');
+        if (count($goodsIdNumList) != count($goodsOrder)) {
+            return Result::fail('非正常订单(3)')->asArray();
         }
 
-        $message_list = [];
+        $messageList = [];
         try {
             $db->beginTransaction();
 
             // 2、取出当前订单信息，进一步判断库存
-            $goods_list = $db->table('goods')
-                ->whereIn('id', array_keys($goods_id_num_list))
+            $goodsList = $db->table('goods')
+                ->whereIn('id', array_keys($goodsIdNumList))
                 ->where('status', '=', 1)
                 ->where('is_delete', '=', 0)
                 ->get()->toArray();
 
-            if ((count($goods_id_num_list) != count($goods_list))) {
+            if ((count($goodsIdNumList) != count($goodsList))) {
                 throw new Exception('秒杀失败，商品出错');
             }
 
-            foreach ($goods_list as $key => $goods) {
-                $goods_id   = ArrayHelper::getInteger($goods, 'id');
-                $goods_name = ArrayHelper::getValue($goods, 'name', '未知商品');
-                $goods_num  = $goods_id_num_list[$goods_id];
+            foreach ($goodsList as $key => $goods) {
+                $goodsId   = Arrays::getInteger($goods, 'id');
+                $goodsName = Arrays::getValue($goods, 'name', '未知商品');
+                $goodsNum  = $goodsIdNumList[$goodsId];
 
                 // 将订单中的 num 加到数组中，之后加减库存时需要用到
-                if (is_array($goods_list[$key])) {
-                    $goods_list[$key]['goods_num'] = $goods_num;
-                } elseif (is_object($goods_list[$key])) {
-                    $goods_list[$key]->goods_num = $goods_num;
+                if (is_array($goodsList[$key])) {
+                    $goodsList[$key]['goods_num'] = $goodsNum;
+                } elseif (is_object($goodsList[$key])) {
+                    $goodsList[$key]->goods_num = $goodsNum;
                 } else {
-                    $message_list[$goods_id] = '商品异常';
+                    $messageList[$goodsId] = '商品异常';
                 }
 
-                if (ArrayHelper::getInteger($goods, 'inventory') < $goods_num) {
-                    $message_list[$goods_id] = $goods_name . '库存不足';
+                if (Arrays::getInteger($goods, 'inventory') < $goodsNum) {
+                    $messageList[$goodsId] = $goodsName . '库存不足';
                 }
             }
-            if (!empty($message_list)) {
+            if (!empty($messageList)) {
                 throw new Exception('秒杀失败，库存不足');
             }
 
             // 3、秒杀成功，把信息加到 order 和 order_goods 中
-            $now_time    = date('Y-m-d H:i:s');
-            $order_sn    = date('YmdHis') . mt_rand(10000000, 99999999);
-            $total_price = number_format(array_reduce($goods_list, function ($result, $goods) {
+            $nowTime    = date('Y-m-d H:i:s');
+            $orderSn    = date('YmdHis') . mt_rand(10000000, 99999999);
+            $totalPrice = number_format(array_reduce($goodsList, function ($result, $goods) {
                 return (float)$result +
-                    ArrayHelper::getDigits($goods, 'selling_price') *
-                    ArrayHelper::getInteger($goods, 'goods_num');
+                    Arrays::getDigits($goods, 'selling_price') *
+                    Arrays::getInteger($goods, 'goods_num');
             }), 2);
 
-            $order_id = $db->table('order')
+            $orderId = $db->table('order')
                 ->insertGetId([
                     'uid'         => (int)$uid,
-                    'order_sn'    => $order_sn,
-                    'total_price' => (float)$total_price,
-                    'created_at'  => $now_time,
-                    'updated_at'  => $now_time,
-                    'operated_at' => $now_time,
+                    'order_sn'    => $orderSn,
+                    'total_price' => (float)$totalPrice,
+                    'created_at'  => $nowTime,
+                    'updated_at'  => $nowTime,
+                    'operated_at' => $nowTime,
                     'status'      => 1,
                     'is_delete'   => 0,
                 ]);
-            if (!$order_id) {
+            if (!$orderId) {
                 throw new Exception('订单添加失败');
             }
 
-            $current_goods_list = [];
-            foreach ($goods_list as $key => $goods) {
-                $current_goods_list[] = [
-                    'order_id'      => (int)$order_id,
-                    'goods_id'      => ArrayHelper::getInteger($goods, 'id'),
-                    'goods_name'    => ArrayHelper::getValue($goods, 'name'),
-                    'wholesale'     => ArrayHelper::getDigits($goods, 'wholesale'),
-                    'selling_price' => ArrayHelper::getDigits($goods, 'selling_price'),
-                    'market_price'  => ArrayHelper::getDigits($goods, 'market_price'),
-                    'goods_num'     => ArrayHelper::getInteger($goods, 'goods_num'),
+            $currentGoodsList = [];
+            foreach ($goodsList as $key => $goods) {
+                $currentGoodsList[] = [
+                    'order_id'      => (int)$orderId,
+                    'goods_id'      => Arrays::getInteger($goods, 'id'),
+                    'goods_name'    => Arrays::getValue($goods, 'name'),
+                    'wholesale'     => Arrays::getDigits($goods, 'wholesale'),
+                    'selling_price' => Arrays::getDigits($goods, 'selling_price'),
+                    'market_price'  => Arrays::getDigits($goods, 'market_price'),
+                    'goods_num'     => Arrays::getInteger($goods, 'goods_num'),
                 ];
             }
-            if (!$db->table('order_goods')->insert($current_goods_list)) {
+            if (!$db->table('order_goods')->insert($currentGoodsList)) {
                 throw new Exception('订单商品添加失败');
             };
 
             // 4、商品表减去相应的库存
-            foreach ($goods_list as $goods) {
+            foreach ($goodsList as $goods) {
                 if (!$db->table('goods')
-                    ->where('id', '=', ArrayHelper::getInteger($goods, 'id'))
-                    ->decrement('inventory', ArrayHelper::getInteger($goods, 'goods_num'))
+                    ->where('id', '=', Arrays::getInteger($goods, 'id'))
+                    ->decrement('inventory', Arrays::getInteger($goods, 'goods_num'))
                 ) {
                     throw new Exception('商品库存更新失败');
                 }
             }
 
             $db->commit();
-            return ReturnHelper::success([], '秒杀成功')->asArray();
+            return Result::success([], '秒杀成功')->asArray();
         } catch (Exception $e) {
             try {
                 $db->rollBack();
             } catch (Exception $e) {
             }
-            return ReturnHelper::fail($e->getMessage(), ['message' => $message_list])->asArray();
+            return Result::fail($e->getMessage(), ['message' => $messageList])->asArray();
         }
     }
 }

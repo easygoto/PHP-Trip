@@ -3,7 +3,7 @@
 
 namespace Trink\Core\Helper;
 
-class ArrayHelper
+class Arrays
 {
     public static function getValue($list, string $key, $default = '')
     {

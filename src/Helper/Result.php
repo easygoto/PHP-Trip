@@ -7,14 +7,14 @@ use ReflectionObject;
 /**
  * @property array debug
  */
-class ReturnHelper
+class Result
 {
     private $status;
     private $msg;
     private $data;
 
     /**
-     * ReturnHelper constructor.
+     * Result constructor.
      *
      * @param int    $status
      * @param string $msg
@@ -102,9 +102,9 @@ class ReturnHelper
      * @param array  $debug  调试信息
      * @param int    $status 状态码
      *
-     * @return ReturnHelper
+     * @return Result
      */
-    public static function fail(string $msg, array $debug = [], int $status = 1): ReturnHelper
+    public static function fail(string $msg, array $debug = [], int $status = 1): Result
     {
         $message        = new self($status, $msg, []);
         $message->debug = $debug;
@@ -118,9 +118,9 @@ class ReturnHelper
      * @param string $msg    返回消息
      * @param int    $status 状态码
      *
-     * @return ReturnHelper
+     * @return Result
      */
-    public static function success(array $data = [], string $msg = '', int $status = 0): ReturnHelper
+    public static function success(array $data = [], string $msg = '', int $status = 0): Result
     {
         return new self($status, $msg, $data);
     }
@@ -133,9 +133,9 @@ class ReturnHelper
      * @param array  $data   返回数据
      * @param array  $extra  扩展使用
      *
-     * @return ReturnHelper
+     * @return Result
      */
-    public static function result(int $status, string $msg, array $data, array $extra = []): ReturnHelper
+    public static function result(int $status, string $msg, array $data, array $extra = []): Result
     {
         $message = new self($status, $msg, $data);
         foreach ($extra as $key => $value) {

@@ -3,7 +3,7 @@
 
 namespace Trink\Core\Helper;
 
-class FormatHelper
+class Format
 {
     /**
      * 下划线转驼峰
