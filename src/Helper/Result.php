@@ -4,9 +4,6 @@ namespace Trink\Core\Helper;
 
 use ReflectionObject;
 
-/**
- * @property array debug
- */
 class Result
 {
     private $status;
@@ -106,9 +103,7 @@ class Result
      */
     public static function fail(string $msg, array $debug = [], int $status = 1): Result
     {
-        $message        = new self($status, $msg, []);
-        $message->debug = $debug;
-        return $message;
+        return new static($status, $msg, ['debug' => $debug]);
     }
 
     /**
@@ -122,7 +117,25 @@ class Result
      */
     public static function success(array $data = [], string $msg = '', int $status = 0): Result
     {
-        return new self($status, $msg, $data);
+        return new static($status, $msg, $data);
+    }
+
+    /**
+     * 列表成功返回
+     *
+     * @param array  $list
+     * @param int    $total
+     * @param int    $pageSize
+     *
+     * @return Result
+     */
+    public static function lists(array $list, int $total, int $pageSize = 15): self
+    {
+        return new static(0, '', [
+            'list'       => $list,
+            'total'      => $total,
+            'totalPages' => ceil($total / $pageSize),
+        ]);
     }
 
     /**
@@ -137,7 +150,7 @@ class Result
      */
     public static function result(int $status, string $msg, array $data, array $extra = []): Result
     {
-        $message = new self($status, $msg, $data);
+        $message = new static($status, $msg, $data);
         foreach ($extra as $key => $value) {
             $message->$key = $value;
         }
