@@ -4,9 +4,9 @@
 namespace Trink\Trip\App\Logic;
 
 use Exception;
+use Trink\Core\Container\App;
 use Trink\Core\Helper\Arrays;
 use Trink\Core\Helper\Result;
-use Trink\Core\Library\DB;
 
 class Spike
 {
@@ -20,7 +20,7 @@ class Spike
      */
     public static function mysql(int $uid, array $goodsOrder = [])
     {
-        $db = DB::capsule();
+        $db = (new App)->db;
         // 1、校验订单
         if (!is_array($goodsOrder) || empty($goodsOrder)) {
             return Result::fail('非正常订单(1)', ['order' => $goodsOrder])->asArray();

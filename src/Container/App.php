@@ -13,6 +13,6 @@ class App
     public function __construct()
     {
         $this->config = new Component\Config\Normal();
-        $this->db = new Component\Db\Medoo($this->config);
+        $this->db = Component\Db\Capsule::instance($this->config);
     }
 }
