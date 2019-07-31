@@ -2,7 +2,7 @@
 
 namespace Test\Trip\Dp;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Dp\Decorator\Demo\DiamondDecorator;
 use Trink\Dp\Decorator\Demo\Plains;
 use Trink\Dp\Decorator\Demo\PolluteDecorator;

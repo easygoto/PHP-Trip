@@ -3,7 +3,7 @@
 
 namespace Test\Trip\Dp;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Dp\Filter\Workflow\Process\Leave;
 use Trink\Dp\Filter\Workflow\Worker\CEO;
 use Trink\Dp\Filter\Workflow\Worker\Director;

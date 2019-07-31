@@ -3,7 +3,7 @@
 
 namespace Test\Trip\Dp;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Dp\State\Demo\ContextOrder;
 use Trink\Dp\State\Demo\CreateOrder;
 

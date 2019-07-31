@@ -3,7 +3,7 @@
 
 namespace Test\Trip\App\Logic;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Trip\App\Logic\Spike;
 
 class SpikeTest extends TestCase

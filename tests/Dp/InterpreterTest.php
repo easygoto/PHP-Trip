@@ -2,7 +2,7 @@
 
 namespace Test\Trip\Dp;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Dp\Interpreter\Demo\BooleanOrExpression;
 use Trink\Dp\Interpreter\Demo\EqualsExpression;
 use Trink\Dp\Interpreter\Demo\InterpreterContext;

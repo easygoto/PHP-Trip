@@ -2,7 +2,7 @@
 
 namespace Test\Trip\Dp;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Dp\Observer\Demo\Login;
 use Trink\Dp\Observer\Demo\SecurityMonitor;
 

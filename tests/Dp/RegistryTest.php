@@ -3,7 +3,7 @@
 
 namespace Test\Trip\Dp;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Dp\Registry\Demo\Register;
 
 class RegistryTest extends TestCase

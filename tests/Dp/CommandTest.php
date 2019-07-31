@@ -3,7 +3,7 @@
 
 namespace Test\Trip\Dp;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Dp\Command\Demo\Command\FeedbackCommand;
 use Trink\Dp\Command\Demo\Command\LoginCommand;
 use Trink\Dp\Command\Demo\CommandContext;

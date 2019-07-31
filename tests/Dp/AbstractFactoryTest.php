@@ -3,7 +3,7 @@
 
 namespace Test\Trip\Dp;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Dp\AbstractFactory\ComputerSetting\Computer;
 use Trink\Dp\AbstractFactory\ComputerSetting\Computer\HighPC;
 use Trink\Dp\AbstractFactory\ComputerSetting\Computer\LowPC;

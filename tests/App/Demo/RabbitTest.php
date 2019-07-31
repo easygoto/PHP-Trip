@@ -13,7 +13,7 @@ use AMQPExchange;
 use AMQPExchangeException;
 use AMQPQueue;
 use AMQPQueueException;
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Core\Library\Config;
 
 class RabbitTest extends TestCase
@@ -21,7 +21,6 @@ class RabbitTest extends TestCase
     const E_NAME    = 'e_trink';
     const Q_NAME    = 'q_trink';
     const KEY_ROUTE = 'key';
-
 
     /**
      * 消费回调函数

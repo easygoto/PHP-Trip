@@ -3,7 +3,7 @@
 
 namespace Test\Trip\App;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 
 class AppTest extends TestCase
 {

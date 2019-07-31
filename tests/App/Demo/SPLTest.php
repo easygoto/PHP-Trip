@@ -8,7 +8,7 @@ use ArrayIterator;
 use ArrayObject;
 use FilesystemIterator;
 use MultipleIterator;
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use RecursiveIterator;
 use SeekableIterator;
 use SplDoublyLinkedList;

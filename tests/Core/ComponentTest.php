@@ -3,7 +3,7 @@
 
 namespace Test\Trip\Core;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Core\Component\Template\Template;
 
 /**
@@ -13,14 +13,6 @@ use Trink\Core\Component\Template\Template;
  */
 class ComponentTest extends TestCase
 {
-    private static $res_dir;
-
-    /** @before */
-    public function init()
-    {
-        self::$res_dir = dirname(dirname(__DIR__)) . '/res/';
-    }
-
     public function test()
     {
         $this->assertTrue(true);
@@ -32,8 +24,8 @@ class ComponentTest extends TestCase
         $tpl = new Template([
             'php_turn'     => true,
             'debug'        => true,
-            'compile_dir'  => self::$res_dir . 'cache/',
-            'template_dir' => self::$res_dir . 'template/',
+            'compile_dir'  => self::$resDir . 'cache/',
+            'template_dir' => self::$resDir . 'template/',
         ]);
         $tpl->assign('data', 'hello world');
         $tpl->assign('person', 'cafeCAT');

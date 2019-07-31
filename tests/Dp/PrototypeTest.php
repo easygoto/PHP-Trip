@@ -2,7 +2,7 @@
 
 namespace Test\Trip\Dp;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Dp\Prototype\Demo\EarthForest;
 use Trink\Dp\Prototype\Demo\EarthPlains;
 use Trink\Dp\Prototype\Demo\EarthSea;

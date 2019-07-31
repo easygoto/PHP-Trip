@@ -3,7 +3,7 @@
 
 namespace Test\Trip\Dp;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Dp\DependencyInjection\Demo\App;
 
 class DependencyInjectionTest extends TestCase

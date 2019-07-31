@@ -3,7 +3,7 @@
 
 namespace Tests\Dp\App;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Trip\App\Dota\Hero\Axe;
 use Trink\Trip\App\Dota\Hero\Sven;
 use Trink\Trip\App\Dota\Skill\Real\StormHammer;

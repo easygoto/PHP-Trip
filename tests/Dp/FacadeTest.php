@@ -2,7 +2,7 @@
 
 namespace Test\Trip\Dp;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Dp\Facade\Demo\ProductFacade;
 
 class FacadeTest extends TestCase

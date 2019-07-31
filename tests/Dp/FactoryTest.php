@@ -2,7 +2,7 @@
 
 namespace Test\Trip\Dp;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Dp\Factory\Demo\BloggsCommsManager;
 use Trink\Dp\Factory\Electronics\Computer;
 use Trink\Dp\Factory\Electronics\Computer\AIO;

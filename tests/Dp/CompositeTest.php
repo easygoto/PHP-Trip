@@ -2,7 +2,7 @@
 
 namespace Test\Trip\Dp;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Dp\Composite\Demo\Archer;
 use Trink\Dp\Composite\Demo\Army;
 use Trink\Dp\Composite\Demo\LaserCannonUnit;

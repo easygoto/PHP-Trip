@@ -2,7 +2,7 @@
 
 namespace Test\Trip\Dp;
 
-use PHPUnit\Framework\TestCase;
+use Test\Trip\TestCase;
 use Trink\Dp\Strategy\Demo\MarkLogicMarker;
 use Trink\Dp\Strategy\Demo\MatchMarker;
 use Trink\Dp\Strategy\Demo\RegexMarker;
