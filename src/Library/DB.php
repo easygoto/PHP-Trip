@@ -6,7 +6,7 @@ namespace Trink\Core\Library;
 use Illuminate\Database\Capsule\Manager as CapsuleManager;
 use Illuminate\Database\Connection as IlluminateConnection;
 use Medoo\Medoo;
-use Trink\Core\Component\Container\App;
+use Trink\Core\Container\App;
 use Upfor\Juggler\Juggler;
 
 class DB
@@ -16,13 +16,6 @@ class DB
     private static $medoo;
     private static $juggler;
 
-    private static $config;
-
-    private function __construct()
-    {
-        self::$config = App::instance()->config;
-    }
-
     private function __clone()
     {
     }
@@ -30,10 +23,10 @@ class DB
     public static function instance(): Medoo
     {
         if (!self::$instance instanceof self) {
-            $db = self::$config->get('db');
+            $db = App::instance()->config->get('db');
 
             self::$instance = new Medoo([
-                'database_type' => 'mysql',
+                'database_type' => $db['type'],
                 'database_name' => $db['name'],
                 'server'        => $db['host'],
                 'username'      => $db['user'],
@@ -46,18 +39,19 @@ class DB
     public static function capsule(): IlluminateConnection
     {
         if (!self::$capsule instanceof CapsuleManager) {
+            $db = App::instance()->config->get('db');
+
             self::$capsule = new CapsuleManager;
-            $dbConfig      = self::$config->db([
-                'driver'    => 'type',
-                'host'      => "host",
-                'database'  => "name",
-                'username'  => "user",
-                'password'  => "pass",
-                'charset'   => 'charset',
-                'collation' => 'collation',
-                'prefix'    => 'prefix',
+            self::$capsule->addConnection([
+                'driver'    => $db['type'],
+                'host'      => $db['host'],
+                'database'  => $db['name'],
+                'username'  => $db['user'],
+                'password'  => $db['pass'],
+                'charset'   => $db['charset'],
+                'collation' => $db['collation'],
+                'prefix'    => $db['prefix'],
             ]);
-            self::$capsule->addConnection($dbConfig);
         }
         return self::$capsule->getConnection();
     }
@@ -65,14 +59,15 @@ class DB
     public static function medoo(): Medoo
     {
         if (!self::$medoo instanceof Medoo) {
-            $dbConfig    = self::$config->db([
-                'database_type' => 'type',
-                'server'        => 'host',
-                'database_name' => 'name',
-                'username'      => 'user',
-                'password'      => 'pass',
+            $db = App::instance()->config->get('db');
+
+            self::$medoo = new Medoo([
+                'database_type' => $db['type'],
+                'server'        => $db['host'],
+                'database_name' => $db['name'],
+                'username'      => $db['user'],
+                'password'      => $db['pass'],
             ]);
-            self::$medoo = new Medoo($dbConfig);
         }
         return self::$medoo;
     }
@@ -80,14 +75,15 @@ class DB
     public static function juggler(): Juggler
     {
         if (!self::$juggler instanceof Juggler) {
-            $dbConfig      = self::$config->db([
-                'host'     => 'host',
-                'dbname'   => 'name',
-                'username' => 'user',
-                'password' => 'pass',
-                'charset'  => 'charset',
+            $db = App::instance()->config->get('db');
+
+            self::$juggler = new Juggler([
+                'host'     => $db['host'],
+                'dbname'   => $db['name'],
+                'username' => $db['user'],
+                'password' => $db['pass'],
+                'charset'  => $db['charset'],
             ]);
-            self::$juggler = new Juggler($dbConfig);
         }
         return self::$juggler;
     }

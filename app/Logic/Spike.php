@@ -28,8 +28,8 @@ class Spike
 
         $checkResult = [];
         foreach ($goodsOrder as $aGoods) {
-            $goodsId  = Arrays::getInteger($aGoods, 'goods_id');
-            $goodsNum = Arrays::getInteger($aGoods, 'goods_num');
+            $goodsId  = Arrays::getInt($aGoods, 'goods_id');
+            $goodsNum = Arrays::getInt($aGoods, 'goods_num');
 
             if ($goodsId <= 0) {
                 $checkResult[$goodsId][] = "goods id is {$goodsId}";
@@ -63,8 +63,8 @@ class Spike
             }
 
             foreach ($goodsList as $key => $goods) {
-                $goodsId   = Arrays::getInteger($goods, 'id');
-                $goodsName = Arrays::getValue($goods, 'name', '未知商品');
+                $goodsId   = Arrays::getInt($goods, 'id');
+                $goodsName = Arrays::get($goods, 'name', '未知商品');
                 $goodsNum  = $goodsIdNumList[$goodsId];
 
                 // 将订单中的 num 加到数组中，之后加减库存时需要用到
@@ -76,7 +76,7 @@ class Spike
                     $messageList[$goodsId] = '商品异常';
                 }
 
-                if (Arrays::getInteger($goods, 'inventory') < $goodsNum) {
+                if (Arrays::getInt($goods, 'inventory') < $goodsNum) {
                     $messageList[$goodsId] = $goodsName . '库存不足';
                 }
             }
@@ -90,7 +90,7 @@ class Spike
             $totalPrice = number_format(array_reduce($goodsList, function ($result, $goods) {
                 return (float)$result +
                     Arrays::getDigits($goods, 'selling_price') *
-                    Arrays::getInteger($goods, 'goods_num');
+                    Arrays::getInt($goods, 'goods_num');
             }), 2);
 
             $orderId = $db->table('order')
@@ -112,12 +112,12 @@ class Spike
             foreach ($goodsList as $key => $goods) {
                 $currentGoodsList[] = [
                     'order_id'      => (int)$orderId,
-                    'goods_id'      => Arrays::getInteger($goods, 'id'),
-                    'goods_name'    => Arrays::getValue($goods, 'name'),
+                    'goods_id'      => Arrays::getInt($goods, 'id'),
+                    'goods_name'    => Arrays::get($goods, 'name'),
                     'wholesale'     => Arrays::getDigits($goods, 'wholesale'),
                     'selling_price' => Arrays::getDigits($goods, 'selling_price'),
                     'market_price'  => Arrays::getDigits($goods, 'market_price'),
-                    'goods_num'     => Arrays::getInteger($goods, 'goods_num'),
+                    'goods_num'     => Arrays::getInt($goods, 'goods_num'),
                 ];
             }
             if (!$db->table('order_goods')->insert($currentGoodsList)) {
@@ -127,8 +127,8 @@ class Spike
             // 4、商品表减去相应的库存
             foreach ($goodsList as $goods) {
                 if (!$db->table('goods')
-                    ->where('id', '=', Arrays::getInteger($goods, 'id'))
-                    ->decrement('inventory', Arrays::getInteger($goods, 'goods_num'))
+                    ->where('id', '=', Arrays::getInt($goods, 'id'))
+                    ->decrement('inventory', Arrays::getInt($goods, 'goods_num'))
                 ) {
                     throw new Exception('商品库存更新失败');
                 }

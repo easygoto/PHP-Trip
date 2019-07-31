@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Core\Component\Container\Statement;
+namespace Trink\Core\Container\Statement;
 
 interface Config
 {

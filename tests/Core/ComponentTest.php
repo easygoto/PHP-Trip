@@ -4,8 +4,8 @@
 namespace Test\Trip\Core;
 
 use Test\Trip\TestCase;
-use Trink\Core\Component\Container\App;
 use Trink\Core\Component\Template\Template;
+use Trink\Core\Container\App;
 
 /**
  * Class ComponentTest
