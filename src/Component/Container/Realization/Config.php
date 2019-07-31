@@ -1,7 +1,6 @@
 <?php
 
-
-namespace Trink\Core\Library;
+namespace Trink\Core\Component\Container\Realization;
 
 /**
  * @property  array db
@@ -10,7 +9,7 @@ namespace Trink\Core\Library;
  *
  * @method array db(array $keyMap)
  */
-class Config
+class Config implements \Trink\Core\Component\Container\Statement\Config
 {
     private static $instance;
 
@@ -44,8 +43,25 @@ class Config
     {
         if (!self::$instance instanceof self) {
             self::$instance        = new self();
-            self::$instance->props = require_once dirname(dirname(__DIR__)) . '/config/config.php';
+            self::$instance->props = require_once TRIP_ROOT . '/config/config.php';
         }
         return self::$instance;
+    }
+
+    public function get(string $key)
+    {
+        if (strpos($key, '.') !== false) {
+            $keyMap = explode('.', $key);
+            $temp = $this->props;
+            foreach ($keyMap as $item) {
+                $temp = $temp[$item];
+            }
+            return $temp;
+        }
+        return $this->props[$key];
+    }
+
+    public function set(string $key)
+    {
     }
 }

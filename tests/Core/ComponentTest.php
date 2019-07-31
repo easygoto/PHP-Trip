@@ -4,6 +4,7 @@
 namespace Test\Trip\Core;
 
 use Test\Trip\TestCase;
+use Trink\Core\Component\Container\App;
 use Trink\Core\Component\Template\Template;
 
 /**
@@ -15,6 +16,7 @@ class ComponentTest extends TestCase
 {
     public function test()
     {
+        print App::instance()->config->get('db.type');
         $this->assertTrue(true);
     }
 

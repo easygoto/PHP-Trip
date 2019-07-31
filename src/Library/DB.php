@@ -6,6 +6,7 @@ namespace Trink\Core\Library;
 use Illuminate\Database\Capsule\Manager as CapsuleManager;
 use Illuminate\Database\Connection as IlluminateConnection;
 use Medoo\Medoo;
+use Trink\Core\Component\Container\App;
 use Upfor\Juggler\Juggler;
 
 class DB
@@ -15,8 +16,11 @@ class DB
     private static $medoo;
     private static $juggler;
 
+    private static $config;
+
     private function __construct()
     {
+        self::$config = App::instance()->config;
     }
 
     private function __clone()
@@ -26,7 +30,7 @@ class DB
     public static function instance(): Medoo
     {
         if (!self::$instance instanceof self) {
-            $db = Config::instance()->db;
+            $db = self::$config->get('db');
 
             self::$instance = new Medoo([
                 'database_type' => 'mysql',
@@ -43,7 +47,7 @@ class DB
     {
         if (!self::$capsule instanceof CapsuleManager) {
             self::$capsule = new CapsuleManager;
-            $dbConfig      = Config::instance()->db([
+            $dbConfig      = self::$config->db([
                 'driver'    => 'type',
                 'host'      => "host",
                 'database'  => "name",
@@ -61,7 +65,7 @@ class DB
     public static function medoo(): Medoo
     {
         if (!self::$medoo instanceof Medoo) {
-            $dbConfig    = Config::instance()->db([
+            $dbConfig    = self::$config->db([
                 'database_type' => 'type',
                 'server'        => 'host',
                 'database_name' => 'name',
@@ -76,7 +80,7 @@ class DB
     public static function juggler(): Juggler
     {
         if (!self::$juggler instanceof Juggler) {
-            $dbConfig      = Config::instance()->db([
+            $dbConfig      = self::$config->db([
                 'host'     => 'host',
                 'dbname'   => 'name',
                 'username' => 'user',
