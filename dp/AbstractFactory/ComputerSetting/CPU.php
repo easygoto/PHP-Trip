@@ -16,9 +16,9 @@ abstract class CPU
     {
         $class_full_name = get_class($this);
         $class_name      = substr($class_full_name, strrpos($class_full_name, '\\') + 1);
-        preg_match('/CPU(\d+[MG]Hz)Core(\d+)/', $class_name, $props);
-        $this->frequency = $props[1] ?? '0 Hz';
-        $this->core      = $props[2] ?? 0;
+        preg_match('/CPU(?<frequency>\d+[MG]Hz)Core(?<core>\d+)/', $class_name, $props);
+        $this->frequency = $props['frequency'] ?? '0 Hz';
+        $this->core      = $props['core'] ?? 0;
     }
 
     public function __call($method_name, $arguments)

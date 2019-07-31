@@ -14,8 +14,8 @@ abstract class Memory
     {
         $class_full_name = get_class($this);
         $class_name      = substr($class_full_name, strrpos($class_full_name, '\\') + 1);
-        preg_match('/Memory(\d+[GT])/', $class_name, $props);
-        $this->size = $props[1] ?? 0;
+        preg_match('/Memory(?<unit>\d+[GT])/', $class_name, $props);
+        $this->size = $props['unit'] ?? 0;
     }
 
     public function __call($method_name, $arguments)

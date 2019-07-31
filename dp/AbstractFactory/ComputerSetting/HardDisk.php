@@ -18,11 +18,11 @@ abstract class HardDisk
     {
         $class_full_name = get_class($this);
         $class_name      = substr($class_full_name, strrpos($class_full_name, '\\') + 1);
-        preg_match('/(HDD|SSD)(\d+[GT])(\d+RPM)?/', $class_name, $props);
-        $this->type = $props[1] ?? 'NO MATCHED';
-        $this->size = $props[2] ?? 0;
+        preg_match('/(?<hdType>HDD|SSD)(?<hdUnit>\d+[GT])(?<hdSpeed>\d+RPM)?/', $class_name, $props);
+        $this->type = $props['hdType'] ?? 'NO MATCHED';
+        $this->size = $props['hdUnit'] ?? 0;
         if ($this->type == 'HDD') {
-            $this->speed = sprintf("%d %s", (int)($props[3] ?? 0) / 100, 'M/s');
+            $this->speed = sprintf("%d %s", (int)($props['hdSpeed'] ?? 0) / 100, 'M/s');
         } else {
             $this->speed = ($this->type == 'SSD') ? '450 M/s' : '0 B/s';
         }
