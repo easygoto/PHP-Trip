@@ -14,9 +14,18 @@ use Trink\Core\Container\App;
  */
 class ComponentTest extends TestCase
 {
-    public function test()
+    /** @test */
+    public function db()
     {
-        print App::instance()->config->get('db.type');
+        $result = (new App)->db->select('b_goods', '*', ['id' => 1]);
+        print_r($result);
+        $this->assertTrue(true);
+    }
+
+    /** @test */
+    public function config()
+    {
+        print (new App)->config->get('db.type');
         $this->assertTrue(true);
     }
 

@@ -50,7 +50,7 @@ class RabbitTest extends TestCase
     public function send()
     {
         try {
-            $conn = new AMQPConnection(App::instance()->config->get('rabbit'));
+            $conn = new AMQPConnection((new App)->config->get('rabbit'));
             $conn->connect() or die("不能连接!\n");
             $channel = new AMQPChannel($conn);
 
@@ -83,7 +83,7 @@ class RabbitTest extends TestCase
     public function customer()
     {
         try {
-            $conn = new AMQPConnection(App::instance()->config->get('rabbit'));
+            $conn = new AMQPConnection((new App)->config->get('rabbit'));
             $conn->connect() or die("不能连接!\n");
             $channel = new AMQPChannel($conn);
 

@@ -4,13 +4,12 @@
 namespace Test\Trip\Core;
 
 use Test\Trip\TestCase;
-use Trink\Core\Container\App;
+use Trink\Core\Helper\Arrays;
 
 class HelperTest extends TestCase
 {
     public function testArrays()
     {
-        $arrays = App::instance()->arrays;
         $list = [
             'a' => '1',
             'b' => '2',
@@ -36,7 +35,7 @@ class HelperTest extends TestCase
             ]
         ];
         $obj = json_decode(json_encode($list));
-        print $arrays::get($obj, 'e.e.a');
+        print Arrays::get($obj, 'e.e.a');
         $this->assertTrue(true);
     }
 }
