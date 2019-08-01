@@ -17,7 +17,7 @@ class ComponentTest extends TestCase
     /** @test */
     public function db()
     {
-        $result = (new App)->db->select('b_goods', '*', ['id' => 1]);
+        $result = (new App)->db->select('goods', '*', ['id' => 1]);
         print_r($result);
         $this->assertTrue(true);
     }

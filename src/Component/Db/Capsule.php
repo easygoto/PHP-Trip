@@ -9,11 +9,14 @@ use Trink\Core\Container\Statement\Db;
 
 class Capsule implements Db
 {
+    protected static $instance;
+
     public static function instance(Config $config)
     {
-        $db      = $config->get('db');
-        $capsule = new CapsuleManager;
-        $capsule->addConnection([
+        $db = $config->get('db');
+
+        self::$instance = new CapsuleManager;
+        self::$instance->addConnection([
             'driver'    => $db['type'],
             'host'      => $db['host'],
             'database'  => $db['name'],
@@ -23,6 +26,6 @@ class Capsule implements Db
             'collation' => $db['collation'],
             'prefix'    => $db['prefix'],
         ]);
-        return $capsule->getConnection();
+        return self::$instance->getConnection();
     }
 }
