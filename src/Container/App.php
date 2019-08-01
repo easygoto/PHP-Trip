@@ -3,21 +3,37 @@
 
 namespace Trink\Core\Container;
 
+use Illuminate\Database\Connection;
+use Medoo\Medoo;
 use Trink\Core\Component;
-use Trink\Core\Container\Statement\Config;
-use Trink\Core\Container\Statement\Db;
+use Trink\Core\Container\Statement;
 
 /**
  * Class App
  *
  * @package Trink\Core\Container
- * @property Db|Component\Db\Medoo db
- * @property Config                config
+ *
+ * @property Statement\Db|Medoo|Connection db
+ * @property Statement\Config              config
  */
 class App
 {
-    public function __construct()
+    protected static $instance;
+
+    protected function __construct()
     {
+    }
+
+    protected function __clone()
+    {
+    }
+
+    public static function instance()
+    {
+        if (self::$instance == null) {
+            self::$instance = new static();
+        }
+        return self::$instance;
     }
 
     public function __get($name)

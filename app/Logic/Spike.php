@@ -20,7 +20,7 @@ class Spike
      */
     public static function mysql(int $uid, array $goodsOrder = [])
     {
-        $db = (new App)->db;
+        $db = App::instance()->db;
         // 1、校验订单
         if (!is_array($goodsOrder) || empty($goodsOrder)) {
             return Result::fail('非正常订单(1)', ['order' => $goodsOrder])->asArray();

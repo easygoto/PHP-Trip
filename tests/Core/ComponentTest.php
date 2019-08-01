@@ -17,7 +17,7 @@ class ComponentTest extends TestCase
     /** @test */
     public function db()
     {
-        $result = (new App)->db->select('goods', '*', ['id' => 1]);
+        $result = App::instance()->db->select('goods', '*', ['id' => 1]);
         print_r($result);
         $this->assertTrue(true);
     }
@@ -25,7 +25,7 @@ class ComponentTest extends TestCase
     /** @test */
     public function config()
     {
-        print (new App)->config->get('db.type');
+        print App::instance()->config->get('db.type');
         $this->assertTrue(true);
     }
 

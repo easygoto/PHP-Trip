@@ -23,7 +23,7 @@ class DB
     public static function instance(): Medoo
     {
         if (!self::$instance instanceof self) {
-            $db = (new App)->config->get('db');
+            $db = App::instance()->config->get('db');
 
             self::$instance = new Medoo([
                 'database_type' => $db['type'],
@@ -39,7 +39,7 @@ class DB
     public static function capsule(): IlluminateConnection
     {
         if (!self::$capsule instanceof CapsuleManager) {
-            $db = (new App)->config->get('db');
+            $db = App::instance()->config->get('db');
 
             self::$capsule = new CapsuleManager;
             self::$capsule->addConnection([
@@ -59,7 +59,7 @@ class DB
     public static function medoo(): Medoo
     {
         if (!self::$medoo instanceof Medoo) {
-            $db = (new App)->config->get('db');
+            $db = App::instance()->config->get('db');
 
             self::$medoo = new Medoo([
                 'database_type' => $db['type'],
@@ -75,7 +75,7 @@ class DB
     public static function juggler(): Juggler
     {
         if (!self::$juggler instanceof Juggler) {
-            $db = (new App)->config->get('db');
+            $db = App::instance()->config->get('db');
 
             self::$juggler = new Juggler([
                 'host'     => $db['host'],
