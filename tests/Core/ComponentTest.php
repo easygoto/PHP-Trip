@@ -4,6 +4,7 @@
 namespace Test\Trip\Core;
 
 use Test\Trip\TestCase;
+use Trink\Core\Component\Db\Medoo;
 use Trink\Core\Component\Template\Template;
 use Trink\Core\Container\App;
 
@@ -17,8 +18,11 @@ class ComponentTest extends TestCase
     /** @test */
     public function db()
     {
-        $result = App::instance()->db->select('goods', '*', ['id' => 1]);
-        print_r($result);
+        $medoo = new Medoo(App::instance()->config);
+
+        $result = $medoo->count('goods', '*', ['id' => 10]);
+        var_dump($result);
+
         $this->assertTrue(true);
     }
 

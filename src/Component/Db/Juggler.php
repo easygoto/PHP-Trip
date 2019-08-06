@@ -19,4 +19,33 @@ class Juggler extends \Upfor\Juggler\Juggler implements Db
             'charset'  => $db['charset'],
         ]);
     }
+
+    public function test()
+    {
+        $this->beginTransaction();
+        $this->inTransaction();
+        $this->commit();
+        $this->rollBack();
+
+        $this->table('');
+        $this->delete();
+        $this->update([]);
+        $this->insert([]);
+        $this->lastInsertId();
+        $this->getList();
+        $this->getRow();
+        $this->has();
+        $this->query('');
+        $this->join('', '');
+        $this->where('');
+        $this->group('');
+        $this->limit('');
+        $this->order('');
+
+        $this->count();
+        $this->avg('');
+        $this->max('');
+        $this->min('');
+        $this->sum('');
+    }
 }
