@@ -3,19 +3,15 @@
 
 namespace Trink\Dp\Factory\Electronics\Phone;
 
-use Trink\Dp\Factory\Electronics\Phone;
-
-class IOS implements Phone
+class IOS implements Operate
 {
-    public function open(): Phone
+    public function open()
     {
         print "欣喜若狂的开了机 ...\n";
-        return $this;
     }
 
-    public function call(): Phone
+    public function call()
     {
         print "开着免提打电话 ...\n";
-        return $this;
     }
 }

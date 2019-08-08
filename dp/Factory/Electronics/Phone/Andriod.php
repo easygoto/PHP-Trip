@@ -3,19 +3,15 @@
 
 namespace Trink\Dp\Factory\Electronics\Phone;
 
-use Trink\Dp\Factory\Electronics\Phone;
-
-class Andriod implements Phone
+class Andriod implements Operate
 {
-    public function open(): Phone
+    public function open()
     {
         print "迫不及待的开了机 ...\n";
-        return $this;
     }
 
-    public function call(): Phone
+    public function call()
     {
         print "戴着耳机打电话 ...\n";
-        return $this;
     }
 }

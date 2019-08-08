@@ -3,32 +3,15 @@
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
-use Trink\Dp\Factory\Demo\BloggsCommsManager;
 use Trink\Dp\Factory\Electronics\Computer;
-use Trink\Dp\Factory\Electronics\Computer\AIO;
-use Trink\Dp\Factory\Electronics\Computer\Laptop;
-use Trink\Dp\Factory\Electronics\Computer\PC;
-use Trink\Dp\Factory\Electronics\Computer\Tablet;
-use Trink\Dp\Factory\Electronics\Electronics;
+use Trink\Dp\Factory\Electronics\ComputerFactory;
 use Trink\Dp\Factory\Electronics\Phone;
-use Trink\Dp\Factory\Electronics\Phone\Andriod;
-use Trink\Dp\Factory\Electronics\Phone\IOS;
-use Trink\Dp\Factory\Electronics\Phone\Symbian;
+use Trink\Dp\Factory\Electronics\PhoneFactory;
 use Trink\Dp\Factory\Electronics\Watch;
-use Trink\Dp\Factory\Electronics\Watch\DigitalWatch;
-use Trink\Dp\Factory\Electronics\Watch\QuartzWatch;
+use Trink\Dp\Factory\Electronics\WatchFactory;
 
 class FactoryTest extends TestCase
 {
-    public function test()
-    {
-        $bcm = new BloggsCommsManager();
-        echo $bcm->getHeaderText();
-        var_dump($bcm->getApptEncoder());
-        echo $bcm->getFooterText();
-        $this->assertTrue(true);
-    }
-
     /**
      * @test
      * @group electronics
@@ -36,10 +19,12 @@ class FactoryTest extends TestCase
      */
     public function aio()
     {
-        $aio = Electronics::computer(AIO::class);
-        $this->assertTrue($aio instanceof AIO);
-        $this->assertTrue($aio instanceof Computer);
-        $aio->run()->play()->close();
+        $aio = ComputerFactory::create('AIO');
+        $this->assertTrue($aio instanceof Computer\AIO);
+        $this->assertTrue($aio instanceof Computer\Operate);
+        $aio->run();
+        $aio->play();
+        $aio->close();
     }
 
     /**
@@ -49,10 +34,12 @@ class FactoryTest extends TestCase
      */
     public function laptop()
     {
-        $laptop = Electronics::computer(Laptop::class);
-        $this->assertTrue($laptop instanceof Laptop);
-        $this->assertTrue($laptop instanceof Computer);
-        $laptop->run()->play()->close();
+        $laptop = ComputerFactory::create('Laptop');
+        $this->assertTrue($laptop instanceof Computer\Laptop);
+        $this->assertTrue($laptop instanceof Computer\Operate);
+        $laptop->run();
+        $laptop->play();
+        $laptop->close();
     }
 
     /**
@@ -62,10 +49,12 @@ class FactoryTest extends TestCase
      */
     public function pc()
     {
-        $pc = Electronics::computer(PC::class);
-        $this->assertTrue($pc instanceof PC);
-        $this->assertTrue($pc instanceof Computer);
-        $pc->run()->play()->close();
+        $pc = ComputerFactory::create('PC');
+        $this->assertTrue($pc instanceof Computer\PC);
+        $this->assertTrue($pc instanceof Computer\Operate);
+        $pc->run();
+        $pc->play();
+        $pc->close();
     }
 
     /**
@@ -75,10 +64,12 @@ class FactoryTest extends TestCase
      */
     public function tablet()
     {
-        $tablet = Electronics::computer(Tablet::class);
-        $this->assertTrue($tablet instanceof Tablet);
-        $this->assertTrue($tablet instanceof Computer);
-        $tablet->run()->play()->close();
+        $tablet = ComputerFactory::create('Tablet');
+        $this->assertTrue($tablet instanceof Computer\Tablet);
+        $this->assertTrue($tablet instanceof Computer\Operate);
+        $tablet->run();
+        $tablet->play();
+        $tablet->close();
     }
 
     /**
@@ -88,10 +79,11 @@ class FactoryTest extends TestCase
      */
     public function ios()
     {
-        $ios = Electronics::phone(IOS::class);
-        $this->assertTrue($ios instanceof IOS);
-        $this->assertTrue($ios instanceof Phone);
-        $ios->open()->call();
+        $ios = PhoneFactory::create('IOS');
+        $this->assertTrue($ios instanceof Phone\IOS);
+        $this->assertTrue($ios instanceof Phone\Operate);
+        $ios->open();
+        $ios->call();
     }
 
     /**
@@ -101,10 +93,11 @@ class FactoryTest extends TestCase
      */
     public function andriod()
     {
-        $andriod = Electronics::phone(Andriod::class);
-        $this->assertTrue($andriod instanceof Andriod);
-        $this->assertTrue($andriod instanceof Phone);
-        $andriod->open()->call();
+        $andriod = PhoneFactory::create('Andriod');
+        $this->assertTrue($andriod instanceof Phone\Andriod);
+        $this->assertTrue($andriod instanceof Phone\Operate);
+        $andriod->open();
+        $andriod->call();
     }
 
     /**
@@ -114,10 +107,11 @@ class FactoryTest extends TestCase
      */
     public function symbian()
     {
-        $symbian = Electronics::phone(Symbian::class);
-        $this->assertTrue($symbian instanceof Symbian);
-        $this->assertTrue($symbian instanceof Phone);
-        $symbian->open()->call();
+        $symbian = PhoneFactory::create('Symbian');
+        $this->assertTrue($symbian instanceof Phone\Symbian);
+        $this->assertTrue($symbian instanceof Phone\Operate);
+        $symbian->open();
+        $symbian->call();
     }
 
     /**
@@ -127,9 +121,9 @@ class FactoryTest extends TestCase
      */
     public function digitalWatch()
     {
-        $digitalWatch = Electronics::watch(DigitalWatch::class);
-        $this->assertTrue($digitalWatch instanceof DigitalWatch);
-        $this->assertTrue($digitalWatch instanceof Watch);
+        $digitalWatch = WatchFactory::create('Digital');
+        $this->assertTrue($digitalWatch instanceof Watch\Digital);
+        $this->assertTrue($digitalWatch instanceof Watch\Operate);
         $digitalWatch->run();
     }
 
@@ -140,9 +134,9 @@ class FactoryTest extends TestCase
      */
     public function quartzWatch()
     {
-        $quartzWatch = Electronics::watch(QuartzWatch::class);
-        $this->assertTrue($quartzWatch instanceof QuartzWatch);
-        $this->assertTrue($quartzWatch instanceof Watch);
+        $quartzWatch = WatchFactory::create('Quartz');
+        $this->assertTrue($quartzWatch instanceof Watch\Quartz);
+        $this->assertTrue($quartzWatch instanceof Watch\Operate);
         $quartzWatch->run();
     }
 }

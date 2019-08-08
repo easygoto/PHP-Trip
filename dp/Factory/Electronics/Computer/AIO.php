@@ -3,25 +3,20 @@
 
 namespace Trink\Dp\Factory\Electronics\Computer;
 
-use Trink\Dp\Factory\Electronics\Computer;
-
-class AIO implements Computer
+class AIO implements Operate
 {
-    public function run(): Computer
+    public function run()
     {
         print "一体机启动 ...\n";
-        return $this;
     }
 
-    public function play(): Computer
+    public function play()
     {
         print "能玩啥游戏啊 ...\n";
-        return $this;
     }
 
-    public function close(): Computer
+    public function close()
     {
         print "一体机关闭 ...\n";
-        return $this;
     }
 }
