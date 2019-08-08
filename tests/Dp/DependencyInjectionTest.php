@@ -4,6 +4,7 @@
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
+use Trink\Dp\DependencyInjection\Company\Dream;
 use Trink\Dp\DependencyInjection\Demo\App;
 
 class DependencyInjectionTest extends TestCase
@@ -20,6 +21,22 @@ class DependencyInjectionTest extends TestCase
 
         $config = $app->config;
         $config->test();
+
+        $this->assertTrue(true);
+    }
+
+    /** @test */
+    public function dreamCompany()
+    {
+        $dreamCompany    = Dream::instance();
+        $sales           = $dreamCompany->sales;
+        $customerService = $dreamCompany->customerService;
+
+        $sales->solveSalesQuestion();
+        $sales->solveTechnologyQuestion();
+
+        $customerService->solveTechnologyQuestion();
+        $customerService->solveCustomerServiceQuestion();
 
         $this->assertTrue(true);
     }
