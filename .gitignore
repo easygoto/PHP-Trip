@@ -1,7 +1,7 @@
 
 .idea/
 *.cache
-res/
+res/*
 !res/sql/
 vendor/
 composer.lock
