@@ -39,8 +39,8 @@ class ComponentTest extends TestCase
         $tpl = new Template([
             'php_turn'     => true,
             'debug'        => true,
-            'compile_dir'  => self::$resDir . 'cache/',
-            'template_dir' => self::$resDir . 'template/',
+            'compile_dir'  => RES_DIR . 'cache/',
+            'template_dir' => RES_DIR . 'template/',
         ]);
         $tpl->assign('data', 'hello world');
         $tpl->assign('person', 'cafeCAT');
