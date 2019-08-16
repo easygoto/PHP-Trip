@@ -4,7 +4,6 @@
 namespace Test\Trip\Core;
 
 use Test\Trip\TestCase;
-use Trink\Core\Component\Db\Medoo;
 use Trink\Core\Component\Template\Template;
 use Trink\Core\Container\App;
 
@@ -18,8 +17,7 @@ class ComponentTest extends TestCase
     /** @test */
     public function db()
     {
-        $medoo = new Medoo(App::instance()->config);
-
+        $medoo  = App::instance()->medoo;
         $result = $medoo->count('goods', '*', ['id' => 10]);
         var_dump($result);
 
@@ -29,7 +27,7 @@ class ComponentTest extends TestCase
     /** @test */
     public function config()
     {
-        print App::instance()->config->get('db.type');
+        print App::instance()->setting->get('db.type');
         $this->assertTrue(true);
     }
 
@@ -39,7 +37,7 @@ class ComponentTest extends TestCase
         $tpl = new Template([
             'php_turn'     => true,
             'debug'        => true,
-            'compile_dir'  => RES_DIR . 'cache/',
+            'compile_dir'  => RES_DIR . 'temp/',
             'template_dir' => RES_DIR . 'template/',
         ]);
         $tpl->assign('data', 'hello world');

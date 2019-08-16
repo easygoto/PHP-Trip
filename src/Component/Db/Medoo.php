@@ -3,14 +3,13 @@
 
 namespace Trink\Core\Component\Db;
 
-use Trink\Core\Container\Statement\Config;
-use Trink\Core\Container\Statement\Db;
+use Trink\Core\Component\Config\Setting;
 
-class Medoo extends \Medoo\Medoo implements Db
+class Medoo extends \Medoo\Medoo
 {
-    public function __construct(Config $config)
+    public function __construct(Setting $setting)
     {
-        $db = $config->get('db');
+        $db = $setting->get('db');
         parent::__construct([
             'database_type' => $db['type'],
             'database_name' => $db['name'],

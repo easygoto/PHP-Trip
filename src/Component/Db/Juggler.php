@@ -3,14 +3,13 @@
 
 namespace Trink\Core\Component\Db;
 
-use Trink\Core\Container\Statement\Config;
-use Trink\Core\Container\Statement\Db;
+use Trink\Core\Component\Config\Setting;
 
-class Juggler extends \Upfor\Juggler\Juggler implements Db
+class Juggler extends \Upfor\Juggler\Juggler
 {
-    public function __construct(Config $config)
+    public function __construct(Setting $setting)
     {
-        $db = $config->get('db');
+        $db = $setting->get('db');
         parent::__construct([
             'host'     => $db['host'],
             'dbname'   => $db['name'],
@@ -18,34 +17,5 @@ class Juggler extends \Upfor\Juggler\Juggler implements Db
             'password' => $db['pass'],
             'charset'  => $db['charset'],
         ]);
-    }
-
-    public function test()
-    {
-        $this->beginTransaction();
-        $this->inTransaction();
-        $this->commit();
-        $this->rollBack();
-
-        $this->table('');
-        $this->delete();
-        $this->update([]);
-        $this->insert([]);
-        $this->lastInsertId();
-        $this->getList();
-        $this->getRow();
-        $this->has();
-        $this->query('');
-        $this->join('', '');
-        $this->where('');
-        $this->group('');
-        $this->limit('');
-        $this->order('');
-
-        $this->count();
-        $this->avg('');
-        $this->max('');
-        $this->min('');
-        $this->sum('');
     }
 }

@@ -4,16 +4,15 @@
 namespace Trink\Core\Component\Db;
 
 use Illuminate\Database\Capsule\Manager as CapsuleManager;
-use Trink\Core\Container\Statement\Config;
-use Trink\Core\Container\Statement\Db;
+use Trink\Core\Component\Config\Setting;
 
-class Capsule implements Db
+class Capsule
 {
     protected static $instance;
 
-    public static function instance(Config $config)
+    public static function instance(Setting $setting)
     {
-        $db = $config->get('db');
+        $db = $setting->get('db');
 
         self::$instance = new CapsuleManager;
         self::$instance->addConnection([
