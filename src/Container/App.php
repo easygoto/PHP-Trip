@@ -44,7 +44,7 @@ class App
     public function __get($name)
     {
         switch ($name) {
-            case 'setting':
+            case 'settings':
                 return $this->register($name, new Settings());
             case 'medoo':
                 return $this->register($name, new DbMedoo($this->settings));

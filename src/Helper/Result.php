@@ -20,8 +20,8 @@ class Result
     private function __construct(int $status, string $msg, array $data)
     {
         $this->status = $status;
-        $this->msg    = $msg;
-        $this->data   = $data;
+        $this->msg = $msg;
+        $this->data = $data;
     }
 
     public function __set($name, $value)
@@ -74,12 +74,12 @@ class Result
      */
     public function asArray()
     {
-        $properties      = [];
-        $object          = new ReflectionObject($this);
-        $field_list      = $object->getProperties();
-        $field_name_list = array_column($field_list, 'name');
-        foreach ($field_name_list as $field_name) {
-            $properties[$field_name] = $this->$field_name;
+        $properties = [];
+        $object = new ReflectionObject($this);
+        $fieldList = $object->getProperties();
+        $fieldNameList = array_column($fieldList, 'name');
+        foreach ($fieldNameList as $fieldName) {
+            $properties[$fieldName] = $this->$fieldName;
         }
         return array_merge($properties, get_object_vars($this));
     }
@@ -123,9 +123,9 @@ class Result
     /**
      * 列表成功返回
      *
-     * @param array  $list
-     * @param int    $total
-     * @param int    $pageSize
+     * @param array $list
+     * @param int   $total
+     * @param int   $pageSize
      *
      * @return Result
      */

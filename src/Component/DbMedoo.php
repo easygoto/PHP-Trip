@@ -7,9 +7,9 @@ use Medoo\Medoo;
 
 class DbMedoo extends Medoo
 {
-    public function __construct(Settings $setting)
+    public function __construct(Settings $settings)
     {
-        $dbs = $setting->get('db');
+        $dbs = $settings->get('db');
         parent::__construct([
             'database_type' => $dbs['type'],
             'database_name' => $dbs['name'],

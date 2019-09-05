@@ -9,9 +9,9 @@ class DbCapsule
 {
     protected static $instance;
 
-    public static function instance(Settings $setting)
+    public static function instance(Settings $settings)
     {
-        $dbs = $setting->get('db');
+        $dbs = $settings->get('db');
         self::$instance = new CapsuleManager;
         self::$instance->addConnection([
             'driver'    => $dbs['type'],

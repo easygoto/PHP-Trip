@@ -91,7 +91,7 @@ class Spike
                 return (float)$result +
                     Arrays::getDigits($goods, 'selling_price') *
                     Arrays::getInt($goods, 'goods_num');
-            }), 2);
+            }), 2, '.', '');
 
             $orderId = $db->table('order')
                 ->insertGetId([
@@ -135,7 +135,7 @@ class Spike
             }
 
             $db->commit();
-            return Result::success([], '秒杀成功')->asArray();
+            return Result::success('秒杀成功')->asArray();
         } catch (Exception $e) {
             try {
                 $db->rollBack();

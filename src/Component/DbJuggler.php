@@ -7,9 +7,9 @@ use Upfor\Juggler\Juggler;
 
 class DbJuggler extends Juggler
 {
-    public function __construct(Settings $setting)
+    public function __construct(Settings $settings)
     {
-        $dbs = $setting->get('db');
+        $dbs = $settings->get('db');
         parent::__construct([
             'host'     => $dbs['host'],
             'dbname'   => $dbs['name'],
