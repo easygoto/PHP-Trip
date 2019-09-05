@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Trink\Core\Component\Config;
+namespace Trink\Core\Component;
 
 use Trink\Core\Helper\Arrays;
 
-class Setting
+class Settings
 {
     protected $props;
 

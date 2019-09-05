@@ -1,18 +1,18 @@
 <?php
 
 
-namespace Trink\Trip\App\Dota\Hero;
+namespace Trink\Trip\App\DotA\Hero;
 
 use ReflectionObject;
-use Trink\Trip\App\Dota\DObject;
-use Trink\Trip\App\Dota\Skill\Dizziness;
-use Trink\Trip\App\Dota\Skill\Hurt;
-use Trink\Trip\App\Dota\Skill\Skill;
+use Trink\Trip\App\DotA\DotAObject;
+use Trink\Trip\App\DotA\Skill\Dizziness;
+use Trink\Trip\App\DotA\Skill\Hurt;
+use Trink\Trip\App\DotA\Skill\Skill;
 
 /**
  * Class Hero
  *
- * @package Trink\Trip\App\Dota\Hero
+ * @package Trink\Trip\App\DotA\Hero
  *
  * @method float getLifeValue()
  * @method float getMagicValue()
@@ -21,7 +21,7 @@ use Trink\Trip\App\Dota\Skill\Skill;
  * @method Hero setLifeValue(float $lifeValue)
  * @method Hero setMagicValue(float $magicValue)
  */
-abstract class Hero extends DObject
+abstract class Hero extends DotAObject
 {
     /** @var float $lifeValue 生命值 */
     protected $lifeValue;

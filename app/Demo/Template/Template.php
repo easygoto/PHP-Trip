@@ -1,6 +1,6 @@
 <?php
 
-namespace Trink\Core\Component\Template;
+namespace Trink\Trip\App\Demo\Template;
 
 /**
  *一个简单的模板引擎

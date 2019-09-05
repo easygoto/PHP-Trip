@@ -20,6 +20,8 @@
     "ext-mbstring": "^7.3",
     "ext-PDO": "^7.3",
     "ext-amqp": "^1.9",
+    "ext-sockets": "*",
+    "ext-simplexml": "*",
     "catfan/medoo": "^1.6",
     "upfor/juggler": "^1.0",
     "illuminate/database": "^5.8"

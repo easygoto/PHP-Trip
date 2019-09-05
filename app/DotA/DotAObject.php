@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Trink\Trip\App\Dota;
+namespace Trink\Trip\App\DotA;
 
-abstract class DObject
+abstract class DotAObject
 {
     public function __call($methodName, $arguments)
     {
