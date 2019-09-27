@@ -3,10 +3,11 @@
 
 namespace Test\Trip\App\Demo;
 
-use Test\Trip\TestCase;
+use Countable;
 use Redis;
 use ReflectionClass;
 use ReflectionObject;
+use Test\Trip\TestCase;
 use Trink\Trip\App\Demo\Algorithm;
 use Trink\Trip\App\Demo\Node;
 use Trink\Trip\App\Demo\Person;
@@ -17,6 +18,26 @@ class DemoTest extends TestCase
     public function test()
     {
         $this->assertTrue(true);
+    }
+
+    /** @test */
+    public function anonymous()
+    {
+        $object = (new class implements Countable {
+            public function run()
+            {
+                return $this;
+            }
+
+            public function count()
+            {
+                return 3;
+            }
+        })->run();
+        $this->assertEquals(3, count($object));
+
+        $reflect = new ReflectionObject($object);
+        $this->assertTrue(strpos($reflect->getName(), 'class@anonymous') == 0);
     }
 
     /** @test */
@@ -31,7 +52,7 @@ class DemoTest extends TestCase
     public function zone2Db()
     {
         $zoneArray = [];
-        $fp        = fopen(RES_DIR . 'zone_code.csv', 'r');
+        $fp = fopen(RES_DIR . 'zone_code.csv', 'r');
         while (($content = fgetcsv($fp)) != null) {
             $zoneArray[$content[1]] = $content[0];
         }
@@ -45,37 +66,37 @@ class DemoTest extends TestCase
             }
             if ($code % 10000 == 0) {
                 // 省
-                $type         = 'province';
-                $areaCode     = '';
-                $areaName     = '';
-                $cityCode     = '';
-                $cityName     = '';
+                $type = 'province';
+                $areaCode = '';
+                $areaName = '';
+                $cityCode = '';
+                $cityName = '';
                 $provinceCode = $code;
                 $provinceName = $zoneArray["$provinceCode"] ?? '';
-                $parentCode   = 100000;
+                $parentCode = 100000;
             } elseif ($code % 100 == 0) {
                 // 市
-                $type         = 'city';
-                $areaCode     = '';
-                $areaName     = '';
-                $cityCode     = $code;
-                $cityName     = $zoneArray["$cityCode"] ?? '';
+                $type = 'city';
+                $areaCode = '';
+                $areaName = '';
+                $cityCode = $code;
+                $cityName = $zoneArray["$cityCode"] ?? '';
                 $provinceCode = intval($code / 10000) * 10000;
                 $provinceName = $zoneArray["$provinceCode"] ?? '';
-                $parentCode   = $provinceCode;
+                $parentCode = $provinceCode;
             } else {
                 // 区
-                $type         = 'area';
-                $areaCode     = $code;
-                $areaName     = $zoneArray["$code"] ?? '';
-                $cityCode     = intval($code / 100) * 100;
-                $cityName     = $zoneArray["$cityCode"] ?? '';
+                $type = 'area';
+                $areaCode = $code;
+                $areaName = $zoneArray["$code"] ?? '';
+                $cityCode = intval($code / 100) * 100;
+                $cityName = $zoneArray["$cityCode"] ?? '';
                 $provinceCode = intval($code / 10000) * 10000;
                 $provinceName = $zoneArray["$provinceCode"] ?? '';
-                $parentCode   = $cityCode;
+                $parentCode = $cityCode;
             }
-            $path       = trim($provinceName . '|' . $cityName . '|' . $areaName, '|');
-            $codePath   = trim($provinceCode . '|' . $cityCode . '|' . $areaCode, '|');
+            $path = trim($provinceName . '|' . $cityName . '|' . $areaName, '|');
+            $codePath = trim($provinceCode . '|' . $cityCode . '|' . $areaCode, '|');
             $zoneList[] = sprintf("('%s',%d,%d,'%s','%s','%s')", $name, $code, $parentCode, $path, $codePath, $type);
         }
 
@@ -93,10 +114,10 @@ class DemoTest extends TestCase
     /** @test */
     public function patchAllMethod()
     {
-        $filename   = RES_DIR . 'wxapp.txt';
-        $docs       = file_get_contents($filename);
-        $pattern    = "/public\s+?function\s+?doPage(\w+)\s*?\(\s*?\)/";
-        $total      = preg_match_all($pattern, $docs, $matches, PREG_OFFSET_CAPTURE);
+        $filename = RES_DIR . 'wxapp.txt';
+        $docs = file_get_contents($filename);
+        $pattern = "/public\s+?function\s+?doPage(\w+)\s*?\(\s*?\)/";
+        $total = preg_match_all($pattern, $docs, $matches, PREG_OFFSET_CAPTURE);
         $spaceCount = 8;
 
         $methodList = array_column($matches[1], 1, 0);
@@ -111,7 +132,7 @@ class DemoTest extends TestCase
                     $tagCount++;
                     if (!$inMethod) {
                         $methodStart = $currentIndex + 1;
-                        $inMethod    = true;
+                        $inMethod = true;
                     }
                 } elseif ($currentChar === '}') {
                     $tagCount--;
@@ -168,8 +189,8 @@ class DemoTest extends TestCase
     /** @test */
     public function match()
     {
-        $persons1    = ['A', 'B', 'C', 'D'];
-        $persons2    = ['a', 'b', 'c', 'd'];
+        $persons1 = ['A', 'B', 'C', 'D'];
+        $persons2 = ['a', 'b', 'c', 'd'];
         $exclude_map = ['a' => ['A'], 'c' => ['B', 'C']];
         Algorithm::match($persons1, $persons2, $exclude_map);
         $this->assertTrue(true);
@@ -178,8 +199,8 @@ class DemoTest extends TestCase
     /** @test */
     public function yuMatch()
     {
-        $persons1    = ['A', 'B', 'C', 'D'];
-        $persons2    = ['a', 'b', 'c', 'd'];
+        $persons1 = ['A', 'B', 'C', 'D'];
+        $persons2 = ['a', 'b', 'c', 'd'];
         $exclude_map = ['a' => ['A'], 'c' => ['B', 'C']];
         Algorithm::yuMatch($persons1, $persons2, [], $exclude_map);
         $this->assertTrue(true);
@@ -189,7 +210,7 @@ class DemoTest extends TestCase
     public function zip()
     {
         $filename = RES_DIR . date('Y_m_d_H_i_s') . ".zip";
-        $zip      = new ZipArchive();
+        $zip = new ZipArchive();
         if ($zip->open($filename, ZipArchive::OVERWRITE) !== true) {
             if ($zip->open($filename, ZipArchive::CREATE) !== true) {
                 exit('无法打开文件，或者文件创建失败');
@@ -207,12 +228,12 @@ class DemoTest extends TestCase
     public function pattern()
     {
         $pattern = '/(\<(\w+)\>).+?(\<\/\2\>)/';
-        $text    = '<div><ul><li><a></a><span></span></li><li><a></a><span></span></li></ul></div>';
+        $text = '<div><ul><li><a></a><span></span></li><li><a></a><span></span></li></ul></div>';
         preg_match_all($pattern, $text, $matches);
         print_r($matches);
 
         $pattern = '#\[url\](?<WORD>\d\.gif)\[\/url\]#';
-        $text    = '[url]1.gif[/url][url]2.gif[/url][url]3.gif[/url]';
+        $text = '[url]1.gif[/url][url]2.gif[/url][url]3.gif[/url]';
         var_dump(preg_replace($pattern, "<img src=http://image.ai.com/upload/$1 alt>", $text));
         $this->assertTrue(true);
     }
@@ -233,11 +254,11 @@ class DemoTest extends TestCase
         print_r(get_class_methods($person));             // 类方法名数组
 
         // 反射 API
-        $obj       = new ReflectionClass('Trink\Trip\App\Demo\Person');
+        $obj = new ReflectionClass('Trink\Trip\App\Demo\Person');
         $className = $obj->getName();
         var_dump($className);
 
-        $methods    = [];
+        $methods = [];
         $properties = [];
         foreach ($obj->getMethods() as $value) {
             $methods[$value->getName()] = $value;

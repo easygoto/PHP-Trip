@@ -101,7 +101,7 @@ class Result
      *
      * @return Result
      */
-    public static function fail(string $msg, array $debug = [], int $status = 1): Result
+    public static function fail(string $msg = 'FAIL', array $debug = [], int $status = 1): Result
     {
         return new static($status, $msg, ['debug' => $debug]);
     }
@@ -115,7 +115,7 @@ class Result
      *
      * @return Result
      */
-    public static function success(string $msg = '', array $data = [], int $status = 0): Result
+    public static function success(string $msg = 'OK', array $data = [], int $status = 0): Result
     {
         return new static($status, $msg, $data);
     }
@@ -131,7 +131,7 @@ class Result
      */
     public static function lists(array $list, int $total, int $pageSize = 15): self
     {
-        return new static(0, '', [
+        return new static(0, 'OK', [
             'list'       => $list,
             'total'      => $total,
             'totalPages' => ceil($total / $pageSize),
