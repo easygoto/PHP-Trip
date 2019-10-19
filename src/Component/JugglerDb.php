@@ -5,7 +5,7 @@ namespace Trink\Core\Component;
 
 use Upfor\Juggler\Juggler;
 
-class DbJuggler extends Juggler
+class JugglerDb extends Juggler
 {
     public function __construct(Settings $settings)
     {

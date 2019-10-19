@@ -5,7 +5,7 @@ namespace Trink\Core\Component;
 
 use Medoo\Medoo;
 
-class DbMedoo extends Medoo
+class MedooDb extends Medoo
 {
     public function __construct(Settings $settings)
     {

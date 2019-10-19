@@ -5,7 +5,7 @@ namespace Trink\Core\Component;
 
 use Illuminate\Database\Capsule\Manager as CapsuleManager;
 
-class DbCapsule
+class CapsuleDb
 {
     protected static $instance;
 

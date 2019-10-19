@@ -3,6 +3,6 @@
 
 namespace Trink\Core\Component;
 
-class ReaderFile
+class FileReader
 {
 }

@@ -5,9 +5,9 @@ namespace Trink\Core\Container;
 
 use Illuminate\Database\Connection;
 use Trink\Core\Component\Settings;
-use Trink\Core\Component\DbCapsule;
-use Trink\Core\Component\DbJuggler;
-use Trink\Core\Component\DbMedoo;
+use Trink\Core\Component\CapsuleDb;
+use Trink\Core\Component\JugglerDb;
+use Trink\Core\Component\MedooDb;
 
 /**
  * Class App
@@ -15,9 +15,9 @@ use Trink\Core\Component\DbMedoo;
  * @package Trink\Core\Container
  *
  * @property Settings   settings
- * @property DbMedoo    medoo
+ * @property MedooDb    medoo
  * @property Connection capsule
- * @property DbJuggler  juggler
+ * @property JugglerDb  juggler
  */
 class App
 {
@@ -47,11 +47,11 @@ class App
             case 'settings':
                 return $this->register($name, new Settings());
             case 'medoo':
-                return $this->register($name, new DbMedoo($this->settings));
+                return $this->register($name, new MedooDb($this->settings));
             case 'capsule':
-                return $this->register($name, DbCapsule::instance($this->settings));
+                return $this->register($name, CapsuleDb::instance($this->settings));
             case 'juggler':
-                return $this->register($name, new DbJuggler($this->settings));
+                return $this->register($name, new JugglerDb($this->settings));
             default:
                 return null;
         }
