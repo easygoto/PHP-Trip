@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Trink\Trip\App\DotA\Skill;
+namespace Trink\App\Trip\DotA\Skill;
 
-use Trink\Trip\App\DotA\DotAObject;
+use Trink\App\Trip\DotA\DotAObject;
 
 /**
  * Class Skill
  *
- * @package Trink\Trip\App\DotA\Skill
+ * @package Trink\App\Trip\DotA\Skill
  *
  * @method int getCostMagic()
  * @method Skill setCostMagic(int $costMagic)

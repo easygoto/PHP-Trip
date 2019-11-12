@@ -4,7 +4,7 @@
 namespace Test\Trip\App\Demo;
 
 use Test\Trip\TestCase;
-use Trink\Trip\App\Demo\Template\Template;
+use Trink\App\Trip\Demo\Template\Template;
 
 class TempTest extends TestCase
 {

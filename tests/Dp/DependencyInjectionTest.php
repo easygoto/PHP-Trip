@@ -4,8 +4,8 @@
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
-use Trink\Dp\DependencyInjection\Company\Dream;
-use Trink\Dp\DependencyInjection\Demo\App;
+use Trink\App\Dp\DependencyInjection\Company\Dream;
+use Trink\App\Dp\DependencyInjection\Demo\App;
 
 class DependencyInjectionTest extends TestCase
 {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\AbstractFactory\Demo;
+namespace Trink\App\Dp\AbstractFactory\Demo;
 
 class BloggsCommsManager extends CommsManager
 {

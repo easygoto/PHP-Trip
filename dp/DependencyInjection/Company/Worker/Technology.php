@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\DependencyInjection\Company\Worker;
+namespace Trink\App\Dp\DependencyInjection\Company\Worker;
 
 class Technology
 {

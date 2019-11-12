@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Trink\Dp\DependencyInjection\Demo\Concrete;
+namespace Trink\App\Dp\DependencyInjection\Demo\Concrete;
 
-class DB implements \Trink\Dp\DependencyInjection\Demo\DB
+class DB implements \Trink\App\Dp\DependencyInjection\Demo\DB
 {
     private $config;
 

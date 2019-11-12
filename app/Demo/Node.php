@@ -1,11 +1,11 @@
 <?php
 
-namespace Trink\Trip\App\Demo;
+namespace Trink\App\Trip\Demo;
 
 /**
  * Class Node
  *
- * @package Trink\Trip\App\Demo
+ * @package Trink\App\Trip\Demo
  */
 class Node
 {

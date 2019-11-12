@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Strategy\Demo;
+namespace Trink\App\Dp\Strategy\Demo;
 
 class AVQuestion extends Question
 {

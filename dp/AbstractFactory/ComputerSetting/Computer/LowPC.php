@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Trink\Dp\AbstractFactory\ComputerSetting\Computer;
+namespace Trink\App\Dp\AbstractFactory\ComputerSetting\Computer;
 
-use Trink\Dp\AbstractFactory\ComputerSetting\Computer;
-use Trink\Dp\AbstractFactory\ComputerSetting\CPU\CPU2400MHzCore4;
-use Trink\Dp\AbstractFactory\ComputerSetting\HardDisk\HDD1T5400RPM;
-use Trink\Dp\AbstractFactory\ComputerSetting\Memory\Memory2G;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\Computer;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\CPU\CPU2400MHzCore4;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\HardDisk\HDD1T5400RPM;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\Memory\Memory2G;
 
 class LowPC extends Computer
 {

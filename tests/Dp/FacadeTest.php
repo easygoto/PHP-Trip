@@ -3,7 +3,7 @@
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
-use Trink\Dp\Facade\Demo\ProductFacade;
+use Trink\App\Dp\Facade\Demo\ProductFacade;
 
 class FacadeTest extends TestCase
 {

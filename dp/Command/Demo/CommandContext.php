@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Command\Demo;
+namespace Trink\App\Dp\Command\Demo;
 
 class CommandContext
 {

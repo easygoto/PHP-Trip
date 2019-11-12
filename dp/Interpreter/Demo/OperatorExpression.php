@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Interpreter\Demo;
+namespace Trink\App\Dp\Interpreter\Demo;
 
 // 比较表达式
 abstract class OperatorExpression extends Expression

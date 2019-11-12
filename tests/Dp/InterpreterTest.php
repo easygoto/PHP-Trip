@@ -3,11 +3,11 @@
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
-use Trink\Dp\Interpreter\Demo\BooleanOrExpression;
-use Trink\Dp\Interpreter\Demo\EqualsExpression;
-use Trink\Dp\Interpreter\Demo\InterpreterContext;
-use Trink\Dp\Interpreter\Demo\LiteralExpression;
-use Trink\Dp\Interpreter\Demo\VariableExpression;
+use Trink\App\Dp\Interpreter\Demo\BooleanOrExpression;
+use Trink\App\Dp\Interpreter\Demo\EqualsExpression;
+use Trink\App\Dp\Interpreter\Demo\InterpreterContext;
+use Trink\App\Dp\Interpreter\Demo\LiteralExpression;
+use Trink\App\Dp\Interpreter\Demo\VariableExpression;
 
 class InterpreterTest extends TestCase
 {

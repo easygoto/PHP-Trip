@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\DependencyInjection\Demo;
+namespace Trink\App\Dp\DependencyInjection\Demo;
 
 interface DB
 {

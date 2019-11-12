@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Decorator\Demo;
+namespace Trink\App\Dp\Decorator\Demo;
 
 class DiamondDecorator extends TileDecorator
 {

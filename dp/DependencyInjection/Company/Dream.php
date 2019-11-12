@@ -1,16 +1,16 @@
 <?php
 
 
-namespace Trink\Dp\DependencyInjection\Company;
+namespace Trink\App\Dp\DependencyInjection\Company;
 
-use Trink\Dp\DependencyInjection\Company\Worker\CustomerService;
-use Trink\Dp\DependencyInjection\Company\Worker\Sales;
-use Trink\Dp\DependencyInjection\Company\Worker\Technology;
+use Trink\App\Dp\DependencyInjection\Company\Worker\CustomerService;
+use Trink\App\Dp\DependencyInjection\Company\Worker\Sales;
+use Trink\App\Dp\DependencyInjection\Company\Worker\Technology;
 
 /**
  * Class Dream
  *
- * @package Trink\Dp\DependencyInjection\Container
+ * @package Trink\App\Dp\DependencyInjection\Container
  *
  * @property Sales           sales
  * @property Technology      technology

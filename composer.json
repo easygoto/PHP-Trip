@@ -1,9 +1,10 @@
 {
   "autoload": {
     "psr-4": {
-      "Trink\\Core\\": "src",
-      "Trink\\Dp\\": "dp",
-      "Trink\\Trip\\App\\": "app"
+      "Trink\\Core\\": "core",
+      "Trink\\Frame\\": "src",
+      "Trink\\App\\Dp\\": "dp",
+      "Trink\\App\\Trip\\": "app"
     }
   },
   "autoload-dev": {
@@ -22,6 +23,7 @@
     "ext-amqp": "^1.9",
     "ext-gd": "*",
     "ext-dom": "*",
+    "ext-curl": "*",
     "ext-libxml": "*",
     "ext-sockets": "*",
     "ext-simplexml": "*",
@@ -30,7 +32,6 @@
     "illuminate/database": "^6.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^8.1",
-    "codeception/codeception": "^3.0"
+    "phpunit/phpunit": "^8.4"
   }
 }

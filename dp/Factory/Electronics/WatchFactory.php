@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Factory\Electronics;
+namespace Trink\App\Dp\Factory\Electronics;
 
 use ReflectionClass;
 

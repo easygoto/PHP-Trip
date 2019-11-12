@@ -3,10 +3,10 @@
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
-use Trink\Dp\Prototype\Demo\EarthForest;
-use Trink\Dp\Prototype\Demo\EarthPlains;
-use Trink\Dp\Prototype\Demo\EarthSea;
-use Trink\Dp\Prototype\Demo\TerrainFactory;
+use Trink\App\Dp\Prototype\Demo\EarthForest;
+use Trink\App\Dp\Prototype\Demo\EarthPlains;
+use Trink\App\Dp\Prototype\Demo\EarthSea;
+use Trink\App\Dp\Prototype\Demo\TerrainFactory;
 
 class PrototypeTest extends TestCase
 {

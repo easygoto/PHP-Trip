@@ -4,9 +4,9 @@
 namespace Tests\Dp\App;
 
 use Test\Trip\TestCase;
-use Trink\Trip\App\DotA\Hero\Axe;
-use Trink\Trip\App\DotA\Hero\Sven;
-use Trink\Trip\App\DotA\Skill\Real\StormHammer;
+use Trink\App\Trip\DotA\Hero\Axe;
+use Trink\App\Trip\DotA\Hero\Sven;
+use Trink\App\Trip\DotA\Skill\Real\StormHammer;
 
 class BaseTest extends TestCase
 {

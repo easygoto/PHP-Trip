@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Factory\Electronics\Phone;
+namespace Trink\App\Dp\Factory\Electronics\Phone;
 
 class IOS implements Operate
 {

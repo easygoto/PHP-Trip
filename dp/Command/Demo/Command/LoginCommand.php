@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Trink\Dp\Command\Demo\Command;
+namespace Trink\App\Dp\Command\Demo\Command;
 
-use Trink\Dp\Command\Demo\Command;
-use Trink\Dp\Command\Demo\CommandContext;
+use Trink\App\Dp\Command\Demo\Command;
+use Trink\App\Dp\Command\Demo\CommandContext;
 
 class LoginCommand extends Command
 {

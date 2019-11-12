@@ -4,7 +4,7 @@
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
-use Trink\Dp\Singleton\Config\Config;
+use Trink\App\Dp\Singleton\Config\Config;
 
 class SingletonTest extends TestCase
 {

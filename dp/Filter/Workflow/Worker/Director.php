@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Trink\Dp\Filter\Workflow\Worker;
+namespace Trink\App\Dp\Filter\Workflow\Worker;
 
-use Trink\Dp\Filter\Workflow\Worker;
+use Trink\App\Dp\Filter\Workflow\Worker;
 
 class Director implements Worker
 {

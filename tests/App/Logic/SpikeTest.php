@@ -4,7 +4,7 @@
 namespace Test\Trip\App\Logic;
 
 use Test\Trip\TestCase;
-use Trink\Trip\App\Logic\Spike;
+use Trink\App\Trip\Logic\Spike;
 
 class SpikeTest extends TestCase
 {

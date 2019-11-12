@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Prototype\Demo;
+namespace Trink\App\Dp\Prototype\Demo;
 
 class EarthSea extends Sea
 {

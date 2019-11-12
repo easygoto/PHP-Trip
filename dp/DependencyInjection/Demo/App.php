@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Trink\Dp\DependencyInjection\Demo;
+namespace Trink\App\Dp\DependencyInjection\Demo;
 
-use Trink\Dp\DependencyInjection\Demo\Concrete\Config;
-use Trink\Dp\DependencyInjection\Demo\Concrete\DB;
+use Trink\App\Dp\DependencyInjection\Demo\Concrete\Config;
+use Trink\App\Dp\DependencyInjection\Demo\Concrete\DB;
 
 class App
 {

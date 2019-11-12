@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Registry\Demo;
+namespace Trink\App\Dp\Registry\Demo;
 
 class Register
 {

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Interpreter\Demo;
+namespace Trink\App\Dp\Interpreter\Demo;
 
 class LiteralExpression extends Expression
 {

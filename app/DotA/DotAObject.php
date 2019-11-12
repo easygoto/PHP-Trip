@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Trip\App\DotA;
+namespace Trink\App\Trip\DotA;
 
 abstract class DotAObject
 {

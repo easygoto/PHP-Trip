@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Trink\Dp\Filter\Workflow\Process;
+namespace Trink\App\Dp\Filter\Workflow\Process;
 
-use Trink\Dp\Filter\Workflow\Process;
+use Trink\App\Dp\Filter\Workflow\Process;
 
 class Leave extends Process
 {

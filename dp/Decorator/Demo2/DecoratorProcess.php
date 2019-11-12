@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Decorator\Demo2;
+namespace Trink\App\Dp\Decorator\Demo2;
 
 abstract class DecoratorProcess extends ProcessRequest
 {

@@ -8,9 +8,9 @@ use Redis;
 use ReflectionClass;
 use ReflectionObject;
 use Test\Trip\TestCase;
-use Trink\Trip\App\Demo\Algorithm;
-use Trink\Trip\App\Demo\Node;
-use Trink\Trip\App\Demo\Person;
+use Trink\App\Trip\Demo\Algorithm;
+use Trink\App\Trip\Demo\Node;
+use Trink\App\Trip\Demo\Person;
 use ZipArchive;
 
 class DemoTest extends TestCase
@@ -254,7 +254,7 @@ class DemoTest extends TestCase
         print_r(get_class_methods($person));             // 类方法名数组
 
         // 反射 API
-        $obj = new ReflectionClass('Trink\Trip\App\Demo\Person');
+        $obj = new ReflectionClass('Trink\App\Trip\Demo\Person');
         $className = $obj->getName();
         var_dump($className);
 

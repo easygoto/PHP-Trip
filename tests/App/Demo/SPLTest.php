@@ -16,8 +16,8 @@ use SplMinHeap;
 use SplPriorityQueue;
 use SplQueue;
 use SplStack;
-use Trink\Trip\App\Demo\Counter;
-use Trink\Trip\App\Demo\OuterImpl;
+use Trink\App\Trip\Demo\Counter;
+use Trink\App\Trip\Demo\OuterImpl;
 
 class SPLTest extends TestCase
 {

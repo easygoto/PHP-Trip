@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Trip\App\DotA\Hero;
+namespace Trink\App\Trip\DotA\Hero;
 
 class Axe extends Hero
 {

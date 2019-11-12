@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Trink\Trip\App\Logic;
+namespace Trink\App\Trip\Logic;
 
 use Exception;
 use Trink\Core\Container\App;
-use Trink\Core\Helper\Arrays;
-use Trink\Core\Helper\Result;
+use Trink\Core\Library\Arrays;
+use Trink\Core\Library\Result;
 
 class Spike
 {

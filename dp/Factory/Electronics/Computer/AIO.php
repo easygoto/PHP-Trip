@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Factory\Electronics\Computer;
+namespace Trink\App\Dp\Factory\Electronics\Computer;
 
 class AIO implements Operate
 {

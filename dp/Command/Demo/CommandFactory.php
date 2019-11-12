@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Command\Demo;
+namespace Trink\App\Dp\Command\Demo;
 
 use Exception;
 use ReflectionClass;
@@ -22,7 +22,7 @@ class CommandFactory
         }
         $class = ucfirst(strtolower($action)) . 'Command';
         try {
-            return (new ReflectionClass('Trink\Dp\Command\Demo\Command' . $class))->newInstance();
+            return (new ReflectionClass('Trink\App\Dp\Command\Demo\Command' . $class))->newInstance();
         } catch (ReflectionException $e) {
             throw new CommandNotFoundException('command is not exists');
         }

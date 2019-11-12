@@ -4,9 +4,9 @@
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
-use Trink\Dp\Command\Demo\Command\FeedbackCommand;
-use Trink\Dp\Command\Demo\Command\LoginCommand;
-use Trink\Dp\Command\Demo\CommandContext;
+use Trink\App\Dp\Command\Demo\Command\FeedbackCommand;
+use Trink\App\Dp\Command\Demo\Command\LoginCommand;
+use Trink\App\Dp\Command\Demo\CommandContext;
 
 class CommandTest extends TestCase
 {

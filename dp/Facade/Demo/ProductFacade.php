@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Facade\Demo;
+namespace Trink\App\Dp\Facade\Demo;
 
 function getProductFileLines($file)
 {

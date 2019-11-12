@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Factory\Demo;
+namespace Trink\App\Dp\Factory\Demo;
 
 abstract class CommsManager
 {

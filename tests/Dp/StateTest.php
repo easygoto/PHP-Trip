@@ -4,8 +4,8 @@
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
-use Trink\Dp\State\Demo\ContextOrder;
-use Trink\Dp\State\Demo\CreateOrder;
+use Trink\App\Dp\State\Demo\ContextOrder;
+use Trink\App\Dp\State\Demo\CreateOrder;
 
 class StateTest extends TestCase
 {

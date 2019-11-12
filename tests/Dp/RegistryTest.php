@@ -4,7 +4,7 @@
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
-use Trink\Dp\Registry\Demo\Register;
+use Trink\App\Dp\Registry\Demo\Register;
 
 class RegistryTest extends TestCase
 {

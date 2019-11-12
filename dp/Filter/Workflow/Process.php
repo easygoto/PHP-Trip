@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Filter\Workflow;
+namespace Trink\App\Dp\Filter\Workflow;
 
 use ReflectionClass;
 use ReflectionException;

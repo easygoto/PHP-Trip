@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Trink\Trip\App\DotA\Skill;
+namespace Trink\App\Trip\DotA\Skill;
 
 /**
  * Trait Dizziness
  *
- * @package Trink\Trip\App\DotA\Skill
+ * @package Trink\App\Trip\DotA\Skill
  *
  * @method float getDizzinessTime()
  * @method void setDizzinessTime(float $dizzinessTime)

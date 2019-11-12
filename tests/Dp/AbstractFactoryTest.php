@@ -4,19 +4,19 @@
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
-use Trink\Dp\AbstractFactory\ComputerSetting\Computer;
-use Trink\Dp\AbstractFactory\ComputerSetting\Computer\HighPC;
-use Trink\Dp\AbstractFactory\ComputerSetting\Computer\LowPC;
-use Trink\Dp\AbstractFactory\ComputerSetting\CPU;
-use Trink\Dp\AbstractFactory\ComputerSetting\CPU\CPU2400MHzCore4;
-use Trink\Dp\AbstractFactory\ComputerSetting\CPU\CPU4000MHzCore8;
-use Trink\Dp\AbstractFactory\ComputerSetting\HardDisk;
-use Trink\Dp\AbstractFactory\ComputerSetting\HardDisk\HDD256G5400RPM;
-use Trink\Dp\AbstractFactory\ComputerSetting\HardDisk\SSD256G;
-use Trink\Dp\AbstractFactory\ComputerSetting\Memory;
-use Trink\Dp\AbstractFactory\ComputerSetting\Memory\Memory2G;
-use Trink\Dp\AbstractFactory\ComputerSetting\Memory\Memory4G;
-use Trink\Dp\AbstractFactory\ComputerSetting\Memory\Memory8G;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\Computer;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\Computer\HighPC;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\Computer\LowPC;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\CPU;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\CPU\CPU2400MHzCore4;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\CPU\CPU4000MHzCore8;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\HardDisk;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\HardDisk\HDD256G5400RPM;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\HardDisk\SSD256G;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\Memory;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\Memory\Memory2G;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\Memory\Memory4G;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\Memory\Memory8G;
 
 class AbstractFactoryTest extends TestCase
 {

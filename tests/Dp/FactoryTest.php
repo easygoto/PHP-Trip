@@ -3,12 +3,12 @@
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
-use Trink\Dp\Factory\Electronics\Computer;
-use Trink\Dp\Factory\Electronics\ComputerFactory;
-use Trink\Dp\Factory\Electronics\Phone;
-use Trink\Dp\Factory\Electronics\PhoneFactory;
-use Trink\Dp\Factory\Electronics\Watch;
-use Trink\Dp\Factory\Electronics\WatchFactory;
+use Trink\App\Dp\Factory\Electronics\Computer;
+use Trink\App\Dp\Factory\Electronics\ComputerFactory;
+use Trink\App\Dp\Factory\Electronics\Phone;
+use Trink\App\Dp\Factory\Electronics\PhoneFactory;
+use Trink\App\Dp\Factory\Electronics\Watch;
+use Trink\App\Dp\Factory\Electronics\WatchFactory;
 
 class FactoryTest extends TestCase
 {

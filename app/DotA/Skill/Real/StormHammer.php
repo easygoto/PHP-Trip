@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Trink\Trip\App\DotA\Skill\Real;
+namespace Trink\App\Trip\DotA\Skill\Real;
 
-use Trink\Trip\App\DotA\Skill\Dizziness;
-use Trink\Trip\App\DotA\Skill\Hurt;
-use Trink\Trip\App\DotA\Skill\Skill;
+use Trink\App\Trip\DotA\Skill\Dizziness;
+use Trink\App\Trip\DotA\Skill\Hurt;
+use Trink\App\Trip\DotA\Skill\Skill;
 
 class StormHammer extends Skill
 {

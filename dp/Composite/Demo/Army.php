@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Composite\Demo;
+namespace Trink\App\Dp\Composite\Demo;
 
 class Army extends CompositeUnit
 {

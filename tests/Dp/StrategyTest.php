@@ -3,10 +3,10 @@
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
-use Trink\Dp\Strategy\Demo\MarkLogicMarker;
-use Trink\Dp\Strategy\Demo\MatchMarker;
-use Trink\Dp\Strategy\Demo\RegexMarker;
-use Trink\Dp\Strategy\Demo\TextQuestion;
+use Trink\App\Dp\Strategy\Demo\MarkLogicMarker;
+use Trink\App\Dp\Strategy\Demo\MatchMarker;
+use Trink\App\Dp\Strategy\Demo\RegexMarker;
+use Trink\App\Dp\Strategy\Demo\TextQuestion;
 
 class StrategyTest extends TestCase
 {

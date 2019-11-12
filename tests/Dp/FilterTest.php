@@ -4,11 +4,11 @@
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
-use Trink\Dp\Filter\Workflow\Process\Leave;
-use Trink\Dp\Filter\Workflow\Worker\CEO;
-use Trink\Dp\Filter\Workflow\Worker\Director;
-use Trink\Dp\Filter\Workflow\Worker\Leader;
-use Trink\Dp\Filter\Workflow\Worker\Manager;
+use Trink\App\Dp\Filter\Workflow\Process\Leave;
+use Trink\App\Dp\Filter\Workflow\Worker\CEO;
+use Trink\App\Dp\Filter\Workflow\Worker\Director;
+use Trink\App\Dp\Filter\Workflow\Worker\Leader;
+use Trink\App\Dp\Filter\Workflow\Worker\Manager;
 
 class FilterTest extends TestCase
 {

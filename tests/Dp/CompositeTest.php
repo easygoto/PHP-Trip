@@ -3,10 +3,10 @@
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
-use Trink\Dp\Composite\Demo\Archer;
-use Trink\Dp\Composite\Demo\Army;
-use Trink\Dp\Composite\Demo\LaserCannonUnit;
-use Trink\Dp\Composite\Demo\UnitException;
+use Trink\App\Dp\Composite\Demo\Archer;
+use Trink\App\Dp\Composite\Demo\Army;
+use Trink\App\Dp\Composite\Demo\LaserCannonUnit;
+use Trink\App\Dp\Composite\Demo\UnitException;
 
 class CompositeTest extends TestCase
 {

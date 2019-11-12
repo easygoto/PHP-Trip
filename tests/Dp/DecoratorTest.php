@@ -3,14 +3,14 @@
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
-use Trink\Dp\Decorator\Demo\DiamondDecorator;
-use Trink\Dp\Decorator\Demo\Plains;
-use Trink\Dp\Decorator\Demo\PolluteDecorator;
-use Trink\Dp\Decorator\Demo2\AuthenticateRequest;
-use Trink\Dp\Decorator\Demo2\LogRequest;
-use Trink\Dp\Decorator\Demo2\MainProcess;
-use Trink\Dp\Decorator\Demo2\RequestHelper;
-use Trink\Dp\Decorator\Demo2\StructureRequest;
+use Trink\App\Dp\Decorator\Demo\DiamondDecorator;
+use Trink\App\Dp\Decorator\Demo\Plains;
+use Trink\App\Dp\Decorator\Demo\PolluteDecorator;
+use Trink\App\Dp\Decorator\Demo2\AuthenticateRequest;
+use Trink\App\Dp\Decorator\Demo2\LogRequest;
+use Trink\App\Dp\Decorator\Demo2\MainProcess;
+use Trink\App\Dp\Decorator\Demo2\RequestHelper;
+use Trink\App\Dp\Decorator\Demo2\StructureRequest;
 
 class DecoratorTest extends TestCase
 {

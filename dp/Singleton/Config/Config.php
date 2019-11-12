@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Singleton\Config;
+namespace Trink\App\Dp\Singleton\Config;
 
 /**
  * @property array      db

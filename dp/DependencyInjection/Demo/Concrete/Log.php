@@ -1,9 +1,9 @@
 <?php
 
 
-namespace Trink\Dp\DependencyInjection\Demo\Concrete;
+namespace Trink\App\Dp\DependencyInjection\Demo\Concrete;
 
-class Log implements \Trink\Dp\DependencyInjection\Demo\Log
+class Log implements \Trink\App\Dp\DependencyInjection\Demo\Log
 {
     public function test()
     {

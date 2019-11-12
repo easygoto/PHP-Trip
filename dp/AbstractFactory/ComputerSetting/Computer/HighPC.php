@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Trink\Dp\AbstractFactory\ComputerSetting\Computer;
+namespace Trink\App\Dp\AbstractFactory\ComputerSetting\Computer;
 
-use Trink\Dp\AbstractFactory\ComputerSetting\Computer;
-use Trink\Dp\AbstractFactory\ComputerSetting\CPU\CPU4000MHzCore8;
-use Trink\Dp\AbstractFactory\ComputerSetting\HardDisk\SSD2T;
-use Trink\Dp\AbstractFactory\ComputerSetting\Memory\Memory8G;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\Computer;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\CPU\CPU4000MHzCore8;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\HardDisk\SSD2T;
+use Trink\App\Dp\AbstractFactory\ComputerSetting\Memory\Memory8G;
 
 class HighPC extends Computer
 {

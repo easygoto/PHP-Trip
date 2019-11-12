@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\AbstractFactory\ComputerSetting;
+namespace Trink\App\Dp\AbstractFactory\ComputerSetting;
 
 /**
  * @method CPU showCore()

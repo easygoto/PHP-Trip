@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Dp\Decorator\Demo;
+namespace Trink\App\Dp\Decorator\Demo;
 
 abstract class TileDecorator extends Tile
 {
