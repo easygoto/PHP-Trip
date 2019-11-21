@@ -5,7 +5,7 @@ namespace Trink\Core\Component;
 
 use Trink\Core\Library\Arrays;
 
-class Settings
+class Setting
 {
     protected $props;
 

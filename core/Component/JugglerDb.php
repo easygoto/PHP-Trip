@@ -7,7 +7,7 @@ use Upfor\Juggler\Juggler;
 
 class JugglerDb extends Juggler
 {
-    public function __construct(Settings $settings)
+    public function __construct(Setting $settings)
     {
         $dbs = $settings->get('db');
         parent::__construct([

@@ -1,7 +1,8 @@
 
 .idea/
 *.cache
-res/*
-!res/sql/
+data/temp
+public/resource/*
+!public/resource/icons
 vendor/
 composer.lock

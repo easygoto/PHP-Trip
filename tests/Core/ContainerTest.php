@@ -10,12 +10,12 @@ class ContainerTest extends TestCase
 {
     public function test()
     {
-        $data = App::instance()->settings->get('db.type');
+        $data = App::instance()->setting->get('db.type');
         print_r($data);
-        App::instance()->settings->set('heh', 'heh');
-        $data = App::instance()->settings->get('heh');
+        App::instance()->setting->set('heh', 'heh');
+        $data = App::instance()->setting->get('heh');
         print_r($data);
-        $set = App::instance()->settings;
+        $set = App::instance()->setting;
         print_r($set);
         $this->assertTrue(true);
     }

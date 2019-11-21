@@ -25,7 +25,7 @@ class ComponentTest extends TestCase
     /** @test */
     public function config()
     {
-        print App::instance()->settings->get('db.type');
+        print App::instance()->setting->get('db.type');
         $this->assertTrue(true);
     }
 }

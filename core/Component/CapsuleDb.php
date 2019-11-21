@@ -9,7 +9,7 @@ class CapsuleDb
 {
     protected static $instance;
 
-    public static function instance(Settings $settings)
+    public static function instance(Setting $settings)
     {
         $dbs = $settings->get('db');
         self::$instance = new CapsuleManager;
