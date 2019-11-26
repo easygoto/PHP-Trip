@@ -4,9 +4,9 @@
 namespace Test\Trip\Core;
 
 use Test\Trip\TestCase;
-use Trink\Core\Library\Arrays;
+use Trink\Core\Helper\Arrays;
 
-class LibraryTest extends TestCase
+class HelperTest extends TestCase
 {
     public function testArrays()
     {

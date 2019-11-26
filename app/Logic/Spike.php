@@ -4,8 +4,8 @@
 namespace Trink\App\Trip\Logic;
 
 use Exception;
-use Trink\Core\Library\Arrays;
-use Trink\Core\Library\Result;
+use Trink\Core\Helper\Arrays;
+use Trink\Core\Helper\Result;
 use Trink\Frame\Container\App;
 
 class Spike

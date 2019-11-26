@@ -4,7 +4,7 @@
 namespace Trink\Core\Component\Setting;
 
 use Trink\Core\Component\Setting;
-use Trink\Core\Library\Arrays;
+use Trink\Core\Helper\Arrays;
 
 class File implements Setting
 {
