@@ -14,8 +14,8 @@ class TempTest extends TestCase
         $tpl = new Template([
             'php_turn'     => true,
             'debug'        => true,
-            'compile_dir'  => RES_DIR . 'temp/',
-            'template_dir' => RES_DIR . 'template/',
+            'compile_dir'  => TEMP_DIR . 'template/compile/',
+            'template_dir' => TEMP_DIR . 'template/template/',
         ]);
         $tpl->assign('data', 'hello world');
         $tpl->assign('person', 'cafeCAT');

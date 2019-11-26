@@ -3,21 +3,14 @@
 
 namespace Trink\Core\Container;
 
-use Illuminate\Database\Connection;
 use Trink\Core\Component\Setting;
-use Trink\Core\Component\CapsuleDb;
-use Trink\Core\Component\JugglerDb;
-use Trink\Core\Component\MedooDb;
 
 /**
  * Class App
  *
  * @package Trink\Core\Container
  *
- * @property Setting    setting
- * @property MedooDb    medoo
- * @property Connection capsule
- * @property JugglerDb  juggler
+ * @property Setting setting
  */
 class App
 {
@@ -44,14 +37,8 @@ class App
     public function __get($name)
     {
         switch ($name) {
-            case 'settings':
-                return $this->register($name, new Setting());
-            case 'medoo':
-                return $this->register($name, new MedooDb($this->setting));
-            case 'capsule':
-                return $this->register($name, CapsuleDb::instance($this->setting));
-            case 'juggler':
-                return $this->register($name, new JugglerDb($this->setting));
+            case 'setting':
+                return $this->register($name, new Setting\File());
             default:
                 return null;
         }

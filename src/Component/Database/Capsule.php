@@ -1,11 +1,12 @@
 <?php
 
 
-namespace Trink\Core\Component;
+namespace Trink\Frame\Component;
 
 use Illuminate\Database\Capsule\Manager as CapsuleManager;
+use Trink\Core\Component\Setting;
 
-class CapsuleDb
+class Capsule
 {
     protected static $instance;
 

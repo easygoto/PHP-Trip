@@ -16,20 +16,29 @@
 ## 项目结构
 ```
 app : 应用目录
-config : 配置文件
-  |--不解释
-dp : 设计模式
-  |--各种设计模式
-res : 资源文件
-  |--不解释
+core : 核心库
+  |--Component : 组件，一般放在容器中注入依赖
+  |--Container : 容器，常量
+  |--Library : 库，类方法，工具之间不可有依赖关系
+data : 配置及数据
+  |--backup : 备份文件,sql改动
+  |--config : 配置文件
+  |--docs : 文档
+  |--temp : 缓存
+dp : 学习设计模式的目录
+public : 网站根目录
+  |--resource : 
+       |--images : 资源图片
+       |--wxcode : 微信码
 src : 组件、工具等
-  |--Component : 组件，一般放在容器中
-  |--Container : 容器
-  |--Helper : 工具，类方法、函数，可以全局使用的，工具之间不可有依赖关系
+  |--Container : 带有逻辑的常量和容器
+  |--Component : 封装别人的组件
+  |--Model : 数据库对接层
+  |--Service : 业务逻辑层
+  |--Controller : 控制路由层
+  |--View : 页面显示层
+  |--Helper : 带有逻辑的库和组件
 tests : 测试板块
-  |--App
-  |--Core
-  |--Dp
 ```
 
 # 设计模式应用

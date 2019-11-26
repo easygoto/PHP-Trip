@@ -5,6 +5,8 @@ namespace Trink\Core\Library;
 
 class Format
 {
+    // 多维数组的下划线转驼峰、驼峰转下划线
+
     /**
      * 下划线转驼峰
      *

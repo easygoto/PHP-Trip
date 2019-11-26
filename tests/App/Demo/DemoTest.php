@@ -52,7 +52,7 @@ class DemoTest extends TestCase
     public function zone2Db()
     {
         $zoneArray = [];
-        $fp = fopen(RES_DIR . 'zone_code.csv', 'r');
+        $fp = fopen(RESOURCE_DIR . 'zone_code.csv', 'r');
         while (($content = fgetcsv($fp)) != null) {
             $zoneArray[$content[1]] = $content[0];
         }
@@ -103,7 +103,7 @@ class DemoTest extends TestCase
         $sql = /** @lang text */
             'insert into `address` (`name`,`code`,`parent_code`,`path`,`code_path`,`type`) values ';
         $sql .= implode(',', $zoneList);
-        file_put_contents(RES_DIR . 'address.sql', $sql);
+        file_put_contents(RESOURCE_DIR . 'address.sql', $sql);
 
         //$pdo = new PDO('mysql:host=localhost;dbname=test;port=3306', 'root', '123123');
         //var_dump($pdo->query($sql));
@@ -114,7 +114,7 @@ class DemoTest extends TestCase
     /** @test */
     public function patchAllMethod()
     {
-        $filename = RES_DIR . 'wxapp.txt';
+        $filename = RESOURCE_DIR . 'wxapp.txt';
         $docs = file_get_contents($filename);
         $pattern = "/public\s+?function\s+?doPage(\w+)\s*?\(\s*?\)/";
         $total = preg_match_all($pattern, $docs, $matches, PREG_OFFSET_CAPTURE);
@@ -156,7 +156,7 @@ class DemoTest extends TestCase
                     $formattedContent .= "\n";
 
                     $methodName = strtolower($methodName);
-                    file_put_contents(RES_DIR . "inc/{$methodName}.inc.php", $formattedContent);
+                    file_put_contents(RESOURCE_DIR . "inc/{$methodName}.inc.php", $formattedContent);
                     break;
                 }
             }
@@ -209,14 +209,14 @@ class DemoTest extends TestCase
     /** @test */
     public function zip()
     {
-        $filename = RES_DIR . date('Y_m_d_H_i_s') . ".zip";
+        $filename = RESOURCE_DIR . date('Y_m_d_H_i_s') . ".zip";
         $zip = new ZipArchive();
         if ($zip->open($filename, ZipArchive::OVERWRITE) !== true) {
             if ($zip->open($filename, ZipArchive::CREATE) !== true) {
                 exit('无法打开文件，或者文件创建失败');
             }
         }
-        $addFileName = RES_DIR . "address.sql";
+        $addFileName = RESOURCE_DIR . "address.sql";
         if (file_exists($addFileName)) {
             $zip->addFile($addFileName, basename($addFileName));
         }

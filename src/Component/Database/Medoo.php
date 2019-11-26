@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Trink\Core\Component;
+namespace Trink\Frame\Component;
 
-use Medoo\Medoo;
+use Trink\Core\Component\Setting;
 
-class MedooDb extends Medoo
+class Medoo extends \Medoo\Medoo
 {
     public function __construct(Setting $settings)
     {

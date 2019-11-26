@@ -14,7 +14,7 @@ use AMQPExchangeException;
 use AMQPQueue;
 use AMQPQueueException;
 use Test\Trip\TestCase;
-use Trink\Core\Container\App;
+use Trink\Frame\Container\App;
 
 class RabbitTest extends TestCase
 {

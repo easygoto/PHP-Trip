@@ -4,7 +4,7 @@
 namespace Test\Trip\Core;
 
 use Test\Trip\TestCase;
-use Trink\Core\Container\App;
+use Trink\Frame\Container\App;
 
 class ContainerTest extends TestCase
 {

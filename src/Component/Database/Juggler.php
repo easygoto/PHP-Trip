@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Trink\Core\Component;
+namespace Trink\Frame\Component;
 
-use Upfor\Juggler\Juggler;
+use Trink\Core\Component\Setting;
 
-class JugglerDb extends Juggler
+class Juggler extends \Upfor\Juggler\Juggler
 {
     public function __construct(Setting $settings)
     {

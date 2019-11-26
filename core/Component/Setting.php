@@ -3,24 +3,11 @@
 
 namespace Trink\Core\Component;
 
-use Trink\Core\Library\Arrays;
-
-class Setting
+interface Setting
 {
-    protected $props;
+    public function get(string $key = null);
 
-    public function __construct()
-    {
-        $this->props = require TRIP_ROOT . 'config/main.php';
-    }
+    public function set(string $key, $value);
 
-    public function set(string $key, $value)
-    {
-        $this->props[$key] = $value;
-    }
-
-    public function get(string $key = null)
-    {
-        return Arrays::get($this->props, $key);
-    }
+    public function initDefault();
 }
