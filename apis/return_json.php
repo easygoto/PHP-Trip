@@ -12,7 +12,7 @@ $method = $_SERVER['REQUEST_METHOD'];
 $response = json_encode([
     'method'  => $method,
     'request' => $_REQUEST,
-    'input'   => file_get_contents("php://input") ?? '',
+    'input'   => json_decode(file_get_contents("php://input") ?? '', 1),
     'headers' => $headers,
 ]);
 
