@@ -114,8 +114,54 @@ echo $res, $httpCode;
 
 ##### socket
 
-
+```php
+function httpRequest($host, $path, $method = 'GET', $data = '', $headers = [])
+{
+    $conn = pfsockopen($host, 80, $errno, $errMsg, 30);
+    if ($errno == 0 && $conn) {
+        $http = "{$method} {$path} HTTP/1.1" . PHP_EOL;
+        $http .= "Host: {$host}" . PHP_EOL;
+        $http .= 'Connection: Close' . PHP_EOL;
+        if (in_array($method, ['POST', 'PUT', 'PATCH', 'DELETE'])) {
+            $http .= 'Content-Length: ' . strlen($data) . PHP_EOL;
+        }
+        $http .= implode(PHP_EOL, $headers) . PHP_EOL;
+        $http .= PHP_EOL . $data . PHP_EOL . PHP_EOL;
+        fputs($conn, $http);
+        $content = '';
+        while (!feof($conn)) {
+            $content .= fgets($conn);
+        }
+        return $content;
+    } else {
+        return "Error: $errMsg($errno)";
+    }
+}
+```
 
 ##### stream
 
-
+```php
+function httpRequest($host, $path, $method = 'GET', $data = '', $headers = [])
+{
+    $socket = stream_socket_client($host . ':80', $errno, $errMsg, 30);
+    if ($errno == 0 && $socket) {
+        $http = "{$method} {$path} HTTP/1.1" . PHP_EOL;
+        $http .= "Host: {$host}" . PHP_EOL;
+        $http .= 'Connection: Close' . PHP_EOL;
+        if (in_array($method, ['POST', 'PUT', 'PATCH', 'DELETE'])) {
+            $http .= 'Content-Length: ' . strlen($data) . PHP_EOL;
+        }
+        $http .= implode(PHP_EOL, $headers) . PHP_EOL;
+        $http .= PHP_EOL . $data . PHP_EOL . PHP_EOL;
+        fputs($socket, $http);
+        $content = '';
+        while (!feof($socket)) {
+            $content .= fgets($socket);
+        }
+        return $content;
+    } else {
+        return "Error: $errMsg($errno)";
+    }
+}
+```
