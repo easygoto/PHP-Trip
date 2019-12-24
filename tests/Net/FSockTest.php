@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Test\Net;
+namespace Test\Trip\Net;
 
 class FSockTest extends TestCase
 {
