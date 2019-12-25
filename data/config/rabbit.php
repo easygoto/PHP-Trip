@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'host'     => '127.0.0.1',
+    'host'     => 'host.docker.internal',
     'port'     => '5672',
     'login'    => 'demo',
     'password' => '123123',

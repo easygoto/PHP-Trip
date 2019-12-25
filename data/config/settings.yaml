@@ -1,6 +1,6 @@
 db:
   mysql:
-    host: 127.0.0.1
+    host: host.docker.internal
     user: root
     pass: 123123
     name: test
@@ -10,11 +10,11 @@ db:
     prefix:
 cache:
   redis:
-    host: 127.0.0.1
+    host: host.docker.internal
     port: 6379
 queue:
   rabbit:
-    host: 127.0.0.1
+    host: host.docker.internal
     port: 5672
     login: demo
     password: 123123
