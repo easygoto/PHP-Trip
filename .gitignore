@@ -3,6 +3,7 @@
 *.cache
 data/temp
 public/resource/*
+!public/index.php
 !public/resource/icons
 vendor/
 composer.lock

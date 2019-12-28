@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Trink\Frame\Component;
+namespace Trink\Frame\Component\Mysql;
 
 use Illuminate\Database\Capsule\Manager as CapsuleManager;
 use Trink\Core\Component\Setting;
 
 class Capsule
 {
-    protected static $instance;
+    protected static CapsuleManager $instance;
 
     public static function instance(Setting $settings)
     {

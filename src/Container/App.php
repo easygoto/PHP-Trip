@@ -4,9 +4,9 @@
 namespace Trink\Frame\Container;
 
 use Illuminate\Database\Connection;
-use Trink\Frame\Component\Capsule;
-use Trink\Frame\Component\Juggler;
-use Trink\Frame\Component\Medoo;
+use Trink\Frame\Component\Mysql\Capsule;
+use Trink\Frame\Component\Mysql\Juggler;
+use Trink\Frame\Component\Mysql\Medoo;
 
 /**
  * Class App

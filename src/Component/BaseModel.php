@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Trink\Frame\Model;
+namespace Trink\Frame\Component;
 
 use ReflectionObject;
 
 abstract class BaseModel
 {
-    protected $attributes;
+    protected array $attributes;
 
     public function getAttributes()
     {

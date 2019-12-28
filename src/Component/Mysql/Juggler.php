@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Trink\Frame\Component;
+namespace Trink\Frame\Component\Mysql;
 
 use Trink\Core\Component\Setting;
 
