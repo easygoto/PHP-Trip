@@ -10,8 +10,12 @@ class Web
 {
     public static function run()
     {
-        [$actionName, $controllerName] = array_reverse(explode('/', $_SERVER['REQUEST_URI']));
-        $controllerClassName = '\\Trink\\Frame\\Controller\\' . ucfirst($controllerName) . 'Controller';
+        ['path' => $path] = parse_url(trim($_SERVER['REQUEST_URI'], '/'));
+        $router = array_map(fn ($value) => ucfirst($value), explode('/', $path));
+        $actionName = array_pop($router);
+        $controllerName = array_pop($router);
+        $dir = $router ? '\\' . implode('\\', $router) : '';
+        $controllerClassName = "\\Trink\\Frame\\Controller{$dir}\\" . ucfirst($controllerName) . 'Controller';
         try {
             $controller = (new ReflectionClass($controllerClassName))->newInstance();
             $action = 'action' . ucfirst($actionName);

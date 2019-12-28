@@ -3,6 +3,8 @@
 
 namespace Test\Trip\Net;
 
+use Test\Trip\TestCase;
+
 class CurlTest extends TestCase
 {
     /** @test */

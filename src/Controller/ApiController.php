@@ -31,7 +31,7 @@ class ApiController extends BaseController
         }
 
         // log
-        $filename = __DIR__ . '/debug/' . date('Y_m_d/H_i_s') . ".{$method}.log";
+        $filename = TEMP_DIR . 'debug/' . date('Y_m_d/H_i_s') . ".{$method}.log";
         $dirname = dirname($filename);
         if (!file_exists($dirname)) {
             mkdir($dirname, 0777, 1);

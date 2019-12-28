@@ -3,6 +3,8 @@
 
 namespace Test\Trip\Net;
 
+use Test\Trip\TestCase;
+
 class StreamTest extends TestCase
 {
     /** @test */
