@@ -3,8 +3,6 @@
 
 namespace Test\Trip\Net;
 
-use Test\Trip\TestCase;
-
 class FSockTest extends TestCase
 {
     /** @test */

@@ -3,8 +3,6 @@
 
 namespace Test\Trip\Net;
 
-use Test\Trip\TestCase;
-
 class SocketTest extends TestCase
 {
     /** @test */
