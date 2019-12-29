@@ -14,7 +14,7 @@ use Trink\Core\Component\Setting;
  */
 class App
 {
-    protected array $container = [];
+    protected $container = [];
 
     protected static $instance;
 

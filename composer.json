@@ -26,6 +26,7 @@
     "ext-curl": "*",
     "ext-libxml": "*",
     "ext-sockets": "*",
+    "ext-memcache": "*",
     "ext-simplexml": "*",
     "catfan/medoo": "^1.6",
     "upfor/juggler": "^1.0",
