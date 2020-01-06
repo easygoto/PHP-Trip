@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+ini_set('date.timezone', 'Asia/Shanghai');
+
 defined('TRIP_ROOT') or define('TRIP_ROOT', str_replace('\\', '/', __DIR__) . '/');
 defined('DATA_DIR') or define('DATA_DIR', TRIP_ROOT . 'data/');
 defined('TEMP_DIR') or define('TEMP_DIR', DATA_DIR . 'temp/');
