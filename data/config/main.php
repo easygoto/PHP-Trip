@@ -9,5 +9,6 @@ return [
     'mc'     => [
         'host' => 'host.docker.internal',
         'port' => 11211,
+        'prefix' => '',
     ],
 ];

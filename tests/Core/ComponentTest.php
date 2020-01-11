@@ -13,6 +13,13 @@ use Trink\Frame\Container\App;
  */
 class ComponentTest extends TestCase
 {
+    public function testMc()
+    {
+        $mc = App::instance()->mc;
+        print_r([$mc->getUser(1), $mc->getUser(1), $mc->rmUser(1), $mc->getUser(1)]);
+        $this->assertTrue(true);
+    }
+
     public function testDb()
     {
         $medoo  = App::instance()->medoo;
