@@ -54,6 +54,47 @@ class Result
     }
 
     /**
+     * @param array $data
+     *
+     * @return $this
+     */
+    public function setData(array $data)
+    {
+        $this->data = $data;
+        return $this;
+    }
+
+    /**
+     * @param array $data
+     *
+     * @return $this
+     */
+    public function addData(array $data)
+    {
+        $this->data = array_merge($this->data, $data);
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getList(): array
+    {
+        return $this->data['list'] ?? [];
+    }
+
+    /**
+     * @param array $list
+     *
+     * @return $this
+     */
+    public function setList(array $list)
+    {
+        $this->data['list'] = $list;
+        return $this;
+    }
+
+    /**
      * @return bool
      */
     public function isSuccess()
@@ -85,6 +126,17 @@ class Result
     }
 
     /**
+     * @return array
+     */
+    public function asCamelDataArray()
+    {
+        if (property_exists($this, 'data')) {
+            $this->data = Format::array2CamelCase($this->data);
+        }
+        return $this->asArray();
+    }
+
+    /**
      * @return false|mixed|string
      */
     public function asJson()
@@ -99,7 +151,7 @@ class Result
      * @param array  $debug  调试信息
      * @param int    $status 状态码
      *
-     * @return Result
+     * @return $this
      */
     public static function fail(string $msg = 'FAIL', array $debug = [], int $status = 1): Result
     {
@@ -113,7 +165,7 @@ class Result
      * @param string $msg    返回消息
      * @param int    $status 状态码
      *
-     * @return Result
+     * @return $this
      */
     public static function success(string $msg = 'OK', array $data = [], int $status = 0): Result
     {
@@ -128,7 +180,7 @@ class Result
      * @param int   $page
      * @param int   $pageSize
      *
-     * @return Result
+     * @return $this
      */
     public static function lists(array $list, int $total, int $page, int $pageSize = 15): self
     {
@@ -149,7 +201,7 @@ class Result
      * @param array  $data   返回数据
      * @param array  $extra  扩展使用
      *
-     * @return Result
+     * @return $this
      */
     public static function result(int $status, string $msg, array $data, array $extra = []): Result
     {

@@ -12,12 +12,18 @@ class HelperTest extends TestCase
     public function testImage()
     {
         $image = Image::load(TEMP_DIR . 'test.jpg');
-        $targetImagePath = $image->watermark(TEMP_DIR . 'test.jpg');
-        var_dump($targetImagePath);
-
-        $result = Image::toBase64(TEMP_DIR . 'test.jpg');
-        file_put_contents(TEMP_DIR . 'temp.txt', $result);
-        file_put_contents(TEMP_DIR . 'temp.jpg', base64_decode($result));
+        $image->reset()->crop()->savePath();
+        $image->reset()->scale(200)->savePath();
+        $image->reset()->watermark(TEMP_DIR . 'mark.jpg')->savePath();
+        $image->reset()->watermark(TEMP_DIR . 'mark.jpg', 'RU')->savePath();
+        $image->reset()->watermark(TEMP_DIR . 'mark.jpg', 'LD')->savePath();
+        $image->reset()->watermark(TEMP_DIR . 'mark.jpg', 'LU')->savePath();
+        $image->reset()->crop()->scale(200)->savePath();
+        $image->reset()->crop()->watermark(TEMP_DIR . 'mark.jpg')->savePath();
+        $image->reset()->scale(200)->crop()->savePath();
+        $image->reset()->scale(200)->watermark(TEMP_DIR . 'mark.jpg')->savePath();
+        $image->reset()->crop()->scale(200)->watermark(TEMP_DIR . 'mark.jpg')->savePath();
+        $image->reset()->scale(200)->crop()->watermark(TEMP_DIR . 'mark.jpg')->savePath();
         $this->assertTrue(true);
     }
 

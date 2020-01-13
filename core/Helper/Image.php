@@ -69,10 +69,10 @@ class Image
             return Result::fail('非图片格式');
         } else {
             [0 => $this->origin['width'], 1 => $this->origin['height'], 'mime' => $this->mime] = $imageData;
-            [0 => $this->props['width'], 1 => $this->props['height']] = $imageData;
         }
 
         $this->origin['resource'] = static::create($absolutePath, $this->mime);
+        $this->reset();
         return Result::success();
     }
 
@@ -92,11 +92,6 @@ class Image
     public function getResult()
     {
         return $this->loadResult;
-    }
-
-    public function getCurrentResource()
-    {
-        return $this->props['resource'] ?: $this->origin['resource'];
     }
 
     /**
@@ -185,7 +180,7 @@ class Image
     {
         $width = $width ?: min($this->props['width'], $this->props['height']);
         $height = $height ?: $width;
-        $srcImg = $this->getCurrentResource();
+        $srcImg = $this->props['resource'];
         $dstImg = imagecreatetruecolor($width, $height);
         imagefill($dstImg, 0, 0, $this->defaultColor);
 
@@ -220,7 +215,7 @@ class Image
         } elseif ($height) {
             $width = (int)($height * $this->props['width'] / $this->props['height']);
         }
-        $srcImg = $this->getCurrentResource();
+        $srcImg = $this->props['resource'];
         $this->props['width'] = $width;
         $this->props['height'] = $height;
         $this->props['extFix'] .= '.scale';
@@ -233,21 +228,53 @@ class Image
     /**
      * 水印
      *
-     * @param $markImagePath
+     * @param          $markImagePath
+     * @param string   $position LU(左上), RU(右上), LD(左下), RD(右下)
+     * @param int|null $width
      *
      * @return Image
      */
-    public function watermark($markImagePath)
+    public function watermark($markImagePath, $position = 'RD', $width = null)
     {
-        $width = $height = 200;
-        $targetWidth = $targetHeight = 200;
-        $srcImg = $this->getCurrentResource();
-        $dstImg = static::create($markImagePath);
-        imagefill($dstImg, 0, 0, $this->defaultAlphaColor);
-        $dstImg = imagescale($dstImg, 100);
-        imagecopy($dstImg, $srcImg, 0, 0, $targetWidth, $targetHeight, $width, $height);
-        static::save($srcImg, TEMP_DIR . 'src.jpg');
-        static::save($dstImg, TEMP_DIR . 'dst.jpg');
+        $alpha = 50;
+        $width = $width ?: (int)($this->props['width'] / 5);
+        $srcImgObj = static::load($markImagePath)->scale($width);
+        ['width' => $dstW, 'height' => $dstH, 'resource' => $dstImg, 'extFix' => $extFix] = $this->props;
+        ['width' => $srcW, 'height' => $srcH, 'resource' => $srcImg] = $srcImgObj->props;
+        switch ($position) {
+            default:
+            case 'RD':
+                imagecopymerge($dstImg, $srcImg, $dstW - $srcW, $dstH - $srcH, 0, 0, $srcW, $srcH, $alpha);
+                break;
+            case 'RU':
+                imagecopymerge($dstImg, $srcImg, $dstW - $srcW, 0, 0, 0, $srcW, $srcH, $alpha);
+                break;
+            case 'LD':
+                imagecopymerge($dstImg, $srcImg, 0, $dstH - $srcH, 0, 0, $srcW, $srcH, $alpha);
+                break;
+            case 'LU':
+                imagecopymerge($dstImg, $srcImg, 0, 0, 0, 0, $srcW, $srcH, $alpha);
+                break;
+        }
+        $extFix .= '.mark';
+        $this->props['extFix'] = $extFix;
+        $this->props['resource'] = $dstImg;
+        $originAbsDir = dirname($this->origin['absolutePath']);
+        $this->props['absolutePath'] = "{$originAbsDir}/{$this->fileName}{$extFix}.{$position}.{$this->suffix}";
+        return $this;
+    }
+
+    /**
+     * 重置操作, 恢复最开始的状态
+     *
+     * @return $this
+     */
+    public function reset()
+    {
+        static::destroy($this->origin['resource']);
+        $this->origin['resource'] = static::create($this->origin['absolutePath']);
+        $this->props = $this->origin;
+        $this->props['extFix'] = '';
         return $this;
     }
 
