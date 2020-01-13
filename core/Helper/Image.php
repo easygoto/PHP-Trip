@@ -3,139 +3,286 @@
 
 namespace Trink\Core\Helper;
 
+/**
+ * 建议先裁切再缩放
+ *
+ * Class Image
+ *
+ * @package Trink\Core\Helper
+ */
 class Image
 {
-    /** @var integer */
-    protected $width;
+    protected string $fileName = '';
+    protected string $suffix   = '';
+    protected string $mime     = 'image/jpeg';
 
-    /** @var integer */
-    protected $height;
-
-    /** @var string */
-    protected $mime;
-
-    /** @var string */
-    protected $absolutePath;
-
-    /** @var string */
-    protected $relativePath;
-
-    /** @var string */
-    protected $fileName;
-
-    /** @var string */
-    protected $suffix;
+    protected int $defaultColor      = 0xffffff;
+    protected int $defaultAlphaColor = 0x40ffffff;
 
     /** @var Result */
-    protected $executeResult;
+    protected $loadResult;
 
-    public function __construct($absolutePath)
+    /** @var static */
+    protected static $instance;
+
+    protected array $origin = [
+        'width'        => 0,
+        'height'       => 0,
+        'resource'     => null,
+        'absolutePath' => '',
+    ];
+
+    protected array $props = [
+        'width'        => 0,
+        'height'       => 0,
+        'resource'     => null,
+        'extFix'       => '',
+        'absolutePath' => '',
+    ];
+
+    protected function __construct()
     {
-        $this->absolutePath = $absolutePath;
-        $this->relativePath = substr($absolutePath, strlen(TRIP_ROOT));
-        if (!file_exists($absolutePath)) {
-            $this->executeResult = Result::fail('文件不存在');
-        } else {
-            $fileData = pathinfo($absolutePath);
-            if (!$fileData) {
-                $this->executeResult = Result::fail('文件错误');
-            } else {
-                $this->suffix = $fileData['extension'];
-                $this->fileName = $fileData['filename'];
-            }
+    }
 
-            $imageData = getimagesize($absolutePath);
-            if (!$imageData) {
-                $this->executeResult = Result::fail('非图片格式');
-            } else {
-                $this->width = $imageData[0];
-                $this->height = $imageData[1];
-                $this->mime = $imageData['mime'];
-            }
+    public function __destruct()
+    {
+        static::destroy($this->props['resource']);
+        static::destroy($this->origin['resource']);
+    }
+
+    protected function init($absolutePath)
+    {
+        $this->origin['absolutePath'] = $absolutePath;
+        if (!file_exists($absolutePath)) {
+            return Result::fail('文件不存在');
         }
+
+        $fileData = pathinfo($absolutePath);
+        if (!$fileData) {
+            return Result::fail('文件错误');
+        } else {
+            ['extension' => $this->suffix, 'filename' => $this->fileName] = $fileData;
+        }
+
+        $imageData = getimagesize($absolutePath);
+        if (!$imageData) {
+            return Result::fail('非图片格式');
+        } else {
+            [0 => $this->origin['width'], 1 => $this->origin['height'], 'mime' => $this->mime] = $imageData;
+            [0 => $this->props['width'], 1 => $this->props['height']] = $imageData;
+        }
+
+        $this->origin['resource'] = static::create($absolutePath, $this->mime);
+        return Result::success();
+    }
+
+    public static function load(string $absolutePath)
+    {
+        $instance = new static();
+        $instance->loadResult = $instance->init($absolutePath);
+        static::$instance = $instance;
+        return static::$instance;
     }
 
     public function isValid()
     {
-        return $this->executeResult ? $this->executeResult->isSuccess() : true;
+        return $this->loadResult ? $this->loadResult->isSuccess() : false;
     }
 
     public function getResult()
     {
-        return $this->executeResult;
+        return $this->loadResult;
     }
 
-    private function createImage()
+    public function getCurrentResource()
     {
-        switch ($this->mime) {
+        return $this->props['resource'] ?: $this->origin['resource'];
+    }
+
+    /**
+     * 使用绝对路径创建资源
+     *
+     * @param        $absolutePath
+     * @param string $mime
+     *
+     * @return false|resource
+     */
+    public static function create($absolutePath, $mime = 'image/jpeg')
+    {
+        switch ($mime) {
             default:
             case 'image/jpeg':
-                $img = imagecreatefromjpeg($this->absolutePath);
+                return imagecreatefromjpeg($absolutePath);
+            case 'image/png':
+                return imagecreatefrompng($absolutePath);
+            case 'image/bmp':
+                return imagecreatefrombmp($absolutePath);
+            case 'image/gif':
+                return imagecreatefromgif($absolutePath);
+        }
+    }
+
+    /**
+     * 销毁一个图片资源
+     *
+     * @param $imageResource
+     */
+    public static function destroy($imageResource)
+    {
+        if (gettype($imageResource) == 'resource') {
+            imagedestroy($imageResource);
+        }
+    }
+
+    /**
+     * 保存一个图片资源到文件
+     *
+     * @param        $image
+     * @param        $absolutePath
+     * @param string $mime
+     *
+     * @return string
+     */
+    public static function save($image, $absolutePath, $mime = 'image/jpeg')
+    {
+        switch ($mime) {
+            default:
+            case 'image/jpeg':
+                imagejpeg($image, $absolutePath);
                 break;
             case 'image/png':
-                $img = imagecreatefrompng($this->absolutePath);
+                imagepng($image, $absolutePath);
                 break;
             case 'image/bmp':
-                $img = imagecreatefrombmp($this->absolutePath);
+                imagebmp($image, $absolutePath);
                 break;
             case 'image/gif':
-                $img = imagecreatefromgif($this->absolutePath);
+                imagegif($image, $absolutePath);
                 break;
         }
-        return $img;
+        return $absolutePath;
     }
 
-    /* 裁切 */
-    /* 缩放 */
-    /* 加水印 */
+    /**
+     * 图片处理完成后保存到文件
+     *
+     * @return string
+     */
+    public function savePath()
+    {
+        return static::save($this->props['resource'], $this->props['absolutePath'], $this->mime);
+    }
+
+    /**
+     * 裁切
+     *
+     * @param int|null $width
+     * @param int|null $height
+     *
+     * @return Image
+     */
+    public function crop($width = null, $height = null)
+    {
+        $width = $width ?: min($this->props['width'], $this->props['height']);
+        $height = $height ?: $width;
+        $srcImg = $this->getCurrentResource();
+        $dstImg = imagecreatetruecolor($width, $height);
+        imagefill($dstImg, 0, 0, $this->defaultColor);
+
+        $targetWidth = (int)(($this->props['width'] - $width) / 2);
+        $targetHeight = (int)(($this->props['height'] - $height) / 2);
+        imagecopy($dstImg, $srcImg, 0, 0, $targetWidth, $targetHeight, $width, $height);
+
+        $this->props['width'] = $width;
+        $this->props['height'] = $height;
+        $this->props['extFix'] .= '.crop';
+        $this->props['resource'] = $dstImg;
+        $originAbsDir = dirname($this->origin['absolutePath']);
+        $this->props['absolutePath'] = "{$originAbsDir}/{$this->fileName}{$this->props['extFix']}.{$this->suffix}";
+        return $this;
+    }
+
+    /**
+     * 缩放
+     *
+     * @param int|null $width
+     * @param int|null $height
+     *
+     * @return Image
+     */
+    public function scale($width = null, $height = null)
+    {
+        if (!$width && !$height) {
+            $width = $this->props['width'];
+            $height = $this->props['height'];
+        } elseif ($width) {
+            $height = (int)($width * $this->props['height'] / $this->props['width']);
+        } elseif ($height) {
+            $width = (int)($height * $this->props['width'] / $this->props['height']);
+        }
+        $srcImg = $this->getCurrentResource();
+        $this->props['width'] = $width;
+        $this->props['height'] = $height;
+        $this->props['extFix'] .= '.scale';
+        $this->props['resource'] = imagescale($srcImg, $width, $height);
+        $originAbsDir = dirname($this->origin['absolutePath']);
+        $this->props['absolutePath'] = "{$originAbsDir}/{$this->fileName}{$this->props['extFix']}.{$this->suffix}";
+        return $this;
+    }
+
+    /**
+     * 水印
+     *
+     * @param $markImagePath
+     *
+     * @return Image
+     */
+    public function watermark($markImagePath)
+    {
+        $width = $height = 200;
+        $targetWidth = $targetHeight = 200;
+        $srcImg = $this->getCurrentResource();
+        $dstImg = static::create($markImagePath);
+        imagefill($dstImg, 0, 0, $this->defaultAlphaColor);
+        $dstImg = imagescale($dstImg, 100);
+        imagecopy($dstImg, $srcImg, 0, 0, $targetWidth, $targetHeight, $width, $height);
+        static::save($srcImg, TEMP_DIR . 'src.jpg');
+        static::save($dstImg, TEMP_DIR . 'dst.jpg');
+        return $this;
+    }
+
     /* 文件转码到base64 */
-    /* base64转码到文件 */
-
-    public function handle($targetWidth, $targetHeight, $isScale = false, $isCutting = false)
+    public static function toBase64($absolutePath)
     {
-        $rawImgObj = $this->createImage();
-        imagedestroy($rawImgObj);
-        return Result::success();
+        $content = file_get_contents($absolutePath);
+        return base64_encode($content);
     }
 
-    public static function base64FacePicToFile($base64String, $targetPathNoFix)
+    /**
+     * base64转码到文件, 指定的路径不需要后缀名
+     *
+     * @param $base64String
+     * @param $absolutePath
+     *
+     * @return string
+     */
+    public static function fromBase64($base64String, $absolutePath)
     {
-        list($picType, $picData) = explode(',', $base64String);
-        if (!is_dir(basename($targetPathNoFix))) {
-            mkdir(basename($targetPathNoFix), 0777, true);
-        }
-        $start = strpos($picType, '/') + 1;
-        $end = strpos($picType, ';');
-        $afterFix = substr($picType, $start, $end - $start);
-        $filePath = "{$targetPathNoFix}.{$afterFix}";
-        file_put_contents($targetPathNoFix, base64_decode($picData));
-        return $filePath;
-    }
-
-    public static function test()
-    {
-        $targetFile = TRIP_ROOT . 'test.jpg';
-        $seqIndex = strrpos($targetFile, '.');
-        echo substr($targetFile, 0, $seqIndex) . '.squ' . substr($targetFile, $seqIndex);
-        $result = getimagesize($targetFile);
-        $width = $result[0];
-        $height = $result[1];
-        $mime = $result['mime'];
-        $size = min($width, $height);
-        if ($mime == 'image/png') {
-            $srcImg = imagecreatefrompng($targetFile);
+        if (strpos($base64String, ',') !== false) {
+            [$type, $data] = explode(',', $base64String);
+            $start = strpos($type, '/') + 1;
+            $afterFix = substr($type, $start, strpos($type, ';') - $start);
         } else {
-            $srcImg = imagecreatefromjpeg($targetFile);
+            $data = $base64String;
+            $afterFix = 'jpeg';
         }
-        $dstImg = imagecreatetruecolor($size, $size);
-        imagecopy($dstImg, $srcImg, 0, 0, ($width - $size) / 2, ($height - $size) / 2, $size, $size);
-        imagepng($dstImg, TRIP_ROOT . 'test.png');
-        imagedestroy($dstImg);
-        imagedestroy($srcImg);
-    }
 
-    public static function split($width, $height)
-    {
-        return '20191011_c48a525077334.jpg';
+        if (!is_dir(dirname($absolutePath))) {
+            mkdir(dirname($absolutePath), 0777, true);
+        }
+
+        $filePath = "{$absolutePath}.{$afterFix}";
+        file_put_contents($absolutePath, base64_decode($data));
+        return $filePath;
     }
 }
