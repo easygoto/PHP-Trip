@@ -21,6 +21,11 @@ use Trink\Frame\Component\Mysql\Medoo;
  */
 class App extends \Trink\Core\Container\App
 {
+    public static function instance(): self
+    {
+        return parent::instance();
+    }
+
     public function __get($name)
     {
         switch ($name) {

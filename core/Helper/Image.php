@@ -271,10 +271,10 @@ class Image
      */
     public function reset()
     {
-        static::destroy($this->origin['resource']);
-        $this->origin['resource'] = static::create($this->origin['absolutePath']);
+        static::destroy($this->props['resource']);
         $this->props = $this->origin;
         $this->props['extFix'] = '';
+        $this->origin['resource'] = static::create($this->origin['absolutePath']);
         return $this;
     }
 

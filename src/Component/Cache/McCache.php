@@ -22,8 +22,18 @@ class McCache
     /** @var McCache */
     protected static $instance;
 
+    public function mc()
+    {
+        return $this->mc;
+    }
+
     protected function __construct()
     {
+    }
+
+    public function __destruct()
+    {
+        $this->mc->close();
     }
 
     public static function instance(Setting $setting, ?DB $db)
@@ -39,7 +49,7 @@ class McCache
         if (!static::$instance->mc) {
             $mc = new Memcache();
             $mcs = static::$instance->setting;
-            $mc->pconnect($mcs['host'], $mcs['port'], 1);
+            $mc->pconnect($mcs['host'], $mcs['port']);
             static::$instance->mc = $mc;
         }
 
