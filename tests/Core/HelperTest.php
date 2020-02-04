@@ -11,19 +11,19 @@ class HelperTest extends TestCase
 {
     public function testImage()
     {
-        $image = Image::load(TEMP_DIR . 'test.jpg');
+        $image = Image::load(TEMP_DIR . 'gd/test.jpg');
         $image->reset()->crop()->savePath();
         $image->reset()->scale(200)->savePath();
-        $image->reset()->watermark(TEMP_DIR . 'mark.jpg')->savePath();
-        $image->reset()->watermark(TEMP_DIR . 'mark.jpg', 'RU')->savePath();
-        $image->reset()->watermark(TEMP_DIR . 'mark.jpg', 'LD')->savePath();
-        $image->reset()->watermark(TEMP_DIR . 'mark.jpg', 'LU')->savePath();
+        $image->reset()->watermark(TEMP_DIR . 'gd/mark.jpg')->savePath();
+        $image->reset()->watermark(TEMP_DIR . 'gd/mark.jpg', 'RU')->savePath();
+        $image->reset()->watermark(TEMP_DIR . 'gd/mark.jpg', 'LD')->savePath();
+        $image->reset()->watermark(TEMP_DIR . 'gd/mark.jpg', 'LU')->savePath();
         $image->reset()->crop()->scale(200)->savePath();
-        $image->reset()->crop()->watermark(TEMP_DIR . 'mark.jpg')->savePath();
+        $image->reset()->crop()->watermark(TEMP_DIR . 'gd/mark.jpg')->savePath();
         $image->reset()->scale(200)->crop()->savePath();
-        $image->reset()->scale(200)->watermark(TEMP_DIR . 'mark.jpg')->savePath();
-        $image->reset()->crop()->scale(200)->watermark(TEMP_DIR . 'mark.jpg')->savePath();
-        $image->reset()->scale(200)->crop()->watermark(TEMP_DIR . 'mark.jpg')->savePath();
+        $image->reset()->scale(200)->watermark(TEMP_DIR . 'gd/mark.jpg')->savePath();
+        $image->reset()->crop()->scale(200)->watermark(TEMP_DIR . 'gd/mark.jpg')->savePath();
+        $image->reset()->scale(200)->crop()->watermark(TEMP_DIR . 'gd/mark.jpg')->savePath();
         $this->assertTrue(true);
     }
 

@@ -62,7 +62,7 @@ class MemcacheTest extends TestCase
         foreach ($serverList as $serverName => $item) {
             $slabsList = $item['slabsList'];
             foreach ($slabsList as $slabsId => $_) {
-                $allCache = $mc->getExtendedStats('cachedump', $slabsId, 11000);
+                $allCache = $mc->getExtendedStats('cachedump', $slabsId, $_['used_chunks']);
                 foreach ($allCache as $serverName => $value) {
                     $cacheKeyList = array_keys($value ?: []);
                     $serverName = str_replace(':', '.', $serverName);
