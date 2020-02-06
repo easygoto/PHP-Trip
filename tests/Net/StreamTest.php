@@ -3,40 +3,32 @@
 
 namespace Test\Trip\Net;
 
+use Trink\Core\Helper\Net\Stream;
+
 class StreamTest extends TestCase
 {
     /** @test */
     public function httpHead()
     {
-        echo $this->httpRequest(
-            $this->hostname(),
-            $this->returnJsonPath(),
-            'HEAD'
-        );
+        echo Stream::head($this->hostname(), $this->returnJsonPath());
         $this->assertTrue(true);
     }
 
     /** @test */
     public function httpGet()
     {
-        echo $this->httpRequest(
-            $this->hostname(),
-            $this->returnJsonPath(),
-            'GET',
-            http_build_query(['name' => '中文'])
-        );
+        echo Stream::get($this->hostname(), $this->returnJsonPath(), http_build_query(['name' => '中文']));
         $this->assertTrue(true);
     }
 
     /** @test */
     public function httpPost()
     {
-        echo $this->httpRequest(
+        echo Stream::post(
             $this->hostname(),
             $this->returnJsonPath(),
-            'POST',
-            json_encode(['name' => '中文']),
-            ['Content-Type: application/json']
+            http_build_query(['name' => '中文']),
+            ['headers' => ['Content-Type: application/json']]
         );
         $this->assertTrue(true);
     }
@@ -44,10 +36,9 @@ class StreamTest extends TestCase
     /** @test */
     public function httpPatch()
     {
-        echo $this->httpRequest(
+        echo Stream::patch(
             $this->hostname(),
             $this->returnJsonPath(),
-            'PATCH',
             json_encode(['name' => '中文']),
             ['Content-Type: application/json']
         );
@@ -57,36 +48,12 @@ class StreamTest extends TestCase
     /** @test */
     public function httpDelete()
     {
-        echo $this->httpRequest(
+        echo Stream::delete(
             $this->hostname(),
             $this->returnJsonPath(),
-            'DELETE',
             json_encode(['name' => '中文']),
             ['Content-Type: application/json']
         );
         $this->assertTrue(true);
-    }
-
-    public function httpRequest($host, $path, $method = 'GET', $data = '', $headers = [])
-    {
-        $socket = stream_socket_client($host . ':80', $errno, $errMsg, 30);
-        if ($errno == 0 && $socket) {
-            $http = "{$method} {$path} HTTP/1.1" . PHP_EOL;
-            $http .= "Host: {$host}" . PHP_EOL;
-            $http .= 'Connection: Close' . PHP_EOL;
-            if (in_array($method, ['POST', 'PUT', 'PATCH', 'DELETE'])) {
-                $http .= 'Content-Length: ' . strlen($data) . PHP_EOL;
-            }
-            $http .= implode(PHP_EOL, $headers) . PHP_EOL;
-            $http .= PHP_EOL . $data . PHP_EOL . PHP_EOL;
-            fputs($socket, $http);
-            $content = '';
-            while (!feof($socket)) {
-                $content .= fgets($socket);
-            }
-            return $content;
-        } else {
-            return "Error: $errMsg($errno)";
-        }
     }
 }

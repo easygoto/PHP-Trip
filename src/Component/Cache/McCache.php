@@ -33,7 +33,9 @@ class McCache
 
     public function __destruct()
     {
-        $this->mc->close();
+        if ($this->mc) {
+            $this->mc->close();
+        }
     }
 
     public static function instance(Setting $setting, ?DB $db)
@@ -58,7 +60,7 @@ class McCache
 
     private function generateKey($name, $key)
     {
-        $prefix = $this->setting['prefix'];
+        $prefix = $this->setting['prefix'] ?? '';
         return "{$prefix}_{$name}::{$key}";
     }
 
