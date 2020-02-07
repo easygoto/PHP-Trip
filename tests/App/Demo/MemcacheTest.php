@@ -5,6 +5,7 @@ namespace Test\Trip\App\Demo;
 
 use stdClass;
 use Test\Trip\TestCase;
+use Trink\App\Trip\Distribute\McModel;
 use Trink\Frame\Container\App;
 
 class MemcacheTest extends TestCase
@@ -41,6 +42,22 @@ class MemcacheTest extends TestCase
             $mc->set("{$key}:arr:{$i}", $supArray);
         }
 
+        $this->assertTrue(true);
+    }
+
+    /** @test */
+    public function distribute()
+    {
+        $model = new McModel();
+        $model->addServer('a');
+        $model->addServer('b');
+        $model->addServer('c');
+
+        $stat = [];
+        for ($i = 0; $i < 100; $i++) {
+            $key = 'key_' . $i;
+            $stat[$model->lookup($key)][] = $key;
+        }
         $this->assertTrue(true);
     }
 
