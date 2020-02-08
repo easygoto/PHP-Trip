@@ -5,6 +5,7 @@ namespace Test\Trip\App\Demo;
 
 use stdClass;
 use Test\Trip\TestCase;
+use Trink\App\Trip\Distribute\Consistent;
 use Trink\App\Trip\Distribute\McModel;
 use Trink\Frame\Container\App;
 
@@ -58,6 +59,36 @@ class MemcacheTest extends TestCase
             $key = 'key_' . $i;
             $stat[$model->lookup($key)][] = $key;
         }
+        $this->assertTrue(true);
+    }
+
+    /** @test */
+    public function consistent()
+    {
+        $consistent = new Consistent();
+        $consistent->addServer('A');
+        $consistent->addServer('B');
+        $consistent->addServer('C');
+        $consistent->addServer('D');
+
+        $beforeStat = [];
+        $afterStat = []; // 如果 A 服务器宕机, 其他服务器的分摊情况
+        $failServer = false;
+        $beforePoints = $consistent->getPoints();
+        foreach ($beforePoints as $pKey => $point) {
+            $beforeStat[$point][] = $pKey;
+            if ($point != 'A' && $failServer == true) {
+                $afterStat[$point][] = $pKey;
+                $failServer = false;
+            }
+            if ($point == 'A') {
+                $failServer = true;
+            }
+        }
+        echo json_encode($beforePoints);
+
+        $consistent->delServer('A');
+        echo json_encode($consistent->getPoints());
         $this->assertTrue(true);
     }
 
