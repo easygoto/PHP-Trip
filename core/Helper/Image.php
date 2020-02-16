@@ -274,7 +274,7 @@ class Image
         static::destroy($this->props['resource']);
         $this->props = $this->origin;
         $this->props['extFix'] = '';
-        $this->origin['resource'] = static::create($this->origin['absolutePath']);
+        $this->origin['resource'] = static::create($this->origin['absolutePath'], $this->mime);
         return $this;
     }
 
