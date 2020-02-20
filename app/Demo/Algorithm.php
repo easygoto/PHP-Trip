@@ -21,9 +21,7 @@ class Algorithm
         $left  = self::mergeSort($left);
         $right = self::mergeSort($right);
 
-        $output = self::merge($left, $right);
-
-        return $output;
+        return self::merge($left, $right);
     }
 
     /**
