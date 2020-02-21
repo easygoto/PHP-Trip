@@ -96,4 +96,6 @@
 
 ### 3.3 Swoole 专栏
 
+> [服务端源码](tests/App/Demo/SwooleTest.php)和[客户端源码](src/Controller/SwooleController.php)是分开的, 浏览器上使用 `http://<domain>/swoole/*` 系列路由
+
 ### 3.4 缓存设计

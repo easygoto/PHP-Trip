@@ -7,9 +7,10 @@
 <body>
 </body>
 <script>
-    let wsServer = 'ws://127.0.0.1:32771';
+    let wsServer = 'ws://host.docker.internal:9504';
     let websocket = new WebSocket(wsServer);
     websocket.onopen = function (evt) {
+        websocket.send("client join ...");
         console.log("Connected to WebSocket server.");
     };
 

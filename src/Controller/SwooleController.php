@@ -9,13 +9,28 @@ use Trink\Frame\Component\BaseController;
 class SwooleController extends BaseController
 {
     private string $host = 'host.docker.internal';
-    private int    $port = 9502;
 
     public function actionTcp()
     {
         $client = new Client(SWOOLE_SOCK_TCP);
-        $client->connect($this->host, $this->port);
+        if (!$client->connect($this->host, 9501)) {
+            exit("连接失败");
+        }
         $client->send('hello');
+        $result = $client->recv();
+        print_r($result);
+        $client->close();
+    }
+
+    public function actionUdp()
+    {
+        $client = new Client(SWOOLE_SOCK_UDP);
+        if (!$client->connect($this->host, 9502)) {
+            exit("连接失败");
+        }
+        $client->send("hello");
+        $result = $client->recv();
+        print_r($result);
         $client->close();
     }
 
