@@ -1,15 +1,14 @@
 <?php
 
 
-namespace Test\Trip\App\Demo;
+namespace Test\Trip\Core;
 
 use Swoole\Http\Request;
 use Swoole\Http\Response;
 use Swoole\Http\Server as HttpServer;
 use Swoole\Server;
-use Swoole\Websocket\Frame;
-use Swoole\WebSocket\Server as WsServer;
 use Test\Trip\TestCase;
+use Trink\Core\Component\Swoole\WebSocket;
 
 class SwooleTest extends TestCase
 {
@@ -78,24 +77,7 @@ class SwooleTest extends TestCase
     /** @test */
     public function webSocketServer()
     {
-        $handleOpen = function (WsServer $ws, Request $request) {
-            echo json_encode($request) . "\n";
-            $ws->push($request->fd, "hello, welcome\n");
-        };
-        $handleMessage = function (WsServer $ws, Frame $frame) {
-            echo "Message: {$frame->data}\n";
-            $ws->push($frame->fd, "server: {$frame->data}");
-        };
-        $handleClose = function (WsServer $ws, int $fd) {
-            echo "client-{$fd} is closed\n";
-        };
-
-        $ws = new WsServer($this->host, 9504);
-        $ws->on('open', $handleOpen);
-        $ws->on('message', $handleMessage);
-        $ws->on('close', $handleClose);
-        $ws->start();
-
+        new WebSocket();
         $this->assertTrue(true);
     }
 }

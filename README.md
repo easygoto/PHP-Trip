@@ -98,4 +98,8 @@
 
 > [服务端源码](tests/App/Demo/SwooleTest.php)和[客户端源码](src/Controller/SwooleController.php)是分开的, 浏览器上使用 `http://<domain>/swoole/*` 系列路由
 
+> 执行任务时, 写文件和打印可能不会立即出现在屏幕上, 可以用以下方法:
+>
+> `ob_flush(); flush();`
+
 ### 3.4 缓存设计
