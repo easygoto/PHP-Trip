@@ -5,12 +5,21 @@ namespace Trink\Core\Component;
 
 class Logger
 {
-    public static function echo($data)
+    public static function print($data)
     {
         if (is_array($data) || is_object($data)) {
-            echo json_encode($data) . "\n";
+            print json_encode($data);
         } else {
-            echo "{$data}\n";
+            print sprintf("%s", $data);
+        }
+    }
+
+    public static function println($data)
+    {
+        if (is_array($data) || is_object($data)) {
+            print json_encode($data) . "\n";
+        } else {
+            print sprintf("%s\n", $data);
         }
     }
 }

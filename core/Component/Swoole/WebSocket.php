@@ -33,7 +33,7 @@ class WebSocket
     public function handleTask(Server $ws, int $taskId, int $workerId, $data)
     {
         sleep(3);
-        Logger::echo([$taskId, $workerId, $data]);
+        Logger::println([$taskId, $workerId, $data]);
         ob_flush();
         flush();
         return "finish";
@@ -41,12 +41,12 @@ class WebSocket
 
     public function handleFinish(Server $ws, int $taskId, string $data)
     {
-        Logger::echo("{$taskId} : {$data}");
+        Logger::println("{$taskId} : {$data}");
     }
 
     public function handleOpen(Server $ws, Request $request)
     {
-        Logger::echo($request);
+        Logger::println($request);
         $ws->push($request->fd, "hello, welcome\n");
 
         Timer::tick(3000, function (int $timerId) use ($ws, $request) {
@@ -54,14 +54,14 @@ class WebSocket
             $client = $this->clientList[$fd] ?? [];
             $client['initTimerId'] = $timerId;
             $this->clientList[$fd] = $client;
-            Logger::echo("{$timerId} : test");
+            Logger::println("{$timerId} : test");
             $ws->push($fd, json_encode(['status' => 0, 'event' => 'test', 'msg' => 'server: tick send...']));
         });
     }
 
     public function handleMessage(Server $ws, Frame $frame)
     {
-        Logger::echo("Message: {$frame->data}");
+        Logger::println("Message: {$frame->data}");
         $ws->task(['taskId' => uniqid(), 'fd' => $frame->fd]);
 
         // 延时发送数据(异步)
@@ -79,6 +79,6 @@ class WebSocket
             Timer::clear($initTimerId);
             unset($this->clientList["$fd"]);
         }
-        Logger::echo("client-{$fd} is closed");
+        Logger::println("client-{$fd} is closed");
     }
 }

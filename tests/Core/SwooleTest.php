@@ -44,7 +44,7 @@ class SwooleTest extends TestCase
 
         $handleWorkerStart = function (Pool $pool, $workerId) {
             $redisConfig = App::instance()->setting->get('redis');
-            Logger::echo("Worker#{$workerId} is started");
+            Logger::println("Worker#{$workerId} is started");
             $redis = new \Redis();
             $redis->pconnect($redisConfig['host'], $redisConfig['port']);
             $redis->auth($redisConfig['pass']);
@@ -56,7 +56,7 @@ class SwooleTest extends TestCase
             flush();
         };
         $handleWorkerStop = function (Pool $pool, $workerId) {
-            Logger::echo("Worker#{$workerId} is stopped");
+            Logger::println("Worker#{$workerId} is stopped");
             ob_flush();
             flush();
         };
@@ -68,26 +68,39 @@ class SwooleTest extends TestCase
         $this->assertTrue(true);
     }
 
-    /** @test */
+    /**
+     * @test
+     *
+     * 进程使用管道读写数据
+     */
     public function process()
     {
+        /** @var Process[] $workerList */
+        $workerList = [];
         for ($n = 1; $n <= 3; $n++) {
-            $process = new Process(function () use ($n) {
-                Logger::echo('Child #' . getmypid() . " start and sleep {$n}s");
+            $process = new Process(function (Process $process) use ($n) {
                 sleep($n);
-                Logger::echo('Child #' . getmypid() . ' exit');
-            });
-            $process->start();
+                $process->write("Child #" . getmypid() . " start and sleep {$n}s");
+            }, true);
+            $pid = $process->start();
+            $workerList["$pid"] = $process;
+        }
+
+        foreach ($workerList as $worker) {
+            Logger::println($worker->read());
+            ob_flush();
+            flush();
         }
 
         for ($n = 11; $n--;) {
             $status = Process::wait(true);
-            if ($status) {
-                Logger::echo($status);
+            if (!$status) {
+                continue;
             }
+            Logger::println($status);
         }
-        Logger::echo('Parent #' . getmypid() . ' exit');
 
+        Logger::println('Parent #' . getmypid() . ' exit');
         $this->assertTrue(true);
     }
 
