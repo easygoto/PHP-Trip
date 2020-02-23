@@ -12,7 +12,7 @@ class Medoo extends \Medoo\Medoo
         $dbs = $settings->get('db');
         parent::__construct([
             'database_type' => $dbs['type'],
-            'database_name' => $dbs['name'],
+            'database_name' => $dbs['dbname'],
             'server'        => $dbs['host'],
             'username'      => $dbs['user'],
             'password'      => $dbs['pass'],

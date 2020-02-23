@@ -17,7 +17,7 @@ class Capsule
         self::$instance->addConnection([
             'driver'    => $dbs['type'],
             'host'      => $dbs['host'],
-            'database'  => $dbs['name'],
+            'database'  => $dbs['dbname'],
             'username'  => $dbs['user'],
             'password'  => $dbs['pass'],
             'charset'   => $dbs['charset'],

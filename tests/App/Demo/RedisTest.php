@@ -12,6 +12,7 @@ class RedisTest extends TestCase
     {
         $redis = new Redis();
         $redis->pconnect('host.docker.internal', 6379);
+        $redis->auth('123123');
         $redis->set("string-name", "Redis Tree Link ...");
         print sprintf("Stored string in redis: %s\n\n", $redis->get("string-name"));
 

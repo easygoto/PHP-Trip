@@ -12,7 +12,7 @@ class Juggler extends \Upfor\Juggler\Juggler
         $dbs = $settings->get('db');
         parent::__construct([
             'host'     => $dbs['host'],
-            'dbname'   => $dbs['name'],
+            'dbname'   => $dbs['dbname'],
             'username' => $dbs['user'],
             'password' => $dbs['pass'],
             'charset'  => $dbs['charset'],
