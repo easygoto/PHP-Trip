@@ -94,6 +94,21 @@
 > 也可以简单的使用 SQL 语句优化:
 >
 >`update table set inventory = inventory - {x} where id = {id} and inventory >= {x}`
+>
+> 还可以利用 redis 的 watch 命令:
+>
+> ```php
+> $numKey = 'test:spike:goods_num';
+> $redis->watch($numKey);
+> $num = $redis->get($numKey);
+> usleep(100); # 耗时操作
+> if ($num <= 0) {
+>     return;
+> }
+> $redis->multi();
+> $redis->decr($numKey);
+> $redis->exec();
+> ```
 
 ### 3.2 一致性哈希算法
 

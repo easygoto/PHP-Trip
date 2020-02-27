@@ -13,6 +13,7 @@ use Swoole\Http\Server as HttpServer;
 use Swoole\Process;
 use Swoole\Process\Pool;
 use Swoole\Server;
+use Swoole\Table;
 use Test\Trip\TestCase;
 use Trink\Core\Component\Logger;
 use Trink\Core\Component\Swoole\WebSocket;
@@ -29,6 +30,33 @@ class SwooleTest extends TestCase
         var_dump(class_exists('\Swoole\Coroutine\Redis'));
         var_dump(class_exists('\Swoole\Coroutine\MySQL'));
         var_dump(class_exists('\Swoole\Process'));
+        $this->assertTrue(true);
+    }
+
+    /**
+     * @test
+     *
+     * 多用作于多进程的数据共享, 存在于内存中
+     * 进程结束数据消失
+     */
+    public function table()
+    {
+        $table = new Table(100);
+        $table->column('id', Table::TYPE_INT, 4);
+        $table->column('name', Table::TYPE_STRING, 64);
+        $table->column('age', Table::TYPE_INT, 2);
+        $table->create();
+
+        $table->set('test:table1', ['id' => 1, 'name' => 'admin', 'age' => 18]);
+        $table->incr('test:table2', 'age', 2);
+        Logger::println($table->get('test:table1')); # {"id":1,"name":"admin","age":20}
+
+        $table['test:table2'] = ['id' => 2, 'name' => 'root', 'age' => 20];
+        $table->decr('test:table2', 'age', 2);
+        Logger::println($table['test:table2']); # {"key":"test:table2","value":{"id":2,"name":"root","age":18}}
+
+        $table->del('test:table1');
+        Logger::println($table->get('test:table1')); # false
         $this->assertTrue(true);
     }
 

@@ -9,6 +9,8 @@ class Logger
     {
         if (is_array($data) || is_object($data)) {
             print json_encode($data);
+        } elseif (is_bool($data) || is_resource($data)) {
+            var_dump($data);
         } else {
             print sprintf("%s", $data);
         }
@@ -18,6 +20,8 @@ class Logger
     {
         if (is_array($data) || is_object($data)) {
             print json_encode($data) . "\n";
+        } elseif (is_bool($data) || is_resource($data)) {
+            var_dump($data);
         } else {
             print sprintf("%s\n", $data);
         }
