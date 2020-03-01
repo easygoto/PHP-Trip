@@ -113,6 +113,10 @@
 
 ### 3.2 一致性哈希算法
 
+> [源代码](app/Distribute)
+>
+> [测试代码](tests/App/Demo/MemcacheTest.php), 使用 `distribute` 方法
+
 ### 3.3 Swoole 专栏
 
 > [服务端源码](tests/App/Demo/SwooleTest.php)和[客户端源码](src/Controller/SwooleController.php)是分开的, 浏览器上使用 `http://<domain>/swoole/*` 系列路由
@@ -126,7 +130,7 @@
 > [令牌桶源码](app/Limiting/TokenBucket.php)
 
 ```php
-# 测试代码
+# 测试代码, 建议使用压力测试工具执行此脚本
 
 $tokenBucket = TokenBucket::instance();
 $result = $tokenBucket->add();
@@ -142,3 +146,7 @@ if ($result) {
     header('HTTP/1.1 403 Forbidden', true, 403);
 }
 ```
+
+### 3.5 Redis消息订阅
+
+> [Redis消息订阅测试代码](tests/App/Demo/RedisTest.php), 推送使用的是 `publish` 方法, 接收使用的是 `subscribe` 方法啊

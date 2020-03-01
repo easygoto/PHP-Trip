@@ -30,6 +30,56 @@ class RedisTest extends TestCase
     }
 
     /** @test */
+    public function publish()
+    {
+        do {
+            $i = $i ?? 0;
+            $data = json_encode(['time' => date('Y-m-d H:i:s'), 'message' => md5(uniqid(microtime()))]);
+            if ($i % 2 == 0) {
+                $this->redis->publish('test:redis', $data);
+            } elseif ($i % 3 == 0) {
+                $this->redis->publish('test:mongodb', $data);
+            } elseif ($i % 5 == 0) {
+                $this->redis->publish('test:swoole', $data);
+            } elseif ($i % 7 == 0) {
+                $this->redis->publish('test:memcached', $data);
+            } elseif ($i % 11 == 0) {
+                $this->redis->publish('test:nginx', $data);
+            } elseif ($i % 13 == 0) {
+                $this->redis->publish('test:rabbitmq', $data);
+            } elseif ($i % 17 == 0) {
+                $this->redis->publish('test:mysql', $data);
+            } else {
+                $this->redis->publish('test:linux', $data);
+            }
+            sleep(1);
+            $i++;
+        } while (true);
+        $this->assertTrue(true);
+    }
+
+    /** @test */
+    public function subscribe()
+    {
+        $this->redis->subscribe([
+            'test:mongodb',
+            'test:redis',
+            'test:swoole',
+            'test:memcached',
+            'test:nginx',
+            'test:rabbitmq',
+            'test:mysql',
+        ], function ($redis, $channel, $msg) {
+            ob_flush();
+            flush();
+            Logger::println("{$channel}: ");
+            Logger::println($msg);
+            Logger::println('');
+        });
+        $this->assertTrue(true);
+    }
+
+    /** @test */
     public function geo()
     {
         // 添加
