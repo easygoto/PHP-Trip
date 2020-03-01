@@ -28,6 +28,7 @@
 - [ ] Swoole 研究
     - [ ] 异步 MySQL 类封装
     - [ ] 异步 Redis 类封装
+- [ ] 高并发下的 redis id 增长
 
 ## 1 项目结构
 
@@ -120,4 +121,24 @@
 >
 > `ob_flush(); flush();`
 
-### 3.4 缓存设计
+### 3.4 令牌桶算法限流
+
+> [令牌桶源码](app/Limiting/TokenBucket.php)
+
+```php
+# 测试代码
+
+$tokenBucket = TokenBucket::instance();
+$result = $tokenBucket->add();
+
+sleep(1); # 某些耗时操作
+
+if ($result) {
+    $id = $tokenBucket->get();
+    file_put_contents(TEMP_DIR . "token/success_{$id}", '');
+    echo 'success';
+} else {
+    file_put_contents(TEMP_DIR . 'token/fail_' . md5(uniqid(microtime())), '');
+    header('HTTP/1.1 403 Forbidden', true, 403);
+}
+```
