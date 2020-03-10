@@ -1,7 +1,6 @@
 <?php
 
-
-namespace Test\Trip\Core;
+namespace Test\Trip\App;
 
 use Swoole\Async;
 use Swoole\Coroutine;

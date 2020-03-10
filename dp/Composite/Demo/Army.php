@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\Composite\Demo;
 
 class Army extends CompositeUnit

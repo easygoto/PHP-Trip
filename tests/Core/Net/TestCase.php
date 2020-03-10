@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Test\Trip\Core\Net;
 
 use Trink\Frame\Container\App;

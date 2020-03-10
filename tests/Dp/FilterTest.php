@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
@@ -15,7 +14,7 @@ class FilterTest extends TestCase
     /** @test */
     public function work()
     {
-        $leave = (new Leave)->setDays(5)->addWorker([
+        $leave = (new Leave())->setDays(5)->addWorker([
             Leader::class,
             Director::class,
             Manager::class,

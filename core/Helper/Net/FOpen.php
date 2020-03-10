@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\Core\Helper\Net;
 
 class FOpen

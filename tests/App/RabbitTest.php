@@ -1,7 +1,6 @@
 <?php
 
-
-namespace Test\Trip\App\Demo;
+namespace Test\Trip\App;
 
 use AMQPChannel;
 use AMQPChannelException;
@@ -18,9 +17,9 @@ use Trink\Frame\Container\App;
 
 class RabbitTest extends TestCase
 {
-    const E_NAME    = 'e_trink';
-    const Q_NAME    = 'q_trink';
-    const KEY_ROUTE = 'key';
+    private const E_NAME    = 'e_trink';
+    private const Q_NAME    = 'q_trink';
+    private const KEY_ROUTE = 'key';
 
     /**
      * 消费回调函数

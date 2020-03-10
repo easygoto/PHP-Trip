@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Trip\Demo;
 
 use Countable;

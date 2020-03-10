@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\Strategy\Demo;
 
 class MarkLogicMarker extends Marker

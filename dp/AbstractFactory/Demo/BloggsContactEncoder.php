@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\AbstractFactory\Demo;
 
 class BloggsContactEncoder extends ContactEncoder

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\DependencyInjection\Demo\Concrete;
 
 class DB implements \Trink\App\Dp\DependencyInjection\Demo\DB

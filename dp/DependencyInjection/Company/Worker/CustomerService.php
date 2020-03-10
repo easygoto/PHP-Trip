@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\DependencyInjection\Company\Worker;
 
 class CustomerService

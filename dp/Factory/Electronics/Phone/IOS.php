@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\Factory\Electronics\Phone;
 
 class IOS implements Operate

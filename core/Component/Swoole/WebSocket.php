@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\Core\Component\Swoole;
 
 use Swoole\Http\Request;

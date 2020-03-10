@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\Command\Demo;
 
 class CommandContext

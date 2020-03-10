@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\Frame\Controller;
 
 use Swoole\Client;

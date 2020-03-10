@@ -1,7 +1,6 @@
 <?php
 
-
-namespace Test\Trip\App\Demo;
+namespace Test\Trip\App;
 
 use AppendIterator;
 use ArrayIterator;

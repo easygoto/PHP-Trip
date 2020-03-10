@@ -1,21 +1,60 @@
 <?php
 
-
-namespace Test\Trip\App\Demo;
+namespace Test\Trip\App;
 
 use Countable;
+use DOMDocument;
+use DOMXPath;
 use ReflectionClass;
 use ReflectionObject;
 use Test\Trip\TestCase;
 use Trink\App\Trip\Demo\Algorithm;
 use Trink\App\Trip\Demo\Node;
 use Trink\App\Trip\Demo\Person;
+use Trink\Core\Component\Logger;
 use ZipArchive;
 
 class DemoTest extends TestCase
 {
     public function test()
     {
+        $this->assertTrue(true);
+    }
+
+    /** @test */
+    public function optArray()
+    {
+        $arr = [1 => '1', 4 => '2', 9 => '3', 2 => '4', 5 => '5'];
+        array_unshift($arr, '0'); // 会破坏索引
+        Logger::println($arr);
+
+        $arr = ['0'];
+        Logger::println(array_merge($arr, [1 => '1', 4 => '2', 9 => '3', 2 => '4', 5 => '5'])); // 会破坏索引
+
+        $arr = ['0'];
+        Logger::println($arr + [1 => '1', 4 => '2', 9 => '3', 2 => '4', 5 => '5']); // 不会破坏索引
+        $this->assertTrue(true);
+    }
+
+    /** @test */
+    public function xml2Array()
+    {
+        $xml = <<<XML
+<xml>
+<ToUserName><![CDATA[xxx]]></ToUserName><FromUserName><![CDATA[qqq]]></FromUserName><CreateTime>1583308219</CreateTime>
+<MsgType><![CDATA[text]]></MsgType><Content><![CDATA[你好]]></Content><MsgId>1128850165</MsgId><AgentID>1000056</AgentID>
+</xml>
+XML;
+        $array = [];
+        $dom = new DOMDocument();
+        $dom->loadXML($xml);
+        $parser = new DOMXPath($dom);
+        $result = $parser->query('//*');
+        for ($i = 1; $i < $result->length; $i++) {
+            $item = $result->item($i);
+            $array[$item->nodeName] = $item->nodeValue;
+        }
+        Logger::println($array);
         $this->assertTrue(true);
     }
 
@@ -240,7 +279,7 @@ class DemoTest extends TestCase
     /** @test */
     public function reflection()
     {
-        $person = new Person;
+        $person = new Person();
 
         // 反射获取对象的属性
         $reflect = new ReflectionObject($person);

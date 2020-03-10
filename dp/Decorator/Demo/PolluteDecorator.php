@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\Decorator\Demo;
 
 class PolluteDecorator extends TileDecorator

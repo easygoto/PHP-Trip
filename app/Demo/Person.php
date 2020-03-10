@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Trip\Demo;
 
 class Person

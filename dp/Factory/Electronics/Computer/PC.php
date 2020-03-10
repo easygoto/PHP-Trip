@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\Factory\Electronics\Computer;
 
 class PC implements Operate

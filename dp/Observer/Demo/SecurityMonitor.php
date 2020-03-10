@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\Observer\Demo;
 
 class SecurityMonitor implements Observer

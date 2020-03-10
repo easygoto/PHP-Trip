@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\Registry\Demo;
 
 class Register

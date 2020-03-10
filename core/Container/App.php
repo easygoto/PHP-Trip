@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\Core\Container;
 
 use Trink\Core\Component\Setting;

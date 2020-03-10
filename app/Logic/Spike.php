@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Trip\Logic;
 
 use Exception;

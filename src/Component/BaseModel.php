@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\Frame\Component;
 
 use ReflectionObject;

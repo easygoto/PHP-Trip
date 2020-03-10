@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\Frame\Container;
 
 use Illuminate\Database\Connection;

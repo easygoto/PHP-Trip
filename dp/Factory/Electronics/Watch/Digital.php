@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\Factory\Electronics\Watch;
 
 class Digital implements Operate

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;

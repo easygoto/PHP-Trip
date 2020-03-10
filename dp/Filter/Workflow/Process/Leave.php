@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\Filter\Workflow\Process;
 
 use Trink\App\Dp\Filter\Workflow\Process;

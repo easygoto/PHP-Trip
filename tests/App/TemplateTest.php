@@ -1,12 +1,11 @@
 <?php
 
-
-namespace Test\Trip\App\Demo;
+namespace Test\Trip\App;
 
 use Test\Trip\TestCase;
 use Trink\App\Trip\Demo\Template\Template;
 
-class TempTest extends TestCase
+class TemplateTest extends TestCase
 {
     /** @test */
     public function template()

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\Factory\Demo;
 
 class BloggsCommsManager extends CommsManager

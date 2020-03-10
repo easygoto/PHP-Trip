@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
@@ -23,36 +22,36 @@ class AbstractFactoryTest extends TestCase
     /** @test */
     public function cpu()
     {
-        $CPU2400_4 = (new CPU2400MHzCore4)->showCore()->showFrequency();
+        $CPU2400_4 = (new CPU2400MHzCore4())->showCore()->showFrequency();
         $this->assertTrue($CPU2400_4 instanceof CPU);
 
-        $CPU4000_8 = (new CPU4000MHzCore8)->showCore()->showFrequency();
+        $CPU4000_8 = (new CPU4000MHzCore8())->showCore()->showFrequency();
         $this->assertTrue($CPU4000_8 instanceof CPU);
     }
 
     /** @test */
     public function memory()
     {
-        $G2 = (new Memory2G)->showSize();
+        $G2 = (new Memory2G())->showSize();
         $this->assertTrue($G2 instanceof Memory);
 
-        $G4 = (new Memory4G)->showSize();
+        $G4 = (new Memory4G())->showSize();
         $this->assertTrue($G4 instanceof Memory);
 
-        $G8 = (new Memory8G)->showSize();
+        $G8 = (new Memory8G())->showSize();
         $this->assertTrue($G8 instanceof Memory);
     }
 
     /** @test */
     public function hardDisk()
     {
-        $hdd = (new HDD256G5400RPM)
+        $hdd = (new HDD256G5400RPM())
             ->showSize()
             ->showSpeed()
             ->showType();
         $this->assertTrue($hdd instanceof HardDisk);
 
-        $ssd = (new SSD256G)
+        $ssd = (new SSD256G())
             ->showSize()
             ->showSpeed()
             ->showType();

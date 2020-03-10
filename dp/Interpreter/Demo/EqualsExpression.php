@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\Interpreter\Demo;
 
 class EqualsExpression extends OperatorExpression

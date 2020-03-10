@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\Filter\Workflow;
 
 use ReflectionClass;

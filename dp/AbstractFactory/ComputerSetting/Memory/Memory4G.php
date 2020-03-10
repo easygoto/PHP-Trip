@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\AbstractFactory\ComputerSetting\Memory;
 
 use Trink\App\Dp\AbstractFactory\ComputerSetting\Memory;

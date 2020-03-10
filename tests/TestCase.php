@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Test\Trip;
 
 class TestCase extends \PHPUnit\Framework\TestCase

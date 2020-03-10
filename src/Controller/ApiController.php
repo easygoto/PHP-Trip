@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\Frame\Controller;
 
 use Trink\Frame\Component\BaseController;

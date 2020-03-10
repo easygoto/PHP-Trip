@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Test\Trip\Core\Net;
 
 class SocketTest extends TestCase

@@ -1,7 +1,6 @@
 <?php
 
-
-namespace Test\Trip\App\Logic;
+namespace Test\Trip\App;
 
 use Test\Trip\TestCase;
 use Trink\App\Trip\Logic\Spike;

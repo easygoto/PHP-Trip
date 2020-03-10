@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\State\Demo;
 
 abstract class StateOrder

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\Frame\Component\Cache;
 
 use Memcache;

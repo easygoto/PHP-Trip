@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\DependencyInjection\Demo\Concrete;
 
 class Config implements \Trink\App\Dp\DependencyInjection\Demo\Config

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\Frame\Component\Mysql;
 
 use Illuminate\Database\Capsule\Manager as CapsuleManager;

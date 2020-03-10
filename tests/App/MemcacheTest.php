@@ -1,12 +1,12 @@
 <?php
 
-
-namespace Test\Trip\App\Demo;
+namespace Test\Trip\App;
 
 use stdClass;
 use Test\Trip\TestCase;
 use Trink\App\Trip\Distribute\Consistent;
 use Trink\App\Trip\Distribute\McModel;
+use Trink\Core\Component\Logger;
 use Trink\Frame\Container\App;
 
 class MemcacheTest extends TestCase
@@ -22,10 +22,10 @@ class MemcacheTest extends TestCase
             $array = [
                 'a' => rand(1e3, 1e4 - 1),
                 'b' => "string{$i}",
-                'c' => new StdClass,
+                'c' => new StdClass(),
                 'd' => $simArray,
                 'e' => (function () use ($simArray) {
-                    $obj = new StdClass;
+                    $obj = new StdClass();
                     $obj->array = $simArray;
                     $obj->number = rand(1e6, 1e7 - 1);
                     return $obj;
@@ -33,7 +33,7 @@ class MemcacheTest extends TestCase
             ];
             $bigArray = [$array, $array, $array, $array, $array, $array, $array, $array, $array, $array, $array];
             $supArray = [$bigArray, $bigArray, $bigArray, $bigArray, $bigArray, $bigArray, $bigArray, $bigArray];
-            $object = new StdClass;
+            $object = new StdClass();
             $object->numAttr = rand(1e8, 1e9 - 1);
             $object->arrAttr = $array;
             $object->arrAttr2 = $bigArray;
@@ -85,10 +85,10 @@ class MemcacheTest extends TestCase
                 $failServer = true;
             }
         }
-        echo json_encode($beforePoints);
+        Logger::println($beforePoints);
 
         $consistent->delServer('A');
-        echo json_encode($consistent->getPoints());
+        Logger::println($consistent->getPoints());
         $this->assertTrue(true);
     }
 

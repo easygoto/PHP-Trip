@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Test\Trip\Dp;
 
 use Test\Trip\TestCase;
@@ -13,8 +12,8 @@ class CommandTest extends TestCase
     /** @test */
     public function login()
     {
-        $context = new CommandContext;
-        $result  = (new LoginCommand)->execute(
+        $context = new CommandContext();
+        $result  = (new LoginCommand())->execute(
             $context
                 ->addParam('username', 'root')
                 ->addParam('pass', 'root')
@@ -28,8 +27,8 @@ class CommandTest extends TestCase
     /** @test */
     public function feedback()
     {
-        $context = new CommandContext;
-        $result  = (new FeedbackCommand)->execute(
+        $context = new CommandContext();
+        $result  = (new FeedbackCommand())->execute(
             $context
                 ->addParam('email', 'email')
                 ->addParam('msg', 'this is msg')

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\Decorator\Demo;
 
 abstract class TileDecorator extends Tile

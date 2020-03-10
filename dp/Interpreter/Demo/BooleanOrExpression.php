@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\Interpreter\Demo;
 
 // 或表达式

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Trip\Distribute;
 
 class McModel implements Hashes, Distribution

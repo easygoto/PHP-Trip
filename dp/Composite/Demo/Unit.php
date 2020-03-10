@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Trink\App\Dp\Composite\Demo;
 
 abstract class Unit
