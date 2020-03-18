@@ -15,7 +15,7 @@ use AMQPQueueException;
 use Test\Trip\TestCase;
 use Trink\Frame\Container\App;
 
-class RabbitTest extends TestCase
+class AMQPTest extends TestCase
 {
     private const E_NAME    = 'e_trink';
     private const Q_NAME    = 'q_trink';
@@ -72,8 +72,11 @@ class RabbitTest extends TestCase
 
             $conn->disconnect();
         } catch (AMQPConnectionException $e) {
+            echo $e->getMessage();
         } catch (AMQPExchangeException $e) {
+            echo $e->getMessage();
         } catch (AMQPChannelException $e) {
+            echo $e->getMessage();
         }
         $this->assertTrue(true);
     }
@@ -105,8 +108,8 @@ class RabbitTest extends TestCase
             //阻塞模式接收消息
             echo "Message:\n";
             while (true) {
-                $q->consume('Test\Trip\demo\RabbitTest::processMessage');
-                //$q->consume('Test\Trip\demo\RabbitTest::processMessage', AMQP_AUTOACK); //自动ACK应答
+                $q->consume('Test\Trip\App\AMQPTest::processMessage');
+                //$q->consume('Test\Trip\App\AMQPTest::processMessage', AMQP_AUTOACK); //自动ACK应答
             }
             $conn->disconnect();
         } catch (AMQPConnectionException $e) {

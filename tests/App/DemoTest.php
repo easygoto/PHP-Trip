@@ -12,12 +12,101 @@ use Trink\App\Trip\Demo\Algorithm;
 use Trink\App\Trip\Demo\Node;
 use Trink\App\Trip\Demo\Person;
 use Trink\Core\Component\Logger;
+use Trink\Core\Helper\XmlHelper;
 use ZipArchive;
 
 class DemoTest extends TestCase
 {
     public function test()
     {
+        $this->assertTrue(true);
+    }
+
+    public function testYield1()
+    {
+        function createRange($number)
+        {
+            for ($i = 0; $i < $number; $i++) {
+                yield microtime(true);
+            }
+        }
+
+        foreach (createRange(10) as $value) {
+            usleep(2e5);
+            Logger::println($value);
+        }
+        $this->assertTrue(true);
+    }
+
+    public function testYield2()
+    {
+        function squares($start, $stop)
+        {
+            if ($start < $stop) {
+                for ($i = $start; $i <= $stop; $i++) {
+                    yield $i => $i * $i;
+                }
+            } else {
+                for ($i = $start; $i >= $stop; $i--) {
+                    yield $i => $i * $i;
+                }
+            }
+        }
+
+        foreach (squares(3e3, 1e6) as $n => $square) {
+            Logger::println("{$n} squared is {$square}.");
+        }
+        $this->assertTrue(true);
+    }
+
+    public function testYield3()
+    {
+        // 对某一数组进行加权处理
+        $numbers = ['a' => 200, 'b' => 300, 'c' => 400, 'd' => 500, 'e' => 600, 'f' => 700, 'g' => 800];
+
+        // 通常方法, 如果是百万级别的访问量, 这种方法会占用极大内存
+        function randWeight($numbers)
+        {
+            $total = 0;
+            foreach ($numbers as $number => $weight) {
+                $total += $weight;
+                $distribution[$number] = $total;
+            }
+            $rand = mt_rand(0, $total - 1);
+
+            foreach ($distribution ?? [] as $num => $weight) {
+                if ($rand < $weight) {
+                    return $num;
+                }
+            }
+            return 0;
+        }
+
+        Logger::println(randWeight($numbers));
+
+        // 改用yield生成器
+        function mtRandWeight($numbers)
+        {
+            $total = 0;
+            foreach ($numbers as $number => $weight) {
+                $total += $weight;
+                yield $number => $total;
+            }
+        }
+
+        function mtRandGenerator($numbers)
+        {
+            $total = array_sum($numbers);
+            $rand = mt_rand(0, $total - 1);
+            foreach (mtRandWeight($numbers) as $num => $weight) {
+                if ($rand < $weight) {
+                    return $num;
+                }
+            }
+            return 0;
+        }
+
+        Logger::println(mtRandGenerator($numbers));
         $this->assertTrue(true);
     }
 
@@ -45,15 +134,7 @@ class DemoTest extends TestCase
 <MsgType><![CDATA[text]]></MsgType><Content><![CDATA[你好]]></Content><MsgId>1128850165</MsgId><AgentID>1000056</AgentID>
 </xml>
 XML;
-        $array = [];
-        $dom = new DOMDocument();
-        $dom->loadXML($xml);
-        $parser = new DOMXPath($dom);
-        $result = $parser->query('//*');
-        for ($i = 1; $i < $result->length; $i++) {
-            $item = $result->item($i);
-            $array[$item->nodeName] = $item->nodeValue;
-        }
+        $array = XmlHelper::toArrayFromString($xml);
         Logger::println($array);
         $this->assertTrue(true);
     }
@@ -251,7 +332,7 @@ XML;
         $zip = new ZipArchive();
         if ($zip->open($filename, ZipArchive::OVERWRITE) !== true) {
             if ($zip->open($filename, ZipArchive::CREATE) !== true) {
-                exit('无法打开文件，或者文件创建失败');
+                exit('无法打开文件, 或者文件创建失败');
             }
         }
         $addFileName = RESOURCE_DIR . "address.sql";
@@ -287,9 +368,9 @@ XML;
         print_r($reflect->getMethods());
 
         // 使用 class 函数
-        print_r(get_object_vars($person));               // 对象关联数组
-        print_r(get_class_vars(get_class($person)));     // 类属性
-        print_r(get_class_methods($person));             // 类方法名数组
+        print_r(get_object_vars($person)); // 对象关联数组
+        print_r(get_class_vars(get_class($person))); // 类属性
+        print_r(get_class_methods($person)); // 类方法名数组
 
         // 反射 API
         $obj = new ReflectionClass('Trink\App\Trip\Demo\Person');
