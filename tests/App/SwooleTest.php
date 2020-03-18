@@ -15,7 +15,7 @@ use Swoole\Server;
 use Swoole\Table;
 use Test\Trip\TestCase;
 use Trink\Core\Component\Logger;
-use Trink\Core\Component\Swoole\WebSocket;
+use Trink\Core\Component\Swoole\WsServer;
 use Trink\Frame\Container\App;
 
 class SwooleTest extends TestCase
@@ -244,7 +244,7 @@ class SwooleTest extends TestCase
     /** @test */
     public function webSocketServer()
     {
-        new WebSocket();
+        new WsServer();
         $this->assertTrue(true);
     }
 }
