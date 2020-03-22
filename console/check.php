@@ -24,6 +24,13 @@ $classList = [
 
     // swoole_async
     Swoole\Async::class,
+    Swoole\MySQL::class,
+    Swoole\Redis::class,
+    Swoole\Http\Client::class,
+    Swoole\Channel::class,
+    Swoole\Memory\Pool::class,
+    Swoole\MsgQueue::class,
+    Swoole\RingQueue::class,
 
     // swoole_orm
     swoole_orm::class,

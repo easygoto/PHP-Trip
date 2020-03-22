@@ -28,9 +28,7 @@
     - [x] 控制器
     - [ ] 视图
 - [ ] 测试框架的深入研究
-- [ ] Swoole 研究
-    - [ ] 异步 MySQL 类封装
-    - [ ] 异步 Redis 类封装
+- [x] Swoole 研究
 - [ ] 高并发下的 redis id 增长
 
 ## 1 项目结构
@@ -118,15 +116,11 @@
 
 > [源代码](app/Distribute)
 >
-> [测试代码](tests/App/Demo/MemcacheTest.php), 使用 `distribute` 方法
+> [测试代码](tests/App/MemcacheTest.php), 使用 `distribute` 方法
 
 ### 3.3 Swoole 专栏
 
-> [服务端源码](tests/App/Demo/SwooleTest.php)和[客户端源码](src/Controller/SwooleController.php)是分开的, 浏览器上使用 `http://<domain>/swoole/*` 系列路由
-
-> 执行任务时, 写文件和打印可能不会立即出现在屏幕上, 可以用以下方法:
->
-> `ob_flush(); flush();`
+> [详情请看SWOOLE.md](SWOOLE.md)
 
 ### 3.4 令牌桶算法限流
 
@@ -152,4 +146,4 @@ if ($result) {
 
 ### 3.5 Redis消息订阅
 
-> [Redis消息订阅测试代码](tests/App/Demo/RedisTest.php), 推送使用的是 `publish` 方法, 接收使用的是 `subscribe` 方法啊
+> [Redis消息订阅测试代码](tests/App/RedisTest.php), 推送使用的是 `publish` 方法, 接收使用的是 `subscribe` 方法啊

@@ -1,22 +1,28 @@
-### Swoole 学习笔记
+## Swoole 学习笔记
 
-#### 1 安装准备
+### 1 安装准备
 
 > 使用自己编译的 docker 镜像 registry.cn-hangzhou.aliyuncs.com/treelink/php:7.4-swoole
-> 基于 php-fom:7.4.3 增加了 swoole, swoole_async, swoole_orm, swoole_postgresql, mongodb, redis, memcache, imagick, apcu 等扩展
+>
+> 基于 php-fom:7.4 增加了 swoole, swoole_async, swoole_orm, swoole_postgresql, mongodb, redis, memcache, imagick, apcu 等扩展
+>
 > 开启 debug-log 或 trace-log 之后, 命令行会打印很多日志的日志, 如果不是特别需要, 建议不开启
+>
 > swoole_async 是异步写法, 目前被协程取代, 地址为 https://github.com/swoole/ext-async, 编译时版本要和 swoole 的版本保持一致
 
-##### 1.1 存在的问题
+#### 1.1 存在的问题
 
 - [ ] gdb 调试总是打不上断点直接运行
 
-#### 2 协程
+### 2 协程
+
+#### 2.1 协程的创建
 
 1. 父协程结束不影响子协程
 1. 同级别的协程才会受到 co:sleep() 的影响
 1. 协程是按一定顺序执行, 有时候脚本执行完毕, 协程还没有完全关闭
 1. Co\run() 是创建一个协程容器, 容器内的程序可以异步, 容器外的程序是正常同步的
+1. go() 等同于 co::create()
 
 ```php
 # main start
@@ -138,7 +144,6 @@ Co\run(function () {
     );
 
     for ($i = 0; $i < 3; $i++) {
-        // go 等同于 co::create
         co::create('test', $i, md5(uniqid(microtime())));
         go([new Obj(), 'test'], md5(uniqid(microtime())));
     }
@@ -149,7 +154,7 @@ Co\run(function () {
 });
 ```
 
-#### 3 通道
+#### 2.2 通道
 
 1. 本质上是队列, 先进先出, 可以存放 PHP 对象
 1. 当队列满的时候, 其他的协程会插队, 会影响到先前的顺序
@@ -225,7 +230,7 @@ echo json_encode($inQueue) . "\n";
 echo json_encode($outQueue) . "\n";
 ```
 
-#### 4 WaitGroup
+#### 2.3 WaitGroup
 
 1. 可以通过控制, 使所有的协程都结束才会处理某些事情
 1. `存疑` 共享的数组资源不能使用 array_merge() 函数
@@ -278,7 +283,7 @@ Co\run(
 );
 ```
 
-#### 5 连接池
+#### 2.4 连接池
 
 1. 协程中的连接都是并行的, 连接池只需要连接数据库一次
 2. 一个连接池只有一个进程
@@ -327,11 +332,7 @@ for ($i = 1; $i <= 10; $i++) {
     Coroutine\run(
         function () use ($pool) {
             for ($n = N; $n--;) {
-                go(
-                    function () use ($pool) {
-                        todo($pool);
-                    }
-                );
+                go(fn () => todo($pool));
             }
         }
     );
@@ -343,16 +344,75 @@ for ($i = 1; $i <= 10; $i++) {
 $pool->close();
 ```
 
+#### 2.5 定时器
 
+> 最大的感触就是和 js 中的定时器一样, 值得注意的是 Swoole\Timer::tick 非阻塞但程序会一直跑下去
 
+### 3 进程
 
+#### 3.1 共享内存
 
+#### 3.2 同步
 
+#### 3.3 进程管理
 
+#### 3.4 事件
 
+### 4 服务端
 
+#### 4.1 TCP 服务器
 
+#### 4.2 HTTP 服务器
 
+#### 4.3 WS 服务器
 
+#### 4.4 Redis 服务器
 
+### 5 客户端
+
+#### 5.1 TCP/UDP 客户端
+
+#### 5.2 HTTP/WS 客户端
+
+#### 5.3 HTTP2 客户端
+
+#### 5.4 Socket 客户端
+
+#### 5.5 PgSQL 客户端
+
+#### 5.6 MySQL 客户端
+
+#### 5.7 Redis 客户端
+
+#### 5.8 System 客户端
+
+### 6 Swoole Async
+
+#### 6.1 系统处理
+
+```php
+<?php
+
+use Swoole\Async;
+
+# 异步读取/写入文件, 执行命令
+Async::readFile(__DIR__ . '/read.txt', function (...$args) {
+    // $filename, $content
+    echo json_encode($args), "\n";
+});
+
+Async::writeFile(__DIR__ . '/write.txt', 'hello swoole', function (...$args) {
+    // $filename, $length
+    echo json_encode($args), "\n";
+});
+
+Async::exec('php tesst.php', function (...$args) {
+    // $result, $bool
+    echo json_encode($args), "\n";
+});
+
+echo "start\n";
+```
+
+### 7 Swoole ORM
 
