@@ -260,11 +260,14 @@ XML;
                     $content = substr($docs, $methodStart, $currentIndex - $methodStart);
 
                     $lineList = [];
-                    array_map(function ($line) use (&$lineList) {
-                        if (trim($line)) {
-                            $lineList[] = $line;
-                        }
-                    }, explode("\n", $content));
+                    array_map(
+                        function ($line) use (&$lineList) {
+                            if (trim($line)) {
+                                $lineList[] = $line;
+                            }
+                        },
+                        explode("\n", $content)
+                    );
 
                     foreach ($lineList as $lineIndex => $line) {
                         $lineList[$lineIndex] = substr($line, $spaceCount);
@@ -357,36 +360,75 @@ XML;
         $this->assertTrue(true);
     }
 
-    /** @test */
+    /**
+     * 反射 API
+     *
+     * @test
+     */
     public function reflection()
     {
-        $person = new Person();
-
-        // 反射获取对象的属性
-        $reflect = new ReflectionObject($person);
-        print_r($reflect->getProperties());
-        print_r($reflect->getMethods());
-
-        // 使用 class 函数
-        print_r(get_object_vars($person)); // 对象关联数组
-        print_r(get_class_vars(get_class($person))); // 类属性
-        print_r(get_class_methods($person)); // 类方法名数组
-
-        // 反射 API
-        $obj = new ReflectionClass('Trink\App\Trip\Demo\Person');
-        $className = $obj->getName();
-        var_dump($className);
-
-        $methods = [];
-        $properties = [];
-        foreach ($obj->getMethods() as $value) {
-            $methods[$value->getName()] = $value;
+        $reflect = new ReflectionClass('Trink\App\Trip\Demo\Person');
+        $namespace = $reflect->getNamespaceName();
+        $classPrototype = "<?php\n\n";
+        if ($namespace) {
+            $classPrototype .= "namespace {$reflect->getNamespaceName()};\n\n";
         }
-        foreach ($obj->getProperties() as $value) {
-            $properties[$value->getName()] = $value;
+        $classPrototype .= "class {$reflect->getShortName()} {\n";
+
+        $propertyList = $reflect->getProperties();
+        foreach ($propertyList as $property) {
+            $propertyPrototype = '    ';
+
+            // 权限
+            if ($property->isPublic()) {
+                $propertyPrototype .= 'public ';
+            } elseif ($property->isProtected()) {
+                $propertyPrototype .= 'protected ';
+            } elseif ($property->isPrivate()) {
+                $propertyPrototype .= 'private ';
+            }
+
+            // 静态
+            if ($property->isStatic()) {
+                $propertyPrototype .= 'static ';
+            }
+
+            $propertyPrototype .= "\${$property->getName()}";
+            $classPrototype .= "\n$propertyPrototype;\n";
         }
-        var_dump($methods);
-        var_dump($properties);
+
+        $methodList = $reflect->getMethods();
+        foreach ($methodList as $method) {
+            $methodPrototype = '    ';
+
+            // 权限
+            if ($method->isPublic()) {
+                $methodPrototype .= 'public ';
+            } elseif ($method->isProtected()) {
+                $methodPrototype .= 'protected ';
+            } elseif ($method->isPrivate()) {
+                $methodPrototype .= 'private ';
+            }
+
+            // 静态
+            if ($method->isStatic()) {
+                $methodPrototype .= 'static ';
+            }
+
+            // 名称
+            $methodPrototype .= "function {$method->getName()}(";
+
+            // 参数
+            foreach ($method->getParameters() as $parameter) {
+                $methodPrototype .= "\${$parameter->getName()}, ";
+            }
+
+            $methodPrototype = rtrim($methodPrototype, ', ') . ")";
+            $classPrototype .= "\n{$methodPrototype};\n";
+        }
+
+        $classPrototype .= "}\n\n";
+        echo $classPrototype;
         $this->assertTrue(true);
     }
 }
