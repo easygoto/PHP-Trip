@@ -4,7 +4,7 @@
 
 > 使用自己编译的 docker 镜像 registry.cn-hangzhou.aliyuncs.com/treelink/php:7.4-swoole
 >
-> 基于 php-fom:7.4 增加了 swoole, swoole_async, swoole_orm, swoole_postgresql, mongodb, redis, memcache, imagick, apcu 等扩展
+> 基于 php-fom:7.4 增加了 swoole, swoole_async, swoole_orm, swoole_postgresql, mongodb, redis, memcached, imagick, apcu 等扩展
 >
 > 开启 debug-log 或 trace-log 之后, 命令行会打印很多日志的日志, 如果不是特别需要, 建议不开启
 >
@@ -13,6 +13,7 @@
 #### 1.1 存在的问题
 
 - [ ] gdb 调试总是打不上断点直接运行
+- [ ] 深入事件的了解
 
 ### 2 协程
 
@@ -352,11 +353,158 @@ $pool->close();
 
 #### 3.1 共享内存
 
+> Swoole\Table 更像是内存中共享的仿数据库的表, 进程结束自动释放
+
+```php
+<?php
+
+use Swoole\Table;
+
+$table = new Table(1024);
+$table->column('name', Table::TYPE_STRING, 64);
+$table->column('age', Table::TYPE_INT, 2);
+$table->column('money', Table::TYPE_FLOAT);
+$table->create();
+
+$table->set('test:table1', ['name' => 'admin', 'age' => 18, 'money' => 100]);
+$table->incr('test:table1', 'age', 2);
+echo json_encode($table->get('test:table1')), "\n"; # {"name":"admin","age":20,"money":100}
+
+$table['test:table2'] = ['name' => 'root', 'age' => 20, 'money' => 100];
+$table->decr('test:table2', 'age', 2);
+echo json_encode($table['test:table2']), "\n"; # {"key":"test:table2","value":{"name":"root","age":18,"money":100}}
+```
+
 #### 3.2 同步
+
+> 无锁计数器, 属于数据不安全的计数器; 让协程在 0-50 以内做计算, 有计算出界的情况, 加锁(悲观锁)之后就可以防止这种情况
+>
+> 进程锁只能在子进程之间使用, 在协程中使用会出现死锁
+
+```php
+<?php
+
+use Swoole\Atomic;
+use Swoole\Lock;
+use Swoole\Process;
+
+# 20 + 24 = 44
+# invalid + 30, keep 44
+# invalid + 30, keep 44
+# 44 - 16 = 28
+# 28 - 15 = 13
+# invalid - 18, keep 13
+# invalid - 14, keep 13
+# invalid - 16, keep 13
+
+$atomic = new Atomic();
+$atomic->set(20);
+$lock = new Lock(Lock::MUTEX);
+$addNum = 3;
+$subNum = 5;
+
+for ($i = 0; $i < $addNum; $i++) {
+    $process = new Process(
+        function () use ($atomic, $lock) {
+            $lock->lock();
+            $rand = rand(20, 30);
+            if ($atomic->get() + $rand <= 50) {
+                usleep(5e5);
+                echo "{$atomic->get()} + {$rand} = {$atomic->add($rand)}\n";
+            } else {
+                echo "invalid + {$rand}, keep {$atomic->get()}\n";
+            }
+            $lock->unlock();
+        }
+    );
+    $process->start();
+}
+
+for ($i = 0; $i < $subNum; $i++) {
+    $process = new Process(
+        function () use ($atomic, $lock) {
+            $lock->lock();
+            $rand = rand(10, 20);
+            if ($atomic->get() - $rand >= 0) {
+                usleep(5e5);
+                echo "{$atomic->get()} - {$rand} = {$atomic->sub($rand)}\n";
+            } else {
+                echo "invalid - {$rand}, keep {$atomic->get()}\n";
+            }
+            $lock->unlock();
+        }
+    );
+    $process->start();
+}
+
+for ($i = $addNum + $subNum; $i > 0; $i--) {
+    $status = Process::wait();
+    echo json_encode($status) . "\n";
+}
+```
 
 #### 3.3 进程管理
 
-#### 3.4 事件
+> 主进程是阻塞的, 子进程之间是异步的, 回收所有子进程之后主进程才会停止
+>
+> 子进程可以先于协程结束, 但只有子进程中的协程完毕了之后, 才会被系统回收
+
+```php
+<?php
+
+use Swoole\Process;
+
+for ($n = 1; $n <= 3; $n++) {
+    $process = new Process(
+        function () use ($n) {
+            echo 'Child #' . getmypid() . " start and sleep {$n}s" . PHP_EOL;
+            sleep($n);
+            for ($i = 1; $i <= 3; $i++) {
+                go(
+                    function () use ($i) {
+                        co::sleep($i);
+                        echo 'Child #' . getmypid() . " co {$i} run" . PHP_EOL;
+                    }
+                );
+            }
+            echo 'Child #' . getmypid() . ' exit' . PHP_EOL;
+        }
+    );
+    $process->start();
+}
+for ($n = 3; $n--;) {
+    $status = Process::wait(true);
+    echo "Recycled #{$status['pid']}, code={$status['code']}, signal={$status['signal']}" . PHP_EOL;
+}
+echo 'Parent #' . getmypid() . ' exit' . PHP_EOL;
+```
+
+```php
+<?php
+
+use Swoole\Process\Pool as ProcessPool;
+
+# 进程池主要应用于开启多个子进程的服务, 以增大并发量
+$workerNum = 8;
+$pool = new ProcessPool($workerNum);
+
+$pool->on(
+    "WorkerStart",
+    function (ProcessPool $pool, $workerId) {
+        echo "Worker#{$workerId} is started\n";
+        sleep(rand(2, 8));
+    }
+);
+
+$pool->on(
+    "WorkerStop",
+    function (ProcessPool $pool, $workerId) {
+        echo "Worker#{$workerId} is stopped\n";
+    }
+);
+
+$pool->start();
+```
 
 ### 4 服务端
 
