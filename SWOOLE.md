@@ -347,7 +347,9 @@ $pool->close();
 
 #### 2.5 定时器
 
-> 最大的感触就是和 js 中的定时器一样, 值得注意的是 Swoole\Timer::tick 非阻塞但程序会一直跑下去
+> 类似 js 中的定时器, Swoole\Timer::tick 非阻塞但程序会一直跑下去
+>
+> 最低支持 0.001 秒的定时器, 0 秒的定时器可以使用 Event::defer() 
 
 ### 3 进程
 
@@ -564,3 +566,106 @@ echo "start\n";
 
 ### 7 Swoole ORM
 
+> 此 Orm 和其他的 Orm 用法类似, 文档为 https://github.com/swoole/ext-orm
+>
+> Orm 的静态方法正常返回一个数组, `['sql' => string, 'bind_value' => array, 'is_single_column' => int]`, 用于 `prepare` 中
+>
+> PhpStorm 的插件 `Swoole IDE Helper` 没有 `Swoole Orm` 的代码提示, 可使用以下文件, 该文件可以放到根目录下, 也可以通过 IDE 引入进来
+
+```php
+<?php
+
+namespace Swoole;
+
+/**
+ * Interface Orm
+ *
+ * @package Swoole
+ * @author  trink
+ */
+interface Orm
+{
+    /**
+     * @param string       $table   表名
+     * @param array|string $join    多表关联join查询, 不使用可以忽略, 如果传三个参数, 此列的意义是 columns
+     * @param array|string $columns 需要查询的列, 如果传三个参数, 此列的意义是 where
+     * @param array        $where   查询条件, 可选参数
+     *
+     * @return array|false 失败返回false, 否则返回一个数组
+     */
+    public static function select($table, $join, $columns = null, $where = null);
+
+    /**
+     * @param string $table 表名
+     * @param array  $data  要插入的数据
+     *
+     * @return int|false 失败返回false
+     */
+    public static function insert($table, $data);
+
+    /**
+     * @param string $table 表名
+     * @param array  $data  需要替换的数据
+     *
+     * @return int|false 失败返回false
+     */
+    public static function replace($table, $data);
+
+    /**
+     * @param string $table 表名
+     * @param array  $data  需要更新的数据
+     * @param array  $where where条件 [可选]
+     *
+     * @return int|false 失败返回false
+     */
+    public static function update($table, $data, $where = []);
+
+    /**
+     * @param string $table 表名
+     * @param array  $where where条件 [可选]
+     *
+     * @return int|false 失败返回false
+     */
+    public static function delete($table, $where);
+}
+```
+
+#### 7.1 WHERE
+
+> where 是一个数组, 键的规则即是 SQL 语句
+>
+> 关键字(AND/ORDER/...)全大写, 小写会当成一个字段
+
+```php
+[
+    'age' => 25,  // WHERE age = 25
+    'age[>]' => 25, // WHERE age > 25
+    'age[>=]' => 25, // WHERE age >= 25
+    'age[<]' => 25, // WHERE age < 25
+    'age[<=]' => 25, // WHERE age <= 25
+    'age[!]' => 25, // WHERE age != 25
+    'age[<>]' => [20, 30], // WHERE age  BETWEEN 20 AND 30
+    'age[><]' => [20, 30], // WHERE age NOT BETWEEN 20 AND 30
+    'name' => ['admin', 'root'], // WHERE name in ('admin', 'root')
+    'name[~]' => '[br]oot_', // WHERE name like 'boot_' or name like 'root_'
+    'nickname[!~]' => '%test%', // WHERE name not like '%test%'
+    'AND' => [
+        'OR #1' => [],
+        'OR #2' => [],
+    ], // where (... or ...) and (... or ...)
+    'LIMIT' => ['offset', 'limit'], // limit <offset>, <limit>
+    'GROUP' => 'field', // group by field
+    'HAVING' => ['field[>]' => 20], // having field > 20
+    'ORDER' => ['field' => 'DESC'], // order by field desc
+];
+```
+
+#### 7.2 JOIN
+
+```php
+[
+    # [>] ==> RIGHT JOIN, [<] ==> LEFT JOIN, [<>] ==> FULL JOIN, [><] ==> INNER JOIN
+    '[>]order' => 'uid', // RIGHT JOIN `order` USING (`uid`)
+    '[><]order(O)' => ['id' => 'user_id'], // INNER JOIN `order` `O` on `user`.`id` = `O`.`user_id`
+];
+```
