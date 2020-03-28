@@ -1,8 +1,10 @@
+host: make.trink.com
+debug: true
 db:
   mysql:
     host: host.docker.internal
     user: root
-    pass: 123123
+    password: 123123
     name: test
     port: 3306
     charset: utf8mb4
@@ -11,11 +13,16 @@ db:
 cache:
   redis:
     host: host.docker.internal
+    password: 123123
     port: 6379
+  memcached:
+    host: host.docker.internal
+    port: 11211
+    prefix:
 queue:
   rabbit:
     host: host.docker.internal
     port: 5672
-    login: demo
+    login: admin
     password: 123123
-    vhost: demo
+    vhost: /demo

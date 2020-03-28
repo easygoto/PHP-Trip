@@ -1,6 +1,6 @@
 <?php
 
-namespace Trink\Core\Component\Swoole;
+namespace Trink\App\Trip\Swoole;
 
 use Swoole\Http\Request;
 use Swoole\Timer;
