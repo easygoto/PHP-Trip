@@ -48,14 +48,13 @@ class Logger
      */
     public static function cliLn(int $color, string $title, $desc = '')
     {
-        $separator = "\t\t";
         if (is_string($desc)) {
-            print "\e[{$color}m{$title}{$separator}\e[0m- {$desc}\n";
+            print "\e[{$color}m{$title}\t\e[0m- {$desc}\n";
         } elseif (is_array($desc)) {
-            $message = implode("\n{$separator}- ", $desc);
-            print "\e[{$color}m{$title}{$separator}\e[0m- {$message}\n";
+            $message = implode("\n\t- ", $desc);
+            print "\e[{$color}m{$title}\t\e[0m- {$message}\n";
         } else {
-            print "\e[{$color}m{$title}{$separator}\e[0m- see to README.md\n";
+            print "\e[{$color}m{$title}\t\e[0m- see to README.md\n";
         }
     }
 

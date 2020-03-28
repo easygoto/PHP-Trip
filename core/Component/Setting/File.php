@@ -11,7 +11,7 @@ class File implements Setting
 
     public function __construct()
     {
-        $this->props = require TRIP_ROOT . 'data/config/main.php';
+        $this->props = require DATA_DIR . 'config/main.php';
     }
 
     public function set(string $key, $value)
