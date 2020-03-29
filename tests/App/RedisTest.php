@@ -9,7 +9,7 @@ use Trink\Frame\Container\App;
 
 class RedisTest extends TestCase
 {
-    private Redis $redis;
+    private ?Redis $redis;
 
     /** @before */
     public function init()
@@ -60,21 +60,24 @@ class RedisTest extends TestCase
     /** @test */
     public function subscribe()
     {
-        $this->redis->subscribe([
-            'test:mongodb',
-            'test:redis',
-            'test:swoole',
-            'test:memcached',
-            'test:nginx',
-            'test:rabbitmq',
-            'test:mysql',
-        ], function ($redis, $channel, $msg) {
-            ob_flush();
-            flush();
-            Logger::println("{$channel}: ");
-            Logger::println($msg);
-            Logger::println('');
-        });
+        $this->redis->subscribe(
+            [
+                'test:mongodb',
+                'test:redis',
+                'test:swoole',
+                'test:memcached',
+                'test:nginx',
+                'test:rabbitmq',
+                'test:mysql',
+            ],
+            function ($redis, $channel, $msg) {
+                ob_flush();
+                flush();
+                Logger::println("{$channel}: ");
+                Logger::println($msg);
+                Logger::println('');
+            }
+        );
         $this->assertTrue(true);
     }
 
@@ -101,6 +104,44 @@ class RedisTest extends TestCase
         Logger::println($log);
         $log = $this->redis->georadiusbymember('geo:mall', 'user:1', 400, 'km', $options);
         Logger::println($log);
+        $this->assertTrue(true);
+    }
+
+    /** @test */
+    public function bitmap()
+    {
+        $keyList = [];
+        for ($i = 7; $i > 0; $i--) {
+            $key = "user:login:" . date('Y_m_d', time() - 86400 * $i);
+            // 模拟大数据 32 char = 32 byte = 256 bit
+            $this->redis->set($key, str_shuffle(str_repeat(md5(uniqid(microtime())), 1e5)));
+            $keyList[] = $key;
+        }
+
+        // 手动设置, 以防测试不出
+        $this->redis->setBit($keyList[0], 3562214, 1);
+        $this->redis->setBit($keyList[1], 3562214, 1);
+        $this->redis->setBit($keyList[2], 3562214, 1);
+        $this->redis->setBit($keyList[3], 3562214, 1);
+        $this->redis->setBit($keyList[4], 3562214, 1);
+        $this->redis->setBit($keyList[5], 3562214, 1);
+        $this->redis->setBit($keyList[6], 3562214, 1);
+
+        // 统计某用户是否这七天连续登录
+        Logger::println(
+            $this->redis->bitOp(
+                'AND',
+                'user:login:temp_stat',
+                $keyList[0],
+                $keyList[1],
+                $keyList[2],
+                $keyList[3],
+                $keyList[4],
+                $keyList[5],
+                $keyList[6]
+            )
+        );
+        Logger::println($this->redis->getBit('user:login:temp_stat', 3562214));
         $this->assertTrue(true);
     }
 }

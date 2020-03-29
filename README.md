@@ -63,7 +63,7 @@
 
 ## 2 项目规范
 
-- 基础规范为 PSR-2
+- 基础规范为 PSR-12
 
 ### 2.1 组件规范
 
@@ -120,7 +120,7 @@
 
 ### 3.3 Swoole 专栏
 
-> [详情请看SWOOLE.md](SWOOLE.md)
+> [详情请看 SWOOLE.md](SWOOLE.md)
 
 ### 3.4 令牌桶算法限流
 
@@ -144,6 +144,22 @@ if ($result) {
 }
 ```
 
-### 3.5 Redis消息订阅
+### 3.5 Redis 特性
+
+> 特性测试代码均在 [tests/App/RedisTest](tests/App/RedisTest.php) 中
+
+#### 3.5.1 发布订阅
+
+> 推送使用的是 `publish` 方法
+> 
+> 接收使用的是 `subscribe` 方法
+
+#### 3.5.2 地理 API GEO
+
+> 地理 API 使用 `geo` 方法, 计算经纬度距离, 筛选经纬度范围坐标
+
+#### 3.5.3 位图
+
+> 使用 `bitmap` 方法, 大量的 true/false 统计能节省不少空间, 但是比较少的数量建议不使用这种数据类型, 当然也可以使用更小的 hyperloglog
 
 > [Redis消息订阅测试代码](tests/App/RedisTest.php), 推送使用的是 `publish` 方法, 接收使用的是 `subscribe` 方法啊
