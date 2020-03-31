@@ -36,28 +36,32 @@
 ```
 <root>
  |-- app : 应用目录
+ |-- console : 命令行工具
  |-- core : 核心库
-     |--Component : 组件, 一般放在容器中注入依赖
-     |--Container : 容器, 常量
-     |--Helper : 工具方法, 之间不可有依赖关系
+     |-- Component : 组件, 一般放在容器中注入依赖
+     |-- Container : 容器, 常量
+     |-- Helper : 工具方法, 之间不可有依赖关系
  |-- data : 配置及数据
-     |--backup : 备份文件,sql改动
-     |--config : 配置文件
-     |--docs : 文档
-     |--temp : 缓存
+     |-- backup : 备份文件, sql 改动
+     |-- config : 配置文件
+     |-- docs : 文档
+     |-- temp : 缓存
  |-- dp : 学习设计模式的目录
  |-- public : 网站根目录
-     |--resource : 
-        |--images : 资源图片
-        |--wxcode : 微信码
+     |-- demo : 大部分的前端应用
+     |-- resource
+         |-- images : 资源图片
+         |-- wxcode : 微信码
+     |-- upload
+         |-- images
  |-- src : 组件、工具等
-     |--Container : 带有逻辑的常量和容器
-     |--Component : 封装别人的组件
-     |--Model : 数据库对接层
-     |--Service : 业务逻辑层
-     |--Controller : 控制路由层
-     |--View : 页面显示层
-     |--Helper : 带有逻辑的库和组件
+     |-- Container : 带有逻辑的常量和容器
+     |-- Component : 带有逻辑的组件
+     |-- Model : 数据库对接层
+     |-- Service : 业务逻辑层
+     |-- Controller : 控制路由层
+     |-- View : 页面显示层
+     |-- Helper : 带有逻辑的库
  |-- tests : 测试板块
 ```
 
@@ -163,3 +167,16 @@ if ($result) {
 > 使用 `bitmap` 方法, 大量的 true/false 统计能节省不少空间, 但是比较少的数量建议不使用这种数据类型, 当然也可以使用更小的 hyperloglog
 
 > [Redis消息订阅测试代码](tests/App/RedisTest.php), 推送使用的是 `publish` 方法, 接收使用的是 `subscribe` 方法啊
+
+
+### 3.6 消息队列
+
+> amqp 和 php-libamqp 的性能比较, [建议在 cli 环境下执行](console/mq.php)
+>
+> 保证结构一致且是空队列的情况. 十万级的数目, amqp 比 libamqp 的效率高 40% ~ 60%; 万级的数目, amqp 比 libamqp 的效率高 100% ~ 110%
+>
+> [amqp 的源码](app/MQ/AmqpDemo.php) 和 [libamqp 的源码](app/MQ/LibMqDemo.php)
+
+
+
+
