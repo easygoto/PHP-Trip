@@ -144,4 +144,58 @@ class RedisTest extends TestCase
         Logger::println($this->redis->getBit('user:login:temp_stat', 3562214));
         $this->assertTrue(true);
     }
+
+    /** @test */
+    public function hyper()
+    {
+        $keyList = [];
+        for ($i = 7; $i > 0; $i--) {
+            $key = 'user:id:' . date('Y_m_d', time() - 86400 * $i);
+            $keyList[] = $key;
+            for ($j = 1e3; $j > 0; $j--) {
+                $str = md5(uniqid(microtime()));
+                $this->redis->pfAdd(
+                    $key,
+                    [
+                        substr($str, 0, 4),
+                        substr($str, 4, 4),
+                        substr($str, 8, 4),
+                        substr($str, 12, 4),
+                        substr($str, 16, 4),
+                        substr($str, 20, 4),
+                        substr($str, 24, 4),
+                        substr($str, 28, 4),
+                    ]
+                );
+            }
+        }
+
+        $this->redis->pfMerge('user:id:stat', $keyList);
+        Logger::println($this->redis->pfCount($keyList[0]));
+        Logger::println($this->redis->pfCount('user:id:stat'));
+        $this->assertTrue(true);
+    }
+
+    /** @test */
+    public function pipeline()
+    {
+        $start = microtime(true);
+        for ($i = 1e4; $i > 0; $i--) {
+            $this->redis->set('test:pipeline1:' . $i, md5(uniqid(microtime())));
+        }
+        $end = microtime(true);
+        Logger::println('total time: ' . ($end - $start));
+
+        $start = microtime(true);
+        for ($i = 1e4; $i > 0; $i -= 100) {
+            $this->redis->pipeline();
+            for ($j = 100; $j > 0; $j--) {
+                $this->redis->set('test:pipeline2:' . ($i - $j), md5(uniqid(microtime())));
+            }
+            $this->redis->exec();
+        }
+        $end = microtime(true);
+        Logger::println('total time: ' . ($end - $start));
+        $this->assertTrue(true);
+    }
 }
