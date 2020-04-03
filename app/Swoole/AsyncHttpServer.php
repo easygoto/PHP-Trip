@@ -6,6 +6,7 @@ use Swoole\Http\Request;
 use Swoole\Http\Response;
 use Swoole\Http\Server;
 use Trink\Core\Component\Logger;
+use Trink\Frame\Container\SWeb;
 
 class AsyncHttpServer
 {
@@ -20,22 +21,25 @@ class AsyncHttpServer
         $this->port = $port;
 
         $this->server = new Server($host, $port);
-        $this->server->set(['worker_num' => 8, 'task_worker_num' => 16, 'max_request' => 32]);
+        $this->server->set(
+            [
+                'reactor_num' => 24,
+                'worker_num' => 24,
+                'task_worker_num' => 96,
+                'max_request' => 1024,
+                'max_connection' => 10240,
+            ]
+        );
 
         $this->server->on('start', [$this, 'handleStart']);
         $this->server->on('shutdown', [$this, 'handleShutdown']);
         $this->server->on('request', [$this, 'handleRequest']);
-        $this->server->on('packet', [$this, 'handlePacket']);
-        $this->server->on('close', [$this, 'handleClose']);
         $this->server->on('task', [$this, 'handleTask']);
-        $this->server->on('finish', [$this, 'handleFinish']);
-        $this->server->on('pipeMessage', [$this, 'handlePipeMessage']);
-        $this->server->on('workerStart', [$this, 'handleWorkerStart']);
-        $this->server->on('workerStop', [$this, 'handleWorkerStop']);
-        $this->server->on('workerExit', [$this, 'handleWorkerExit']);
-        $this->server->on('workerError', [$this, 'handleWorkerError']);
-        $this->server->on('managerStart', [$this, 'handleManagerStart']);
-        $this->server->on('managerStop', [$this, 'handleManagerStop']);
+    }
+
+    public function run()
+    {
+        $this->server->start();
     }
 
     public function handleStart(Server $server)
@@ -54,53 +58,39 @@ class AsyncHttpServer
         if ($request->server['path_info'] == '/favicon.ico' || $requestUri == '/favicon.ico') {
             return $response->end();
         }
+
+        $_SERVER = $_COOKIE = $_GET = $_POST = $_FILES = [];
+        if ($request->server) {
+            foreach ($request->server as $key => $item) {
+                $_SERVER[strtoupper($key)] = $item;
+            }
+        }
+        if ($request->cookie) {
+            foreach ($request->cookie as $key => $item) {
+                $_COOKIE[$key] = $item;
+            }
+        }
+        if ($request->get) {
+            foreach ($request->get as $key => $item) {
+                $_GET[$key] = $item;
+            }
+        }
+        if ($request->post) {
+            foreach ($request->post as $key => $item) {
+                $_POST[$key] = $item;
+            }
+        }
+        if ($request->files) {
+            foreach ($request->files as $key => $item) {
+                $_FILES[$key] = $item;
+            }
+        }
         Logger::println($requestUri);
-        $response->header('Content-Type', 'application/json');
-        return $response->end(json_encode(['status' => rand(1e3, 1e4 - 1)]));
-    }
-
-    public function handlePacket(Server $server, string $data, array $clientInfo)
-    {
-    }
-
-    public function handleClose(Server $server, int $fd, int $reactorId)
-    {
+        $response->setHeader('Content-Type', 'application/json');
+        return $response->end(SWeb::run((array)$request));
     }
 
     public function handleTask(Server $server, int $taskId, int $srcWorkerId, $data)
-    {
-        Logger::toFile(['server' => $server, 'taskId' => $taskId, 'srcWorkerId' => $srcWorkerId, 'data' => $data]);
-    }
-
-    public function handleFinish(Server $server, int $taskId, string $data)
-    {
-    }
-
-    public function handlePipeMessage(Server $server, int $srcWorkerId, $message)
-    {
-    }
-
-    public function handleWorkerStart(Server $server, int $workerId)
-    {
-    }
-
-    public function handleWorkerStop(Server $server, int $workerId)
-    {
-    }
-
-    public function handleWorkerExit(Server $server, int $workerId)
-    {
-    }
-
-    public function handleWorkerError(Server $server, int $workerId, int $workerPid, int $exitCode, int $signal)
-    {
-    }
-
-    public function handleManagerStart(Server $server)
-    {
-    }
-
-    public function handleManagerStop(Server $server)
     {
     }
 }

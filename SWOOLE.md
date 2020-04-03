@@ -508,24 +508,15 @@ $pool->on(
 $pool->start();
 ```
 
-### 4 服务端
+### 4 网络通信服务器
 
-#### 4.1 TCP 服务器
+#### 4.1 异步通信服务器
 
 1. TCP 客户端连接服务端后, 客户端关闭, 服务端的进程也要关闭, 不然服务端会一直占用这个进程
-2. 绑定事件函数的时候, `[$this, 'handleEvent']` 中的 handleEvent 必须是真实存在的, 不允许使用魔术方法
-
-> dispatch_mode 为 1/3 的时候, 属于无状态的情况, 只要有请求, 服务器就直接处理, 不关心请求是从何而来; 
->
-> dispatch_mode 为 2/4/5 的时候, 属于有状态的情况, 服务端会根据模式的不同, 专门处理某客户端的请求; 
->
-> dispatch_mode 为 1/3/7 的时候, 无法绑定 onConnect 和 onClose 的事件处理;
-
-#### 4.2 HTTP 服务器
-
-#### 4.3 WS 服务器
-
-#### 4.4 Redis 服务器
+1. 绑定事件函数的时候, `[$this, 'handleEvent']` 中的 handleEvent 必须是真实存在的, 不允许使用魔术方法
+1. 服务器的各事件的作用范围 [AsyncServer.php](app/Swoole/AsyncServer.php)
+1. HTTP 服务启动之后, 改变服务绑定事件的方法, 需要重新启动服务, 修改事件中调用的其他方法内容时, 可以不重启服务生效, 和 max_request 有关, 开发的时候可以设置成 1, 能即时生效
+1. SWOOLE 为了兼容之前的代码, 可以把 request 中的数据赋值到 $_GET,$_POST,$_COOKIE,$_SERVER,$_FILES 中
 
 ### 5 客户端
 
