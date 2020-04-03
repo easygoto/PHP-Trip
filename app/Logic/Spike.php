@@ -15,19 +15,19 @@ class Spike
      * @param int   $uid
      * @param array $goodsOrder
      *
-     * @return array
+     * @return Result
      */
     public static function mysql(int $uid, array $goodsOrder = [])
     {
         $db = App::instance()->capsule;
         // 1、校验订单
         if (!is_array($goodsOrder) || empty($goodsOrder)) {
-            return Result::fail('非正常订单(1)', ['order' => $goodsOrder])->asArray();
+            return Result::fail('非正常订单(1)', ['order' => $goodsOrder]);
         }
 
         $checkResult = [];
         foreach ($goodsOrder as $aGoods) {
-            $goodsId  = Arrays::getInt($aGoods, 'goods_id');
+            $goodsId = Arrays::getInt($aGoods, 'goods_id');
             $goodsNum = Arrays::getInt($aGoods, 'goods_num');
 
             if ($goodsId <= 0) {
@@ -38,12 +38,12 @@ class Spike
             }
         }
         if (!empty($checkResult)) {
-            return Result::fail('非正常订单(2)', ['check' => $checkResult])->asArray();
+            return Result::fail('非正常订单(2)', ['check' => $checkResult]);
         }
 
         $goodsIdNumList = array_column($goodsOrder, 'goods_num', 'goods_id');
         if (count($goodsIdNumList) != count($goodsOrder)) {
-            return Result::fail('非正常订单(3)')->asArray();
+            return Result::fail('非正常订单(3)');
         }
 
         $messageList = [];
@@ -62,9 +62,9 @@ class Spike
             }
 
             foreach ($goodsList as $key => $goods) {
-                $goodsId   = Arrays::getInt($goods, 'id');
+                $goodsId = Arrays::getInt($goods, 'id');
                 $goodsName = Arrays::get($goods, 'name', '未知商品');
-                $goodsNum  = $goodsIdNumList[$goodsId];
+                $goodsNum = $goodsIdNumList[$goodsId];
 
                 // 将订单中的 num 加到数组中，之后加减库存时需要用到
                 if (is_array($goodsList[$key])) {
@@ -84,25 +84,30 @@ class Spike
             }
 
             // 3、秒杀成功，把信息加到 order 和 order_goods 中
-            $nowTime    = date('Y-m-d H:i:s');
-            $orderSn    = date('YmdHis') . mt_rand(10000000, 99999999);
-            $totalPrice = number_format(array_reduce($goodsList, function ($result, $goods) {
-                return (float)$result +
-                    Arrays::getDigits($goods, 'selling_price') *
-                    Arrays::getInt($goods, 'goods_num');
-            }), 2, '.', '');
+            $nowTime = time();
+            $orderSn = date('YmdHis') . mt_rand(10000000, 99999999);
+            $totalPrice = array_reduce(
+                $goodsList,
+                function ($result, $goods) {
+                    $sellingPrice = Arrays::getDigits($goods, 'selling_price');
+                    $goodsNum = Arrays::getInt($goods, 'goods_num');
+                    return (float)$result + $sellingPrice * $goodsNum;
+                }
+            );
+            $totalPrice = number_format($totalPrice, 2, '.', '');
 
-            $orderId = $db->table('order')
-                ->insertGetId([
-                    'uid'         => (int)$uid,
-                    'order_sn'    => $orderSn,
+            $orderId = $db->table('order')->insertGetId(
+                [
+                    'uid' => (int)$uid,
+                    'order_sn' => $orderSn,
                     'total_price' => (float)$totalPrice,
-                    'created_at'  => $nowTime,
-                    'updated_at'  => $nowTime,
+                    'created_at' => $nowTime,
+                    'updated_at' => $nowTime,
                     'operated_at' => $nowTime,
-                    'status'      => 1,
-                    'is_delete'   => 0,
-                ]);
+                    'status' => 1,
+                    'is_delete' => 0,
+                ]
+            );
             if (!$orderId) {
                 throw new Exception('订单添加失败');
             }
@@ -110,13 +115,13 @@ class Spike
             $currentGoodsList = [];
             foreach ($goodsList as $key => $goods) {
                 $currentGoodsList[] = [
-                    'order_id'      => (int)$orderId,
-                    'goods_id'      => Arrays::getInt($goods, 'id'),
-                    'goods_name'    => Arrays::get($goods, 'name'),
-                    'wholesale'     => Arrays::getDigits($goods, 'wholesale'),
+                    'order_id' => (int)$orderId,
+                    'goods_id' => Arrays::getInt($goods, 'id'),
+                    'goods_name' => Arrays::get($goods, 'name'),
+                    'wholesale' => Arrays::getDigits($goods, 'wholesale'),
                     'selling_price' => Arrays::getDigits($goods, 'selling_price'),
-                    'market_price'  => Arrays::getDigits($goods, 'market_price'),
-                    'goods_num'     => Arrays::getInt($goods, 'goods_num'),
+                    'market_price' => Arrays::getDigits($goods, 'market_price'),
+                    'goods_num' => Arrays::getInt($goods, 'goods_num'),
                 ];
             }
             if (!$db->table('order_goods')->insert($currentGoodsList)) {
@@ -125,22 +130,22 @@ class Spike
 
             // 4、商品表减去相应的库存
             foreach ($goodsList as $goods) {
-                if (!$db->table('goods')
+                $decrResult = $db->table('goods')
                     ->where('id', '=', Arrays::getInt($goods, 'id'))
-                    ->decrement('inventory', Arrays::getInt($goods, 'goods_num'))
-                ) {
+                    ->decrement('inventory', Arrays::getInt($goods, 'goods_num'));
+                if (!$decrResult) {
                     throw new Exception('商品库存更新失败');
                 }
             }
 
             $db->commit();
-            return Result::success('秒杀成功')->asArray();
+            return Result::success('秒杀成功');
         } catch (Exception $e) {
             try {
                 $db->rollBack();
             } catch (Exception $e) {
             }
-            return Result::fail($e->getMessage(), ['message' => $messageList])->asArray();
+            return Result::fail($e->getMessage(), ['message' => $messageList]);
         }
     }
 }

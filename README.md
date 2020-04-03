@@ -78,13 +78,15 @@
 
 ### 3.1 商品秒杀
 
-> [秒杀源码](./app/Logic/Spike.php)
+> [秒杀源码](./app/Logic/Spike.php) 可以使用并发测试工具测试 `index.php/spike/mysql`
 
 > 多线程测试时会出现 (顾客买到数量 + 剩余量 > 总库存量) 的问题, 原因是高并发的情况下, 那一行数据可能有多个线程在使用, 没有行锁, 简单处理可以把加减放到 SQL 语句中 :
 >
 > `update table set inventory = inventory - {x} where id = {id}`
 
-> 商品超卖, 使得数据库中某一商品变成负数, 原因同上, 可以运用缓存建锁, 每次只能让一个线程使用数据:
+> 商品超卖, 使得数据库中某一商品变成负数, 原因同上, 最简单的方法就是把库存字段设置成 unsigned 类型, 和事务一起使用, 本例就是用这种方法 
+>
+> 也可以运用缓存建锁, 每次只能让一个线程使用数据:
 >
 > ```php
 > $lock = Lock::getInstance();
@@ -105,6 +107,7 @@
 >
 > ```php
 > $numKey = 'test:spike:goods_num';
+> $redis = new Redis();
 > $redis->watch($numKey);
 > $num = $redis->get($numKey);
 > usleep(100); # 耗时操作
@@ -179,10 +182,6 @@ if ($result) {
 > n 次命令的执行可能会有 n 次的网络传输, 放到 pipeline 中, 一次网络请求就可以执行多条命令(此时仍然是原子级别), 然后依次返回结果集
 >
 > 注意 pipeline 携带的数据量, 每次只作用于一个 Redis 节点
-
-
-
-
 
 ### 3.6 消息队列
 
