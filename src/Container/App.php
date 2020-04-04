@@ -36,6 +36,8 @@ class App extends \Trink\Core\Container\App
                 return $this->register($name, new Juggler($this->setting));
             case 'mc':
                 return $this->register($name, McCache::instance($this->setting, null));
+            case 'response':
+                return null;
             default:
                 return parent::__get($name);
         }

@@ -3,12 +3,11 @@
 namespace Trink\Frame\Controller;
 
 use Trink\App\Trip\Logic\Spike;
-use Trink\Core\Component\Logger;
 use Trink\Frame\Component\BaseController;
 
 class SpikeController extends BaseController
 {
-    public function actionMysql()
+    public function mysql()
     {
         $userId = mt_rand(10000000, 99999999);
         $goodsTotal = rand(1, 5);
@@ -24,6 +23,6 @@ class SpikeController extends BaseController
         }
 
         $result = Spike::mysql($userId, $goodsList);
-        Logger::print($result->asJson());
+        return $result->asJson();
     }
 }

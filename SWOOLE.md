@@ -515,8 +515,41 @@ $pool->start();
 1. TCP 客户端连接服务端后, 客户端关闭, 服务端的进程也要关闭, 不然服务端会一直占用这个进程
 1. 绑定事件函数的时候, `[$this, 'handleEvent']` 中的 handleEvent 必须是真实存在的, 不允许使用魔术方法
 1. 服务器的各事件的作用范围 [AsyncServer.php](app/Swoole/AsyncServer.php)
+
+#### 4.2 HTTP 服务器
+
 1. HTTP 服务启动之后, 改变服务绑定事件的方法, 需要重新启动服务, 修改事件中调用的其他方法内容时, 可以不重启服务生效, 和 max_request 有关, 开发的时候可以设置成 1, 能即时生效
-1. SWOOLE 为了兼容之前的代码, 可以把 request 中的数据赋值到 $_GET,$_POST,$_COOKIE,$_SERVER,$_FILES 中
+1. SWOOLE 为兼容传统 PHP, 可以把 `$request` 中的数据赋值到 PHP 的超级全局变量中
+1. `$request->header` 中的值要转换全大写下划线风格, 加上前缀 `HTTP_`, 复制到 `$_SERVER` 中
+1. `$request->server` 中的值要转换全大写下划线风格, 复制到 `$_SERVER` 中
+1. `$_GET`, `$_POST`, `$_COOKIE` 直接复制, `$_REQUEST` 需要使用 `array_merge($_GET, $_POST)`
+1. `$_FILES` 和传统的 PHP 不一样, 传统的 PHP 一个键的属性多个值, Swoole 中一个键多个文件对象, 笔者更喜欢 Swoole 中的赋值方式, 如下所示:
+
+```
+# 传统 PHP                         # Swoole PHP
+"file_name": {                    "file_name": [
+    "name": [                         {
+        "1.jpg",                          "name": "1.jpg",
+        "2.jpg"                           "type": "image/jpeg",
+    ],                                    "tmp_name": "/tmp/swoole.upfile.BlyGsK",
+    "type": [                             "error": 0,
+        "image/jpeg",                     "size": 306235
+        "image/jpeg"                  },
+    ],                                {
+    "tmp_name": [                         "name": "2.jpg",
+        "/tmp/phpdoBsfy",                 "type": "image/jpeg",
+        "/tmp/php0FPkj4"                  "tmp_name": "/tmp/swoole.upfile.5Ag4XT",
+    ],                                    "error": 0,
+    "error": [                            "size": 134584
+        0,                            },
+        0                         ]
+    ],
+    "size": [
+        306235,
+        134584
+    ]
+}
+```
 
 ### 5 客户端
 

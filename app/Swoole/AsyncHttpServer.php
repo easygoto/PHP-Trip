@@ -13,7 +13,10 @@ class AsyncHttpServer
     protected ?Server $server = null;
 
     protected string $host = '';
+
     protected int $port = 0;
+
+    protected array $config = [];
 
     public function __construct(string $host = '0.0.0.0', int $port = 9503)
     {
@@ -59,35 +62,8 @@ class AsyncHttpServer
             return $response->end();
         }
 
-        $_SERVER = $_COOKIE = $_GET = $_POST = $_FILES = [];
-        if ($request->server) {
-            foreach ($request->server as $key => $item) {
-                $_SERVER[strtoupper($key)] = $item;
-            }
-        }
-        if ($request->cookie) {
-            foreach ($request->cookie as $key => $item) {
-                $_COOKIE[$key] = $item;
-            }
-        }
-        if ($request->get) {
-            foreach ($request->get as $key => $item) {
-                $_GET[$key] = $item;
-            }
-        }
-        if ($request->post) {
-            foreach ($request->post as $key => $item) {
-                $_POST[$key] = $item;
-            }
-        }
-        if ($request->files) {
-            foreach ($request->files as $key => $item) {
-                $_FILES[$key] = $item;
-            }
-        }
         Logger::println($requestUri);
-        $response->setHeader('Content-Type', 'application/json');
-        return $response->end(SWeb::run((array)$request));
+        return SWeb::run($request, $response, $this->config);
     }
 
     public function handleTask(Server $server, int $taskId, int $srcWorkerId, $data)

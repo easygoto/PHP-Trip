@@ -9,6 +9,7 @@ class Web
 {
     public static function run()
     {
+        // TODO 路由组件
         if (strpos($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME']) === false) {
             $root = $_SERVER['REQUEST_URI'];
         } else {
@@ -22,14 +23,13 @@ class Web
         $controllerClassName = "\\Trink\\Frame\\Controller{$dir}\\" . ucfirst($controllerName) . 'Controller';
         try {
             $controller = (new ReflectionClass($controllerClassName))->newInstance();
-            $action = 'action' . ucfirst($actionName);
-            if (!method_exists($controller, $action)) {
+            $action = lcfirst($actionName);
+            if (!is_callable([$controller, $action])) {
                 throw new Exception("Not Found Action : $controllerClassName::$action");
             }
             return $controller->$action();
         } catch (Exception $e) {
-            header('HTTP/1.1 404 Not Found');
-            exit($e->getMessage());
+            return $e->getMessage();
         }
     }
 }

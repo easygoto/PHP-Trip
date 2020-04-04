@@ -2,11 +2,17 @@
 
 namespace Trink\Frame\Controller;
 
+use Trink\Core\Exception\HttpException;
 use Trink\Frame\Component\BaseController;
+use Trink\Frame\Container\SWeb;
 
 class ApiController extends BaseController
 {
-    public function actionJson()
+    /**
+     * @return string
+     * @throws HttpException
+     */
+    public function json()
     {
         // handle data
         $headers = [];
@@ -25,8 +31,7 @@ class ApiController extends BaseController
         ]);
 
         if (in_array($method, ['OPTION', 'HEAD']) && rand(0, 9) > 5) {
-            header('HTTP/1.1 404 Not Found');
-            exit;
+            throw new HttpException(404);
         }
 
         // log
@@ -37,8 +42,10 @@ class ApiController extends BaseController
         }
         file_put_contents($filename, $response);
 
-        // return
-        header('Content-Type: application/json');
-        exit($response);
+        // TODO response 容器适配器
+        if (SWeb::$response) {
+            SWeb::$response->setHeader('Content-Type', 'application/json');
+        }
+        return $response;
     }
 }

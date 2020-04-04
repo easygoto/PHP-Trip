@@ -6,8 +6,13 @@ use Trink\Frame\Component\BaseController;
 
 class SwooleController extends BaseController
 {
-    public function actionWs()
+    public function ws()
     {
-        require __DIR__ . '/../View/swoole/ws.php';
+        return __METHOD__;
+    }
+
+    private function wss()
+    {
+        return __METHOD__;
     }
 }
