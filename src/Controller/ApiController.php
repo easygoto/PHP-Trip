@@ -4,7 +4,7 @@ namespace Trink\Frame\Controller;
 
 use Trink\Core\Exception\HttpException;
 use Trink\Frame\Component\BaseController;
-use Trink\Frame\Container\SWeb;
+use Trink\Frame\Container\App;
 
 class ApiController extends BaseController
 {
@@ -42,10 +42,7 @@ class ApiController extends BaseController
         }
         file_put_contents($filename, $response);
 
-        // TODO response 容器适配器
-        if (SWeb::$response) {
-            SWeb::$response->setHeader('Content-Type', 'application/json');
-        }
+        App::instance()->response->setHeader('Content-Type', 'application/json');
         return $response;
     }
 }

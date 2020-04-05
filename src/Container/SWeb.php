@@ -7,7 +7,8 @@ use ReflectionClass;
 use Swoole\Http\Request;
 use Swoole\Http\Response;
 use Trink\Core\Exception\HttpException;
-use Trink\Core\Helper\Format;
+use Trink\Frame\Component\Response\SWebResponse;
+use Trink\Frame\Component\Router;
 
 class SWeb
 {
@@ -23,22 +24,16 @@ class SWeb
         static::handleRequest($request);
 
         // 路由解析到文件, 大小写用中划线分隔开(仿Yii2)
-        // TODO 路由组件
         $requestUri = $request->server['request_uri'] ?? '';
-        ['path' => $path] = parse_url(trim($requestUri, '/'));
-        $router = array_map(fn ($value) => ucfirst(Format::toCamelCase($value, '-')), explode('/', $path));
-        $actionName = count($router) >= 2 ? (array_pop($router) ?: 'Index') : 'Index';
-        $controllerName = count($router) >= 1 ? (array_pop($router) ?: 'Home') : 'Home';
-        $dir = $router ? '\\' . implode('\\', $router) : '';
-        $controllerClassName = "Trink\\Frame\\Controller{$dir}\\" . ucfirst($controllerName) . 'Controller';
+        ['controller' => $controllerName, 'action' => $action] = Router::path2File($requestUri);
 
         // Controller 处理
         try {
-            $controller = (new ReflectionClass($controllerClassName))->newInstance();
-            $action = lcfirst($actionName);
+            $controller = (new ReflectionClass($controllerName))->newInstance();
             if (!is_callable([$controller, $action])) {
-                throw new HttpException(404, "Not Found Action : $controllerClassName::$action");
+                throw new HttpException(404, "Not Found Action : {$controllerName}::{$action}");
             }
+            App::instance()->response = SWebResponse::class;
             return $response->end($controller->$action());
         } catch (HttpException $e) {
             $response->setStatusCode($e->getCode());

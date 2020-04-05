@@ -2,6 +2,7 @@
 
 namespace Trink\Frame\Component;
 
-class BaseResponse
+interface BaseResponse
 {
+    public function setHeader($key, $value);
 }
