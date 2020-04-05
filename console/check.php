@@ -37,10 +37,28 @@ $classList = [
 
     // swoole_postgresql
     Swoole\Coroutine\PostgreSQL::class,
+
+    // pecl_http
+    http\Message\Body::class,
+];
+
+$functionList = [
+    // yaml
+    'yaml_emit',
+
+    // uuid
+    'uuid_create',
+
+    // openssl
+    'openssl_random_pseudo_bytes',
 ];
 
 foreach ($classList as $class) {
     echo var_export(class_exists($class), true), ": {$class}\n";
+}
+
+foreach ($functionList as $function) {
+    echo var_export(function_exists($function), true), ": {$function}\n";
 }
 
 foreach (PDO::getAvailableDrivers() as $driver) {
