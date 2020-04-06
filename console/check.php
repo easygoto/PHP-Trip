@@ -1,66 +1,34 @@
 <?php
 
-$classList = [
-    // apcu
-    APCUIterator::class,
+$extList = [
+    'imagick',
+    'yaml',
+    'yaf',
 
-    // amqp
-    AMQPConnection::class,
+    'apcu',
+    'redis',
+    'memcache',
+    'memcached',
 
-    // mongo
-    MongoDB\Driver\Query::class,
+    'mongodb',
 
-    // redis
-    Redis::class,
+    'amqp',
 
-    // memcached
-    Memcached::class,
+    'pdo_sqlite',
+    'pdo_mysql',
+    'pdo_pgsql',
 
-    // imagick
-    ImagickDraw::class,
+    'xdebug',
+    'psr',
+    'phalcon',
 
-    // swoole
-    Swoole\Coroutine::class,
-
-    // swoole_async
-    Swoole\Async::class,
-    Swoole\MySQL::class,
-    Swoole\Redis::class,
-    Swoole\Http\Client::class,
-    Swoole\Channel::class,
-    Swoole\Memory\Pool::class,
-    Swoole\MsgQueue::class,
-    Swoole\RingQueue::class,
-
-    // swoole_orm
-    swoole_orm::class,
-
-    // swoole_postgresql
-    Swoole\Coroutine\PostgreSQL::class,
-
-    // pecl_http
-    http\Message\Body::class,
+    'swoole',
+    'swoole_async',
+    'swoole_orm',
+    'swoole_postgresql',
+    'swoole_serialize',
 ];
 
-$functionList = [
-    // yaml
-    'yaml_emit',
-
-    // uuid
-    'uuid_create',
-
-    // openssl
-    'openssl_random_pseudo_bytes',
-];
-
-foreach ($classList as $class) {
-    echo var_export(class_exists($class), true), ": {$class}\n";
-}
-
-foreach ($functionList as $function) {
-    echo var_export(function_exists($function), true), ": {$function}\n";
-}
-
-foreach (PDO::getAvailableDrivers() as $driver) {
-    echo "true: pdo_{$driver}\n";
+foreach ($extList as $ext) {
+    echo var_export(extension_loaded($ext), true), ": {$ext}\n";
 }

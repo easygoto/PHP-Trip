@@ -53,7 +53,7 @@ class Logger
             print "\e[{$color}m{$title}\t\e[0m{$desc}\n";
         } elseif (is_array($desc)) {
             $blank = sprintf('%-20s', '');
-            $message = implode("\n{$blank}\t- ", $desc);
+            $message = implode("\n{$blank}\t", $desc);
             print "\e[{$color}m{$title}\t\e[0m{$message}\n";
         } else {
             print "\e[{$color}m{$title}\t\e[0m\n";

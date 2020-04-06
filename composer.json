@@ -31,8 +31,6 @@
     "ext-libxml": "*",
     "ext-sockets": "*",
     "ext-simplexml": "*",
-    "ext-http": "*",
-    "ext-uuid": "*",
     "ext-yaml": "*",
     "catfan/medoo": "^1.6",
     "upfor/juggler": "^1.0",

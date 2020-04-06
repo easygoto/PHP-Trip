@@ -702,3 +702,32 @@ interface Orm
     '[><]order(O)' => ['id' => 'user_id'], // INNER JOIN `order` `O` on `user`.`id` = `O`.`user_id`
 ];
 ```
+
+### 8 Swoole Serialize
+
+> 目前最多支持到 PHP7.3, IDE 暂时没有代码提示, 可使用以下文件, 该文件可以放到根目录下, 也可以通过 IDE 引入进来
+
+```php
+<?php
+
+interface swSerialize
+{
+    public function fastPack($data);
+
+    public function pack($data);
+
+    public function unpack($str);
+}
+
+function swoole_fast_pack($data)
+{
+}
+
+function swoole_unpack($str)
+{
+}
+
+function swoole_pack($data)
+{
+}
+```

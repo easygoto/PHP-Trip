@@ -22,8 +22,11 @@ class AmqpDemo
     private ?AMQPExchange $exchange;
     private ?AMQPQueue $queue;
 
-    public function __construct()
+    private array $argv = [];
+
+    public function __construct($argv = [])
     {
+        $this->argv = $argv;
         $this->conn = new AMQPConnection(App::instance()->setting->get('rabbit'));
         try {
             $this->conn->connect() or die("不能连接!\n");
@@ -54,7 +57,8 @@ class AmqpDemo
     public function send()
     {
         try {
-            for ($i = 2e5; $i > 0; $i--) {
+            $count = max($this->argv[2] ?? 1e4, 0);
+            for ($i = $count; $i > 0; $i--) {
                 flush();
                 $message = md5(uniqid(microtime()));
                 $result = $this->exchange->publish($message, self::ROUTING_KEY);
@@ -67,18 +71,15 @@ class AmqpDemo
     public function recv()
     {
         try {
-            while (true) {
-                $this->queue->consume([$this, 'handleMessage'], AMQP_AUTOACK);
-            }
-        } catch (Exception $e) {
-        }
-    }
-
-    public function handleMessage(AMQPEnvelope $envelope)
-    {
-        try {
-            flush();
-            Logger::println('Receive: ' . $envelope->getBody());
+            $count = max(($this->argv[2] ?? 1e4), 0);
+            $this->queue->consume(
+                function (AMQPEnvelope $envelope) use (&$count) {
+                    flush();
+                    Logger::println('Receive: ' . $envelope->getBody());
+                    return (--$count > 0);
+                },
+                AMQP_AUTOACK
+            );
         } catch (Exception $e) {
         }
     }

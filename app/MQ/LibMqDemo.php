@@ -20,8 +20,11 @@ class LibMqDemo
     private ?AMQPStreamConnection $conn = null;
     private ?AMQPChannel $channel = null;
 
-    public function __construct()
+    private array $argv = [];
+
+    public function __construct($argv = [])
     {
+        $this->argv = $argv;
         $rabbitCnf = App::instance()->setting->get('rabbit');
         $this->conn = new AMQPStreamConnection(
             $rabbitCnf['host'],
@@ -47,19 +50,21 @@ class LibMqDemo
 
     public function send()
     {
-        for ($i = 2e5; $i > 0; $i--) {
+        $count = max($this->argv[2] ?? 1e4, 0);
+        for ($i = $count; $i > 0; $i--) {
             flush();
             $content = md5(uniqid(microtime()));
             $message = new AMQPMessage($content);
             $this->channel->basic_publish($message, self::EXCHANGE_NAME, self::ROUTING_KEY);
-            Logger::println('[x] Sent: ' . $content);
+            Logger::println("Send Message: {$content}");
         }
     }
 
     public function recv()
     {
+        $count = max($this->argv[2] ?? 1e4, 0);
         $this->channel->basic_consume(self::QUEUE_NAME, '', false, true, false, false, [$this, 'handleMessage']);
-        while ($this->channel->is_consuming()) {
+        while ($this->channel->is_consuming() && (--$count >= 0)) {
             try {
                 $this->channel->wait();
             } catch (ErrorException $e) {
@@ -70,6 +75,6 @@ class LibMqDemo
     public function handleMessage(AMQPMessage $message)
     {
         flush();
-        Logger::println('[x] Received: ' . $message->body);
+        Logger::println('Receive: ' . $message->body);
     }
 }
