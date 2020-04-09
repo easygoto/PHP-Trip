@@ -9,7 +9,7 @@ use Trink\App\Trip\Distribute\McModel;
 use Trink\Core\Component\Logger;
 use Trink\Frame\Container\App;
 
-class MemcacheTest extends TestCase
+class MemcachedTest extends TestCase
 {
     public function test()
     {

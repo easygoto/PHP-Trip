@@ -1,25 +1,23 @@
 <?php
 
 $extList = [
-    'imagick',
-    'yaml',
-    'yaf',
-
     'apcu',
     'redis',
     'memcache',
     'memcached',
-
     'mongodb',
-
     'amqp',
 
     'pdo_sqlite',
     'pdo_mysql',
     'pdo_pgsql',
 
-    'xdebug',
+    'imagick',
+    'yaml',
     'psr',
+    'yaf',
+
+    'xdebug',
     'phalcon',
 
     'swoole',
