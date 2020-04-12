@@ -6,6 +6,7 @@ use Swoole\Http\Request;
 use Swoole\Http\Response;
 use Swoole\WebSocket\Frame;
 use Swoole\WebSocket\Server;
+use Trink\Core\Component\Logger;
 
 class AsyncWsServer
 {
@@ -31,22 +32,11 @@ class AsyncWsServer
 
         $this->server->on('start', [$this, 'handleStart']);
         $this->server->on('shutdown', [$this, 'handleShutdown']);
-        $this->server->on('handShake', [$this, 'handleHandShake']); # n
         $this->server->on('open', [$this, 'handleOpen']); # n
         $this->server->on('message', [$this, 'handleMessage']); # y
         $this->server->on('connect', [$this, 'handleConnect']);
-        $this->server->on('receive', [$this, 'handleReceive']);
-        $this->server->on('packet', [$this, 'handlePacket']);
-        $this->server->on('close', [$this, 'handleClose']);
         $this->server->on('task', [$this, 'handleTask']);
         $this->server->on('finish', [$this, 'handleFinish']);
-        $this->server->on('pipeMessage', [$this, 'handlePipeMessage']);
-        $this->server->on('workerStart', [$this, 'handleWorkerStart']);
-        $this->server->on('workerStop', [$this, 'handleWorkerStop']);
-        $this->server->on('workerExit', [$this, 'handleWorkerExit']);
-        $this->server->on('workerError', [$this, 'handleWorkerError']);
-        $this->server->on('managerStart', [$this, 'handleManagerStart']);
-        $this->server->on('managerStop', [$this, 'handleManagerStop']);
     }
 
     public function run()
@@ -56,37 +46,26 @@ class AsyncWsServer
 
     public function handleStart(Server $server)
     {
+        Logger::println("Swoole WebSocket Server is started at http://{$this->host}:{$this->port}");
     }
 
     public function handleShutdown(Server $server)
     {
-    }
-
-    public function handleHandShake(Request $request, Response $response)
-    {
+        Logger::println('Swoole WebSocket Server is stopped');
     }
 
     public function handleOpen(Server $server, Request $request)
     {
+        $server->push($request->fd, '初次见面, 请多关照 ^_^');
+        Logger::println('Swoole WebSocket Server Open');
     }
 
     public function handleMessage(Server $server, Frame $frame)
     {
+        Logger::println($frame->data);
     }
 
     public function handleConnect(Server $server, int $fd, int $reactorId)
-    {
-    }
-
-    public function handleReceive(Server $server, int $fd, int $reactorId, string $data)
-    {
-    }
-
-    public function handlePacket(Server $server, string $data, array $clientInfo)
-    {
-    }
-
-    public function handleClose(Server $server, int $fd, int $reactorId)
     {
     }
 
@@ -95,34 +74,6 @@ class AsyncWsServer
     }
 
     public function handleFinish(Server $server, int $taskId, string $data)
-    {
-    }
-
-    public function handlePipeMessage(Server $server, int $srcWorkerId, $message)
-    {
-    }
-
-    public function handleWorkerStart(Server $server, int $workerId)
-    {
-    }
-
-    public function handleWorkerStop(Server $server, int $workerId)
-    {
-    }
-
-    public function handleWorkerExit(Server $server, int $workerId)
-    {
-    }
-
-    public function handleWorkerError(Server $server, int $workerId, int $workerPid, int $exitCode, int $signal)
-    {
-    }
-
-    public function handleManagerStart(Server $server)
-    {
-    }
-
-    public function handleManagerStop(Server $server)
     {
     }
 }

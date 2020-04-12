@@ -1,9 +1,11 @@
 # PHP之旅
 
 - [x] 整理项目结构
-- [x] 把设计模式迁移进来
-- [x] 将单例模式替换为注入依赖模式
-- [x] ~~组件适配, 同类组件统一方法~~
+    - [x] 把设计模式迁移进来
+    - [x] 将单例模式替换为注入依赖模式
+    - [x] ~~组件适配, 同类组件统一方法~~
+    - [ ] 配置文件提取到 .env 中, Setting 组件添加默认值
+    - [ ] 把传统的前端页面迁移进来
 - [x] 完善其他组件
     - [ ] 日志相关
     - [ ] 缓存相关
@@ -18,6 +20,7 @@
     - [x] 图片处理相关
         - [ ] 处理透明图片
     - [x] 网络请求相关
+        - [ ] 基于 PSR-18 http client
     - [ ] 计时器(分析程序执行时间)
 - [ ] 校验链/业务链
 - [ ] 数据调用中心/数据的唯一性
@@ -28,14 +31,15 @@
     - [x] 控制器
     - [ ] 视图
 - [ ] 测试框架的深入研究
-    - [ ] phpunit 9.0
-    - [ ] 集成单元测试
+- [ ] 集合命令行框架
 - [x] Swoole 研究
-- [ ] 高并发下的 redis id 增长
+    - [ ] 高并发测试工具
+- [ ] 系统模块监视器
 
-## 1 项目结构
+## 1 结构
 
 > [学习设计模式](dp/README.md)
+>
 > [Swoole 专栏](SWOOLE.md)
 
 ```
@@ -70,16 +74,23 @@
  |-- tests : 测试板块
 ```
 
-## 2 项目规范
+## 2 规范
 
-- 基础规范为 PSR-12
+| 规范 | 名称 | 推荐(composer) |
+| --- | --- | --- |
+| PSR-3 | 日志 [psr/log](https://github.com/psr/log) | [monolog/monolog](https://github.com/Seldaek/monolog) |
+| PSR-6 | 缓存 [psr/cache](https://github.com/psr/cache) | [tedivm/stash](https://github.com/tedious/Stash) 或 [psx/cache](https://github.com/apioo/psx-cache) |
+| PSR-7 | HTTP消息 [psr/http-message](https://github.com/psr/http-message) | [guzzlehttp/psr7](https://github.com/guzzle/psr7) |
+| PSR-11 | 容器 [psr/container](https://github.com/psr/container) | [league/container](https://github.com/thephpleague/container) |
+| PSR-13 | 超媒体链接 [psr/link](https://github.com/psr/link) | [fig/link-util](https://github.com/php-fig/link-util) |
+| PSR-14 | 事件分发 [psr/event-dispatcher](https://github.com/psr/event-dispatcher) | [crell/tukio](https://github.com/Crell/Tukio) |
+| PSR-15 | HTTP请求处理器 [psr/http-server-handler](https://github.com/psr/http-server-handler) | [equip/dispatch](https://github.com/equip/dispatch) |
+| PSR-15 | HTTP请求处理器 [psr/http-server-middleware](https://github.com/psr/http-server-middleware) | [middlewares/request-handler](https://github.com/middlewares/request-handler) |
+| PSR-16 | 缓存 [psr/simple-cache](https://github.com/psr/simple-cache) | [psx/cache](https://github.com/apioo/psx-cache) |
+| PSR-17 | HTTP工厂 [psr/http-factory](https://github.com/psr/http-factory) | [http-interop/http-factory-guzzle](https://github.com/http-interop/http-factory-guzzle) |
+| PSR-18 | HTTP客户端 [psr/http-client](https://github.com/psr/http-client) | [ricardofiorani/guzzle-psr18-adapter](https://github.com/ricardofiorani/guzzle-psr18-adapter) |
 
-### 2.1 组件规范
-
-- 组件可以依赖工具、其他组件
-- 组件使用非静态的方法处理事情
-
-## 3 项目实验
+## 3 实验
 
 ### 3.1 商品秒杀
 
@@ -128,7 +139,7 @@
 
 > [源代码](app/Distribute)
 >
-> [测试代码](tests/App/MemcacheTest.php), 使用 `distribute` 方法
+> [测试代码](tests/App/MemcachedTest.php), 使用 `distribute` 方法
 
 ### 3.3 Swoole 专栏
 

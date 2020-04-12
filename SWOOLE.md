@@ -9,6 +9,8 @@
 > 开启 debug-log 或 trace-log 之后, 命令行会打印很多日志的日志, 如果不是特别需要, 建议不开启
 >
 > swoole_async 是异步写法, 目前被协程取代, 地址为 https://github.com/swoole/ext-async, 编译时版本要和 swoole 的版本保持一致
+>
+> php.ini 中可以开启短写 swoole.use_shortname=On, 默认是开启的
 
 #### 1.1 存在的问题
 
