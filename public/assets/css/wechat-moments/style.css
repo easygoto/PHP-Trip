@@ -1,0 +1,150 @@
+[v-cloak] {
+    display: none;
+}
+
+body {
+    margin: 0;
+}
+
+header .avatar > img,
+header .moments-bg > img,
+main .news .content .picture-container .piture-block > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+header {
+    position: relative;
+    margin-bottom: 48px;
+}
+
+header .moments-bg {
+    width: 100%;
+    object-fit: cover;
+    background: #333333;
+}
+
+header .avatar {
+    width: 64px;
+    height: 64px;
+    position: absolute;
+    bottom: -12px;
+    right: 16px;
+    border-radius: 10%;
+    z-index: 99;
+    background-color: white;
+}
+
+header .avatar > img {
+    border-radius: 10%;
+}
+
+header .username {
+    position: absolute;
+    right: 84px;
+    font-size: 22px;
+    text-align: right;
+    bottom: 4px;
+    color: white;
+}
+
+header .sign {
+    position: absolute;
+    right: 16px;
+    bottom: -36px;
+    width: 90%;
+    font-size: 14px;
+    text-align: right;
+    color: #AAAAAA;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+main {
+    font-size: 16px;
+}
+
+main .news {
+    margin: 0 auto;
+    padding: 10px;
+    display: flex;
+}
+
+main .news .time-line {
+    width: 20%;
+    display: flex;
+}
+
+main .news .time-line .day {
+    font-size: 26px;
+    font-weight: bold;
+    position: relative;
+    top: -10px;
+}
+
+main .news .time-line .month {
+    position: relative;
+    left: 8px;
+}
+
+main .news .content {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+main .news .content .picture-container {
+    margin-top: 16px;
+}
+
+main .news .content .picture-container .piture-block {
+    display: inline-flex;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+main .news .content .picture-container .piture-block.num-5-9 {
+    width: 30%;
+}
+
+main .news .content .picture-container .piture-block.num-2-4 {
+    width: 45%;
+}
+
+main .news .content .picture-container .piture-block.num-1-1 {
+    width: 90%;
+}
+
+footer .load-more {
+    text-align: center;
+    font-size: 16px;
+    padding: 16px;
+}
+
+footer .load-more a {
+    text-decoration: none;
+}
+
+footer .load-more a.done {
+    color: #AAAAAA;
+}
+
+div.shade {
+    position: fixed;
+    display: flex;
+    z-index: 999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .95);
+}
+
+div.shade img {
+    display: inline-flex;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+}

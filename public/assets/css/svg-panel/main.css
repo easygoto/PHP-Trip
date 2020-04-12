@@ -1,0 +1,22 @@
+.effect-view {
+    float: left;
+    width: 80%;
+}
+
+.setting-view {
+    float: left;
+    width: 20%;
+}
+
+.range-control {
+    width: 65%;
+    padding-right: 20px;
+}
+
+.range-value {
+    width: 35%;
+}
+
+.selected {
+    cursor: move;
+}

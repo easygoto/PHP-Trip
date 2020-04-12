@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+        <title>企业微信朋友圈</title>
+        <link rel="stylesheet" href="css/wechat-moments/style.css" />
+    </head>
+    <body>
+        <div id="moments-app" v-cloak>
+            <header>
+                <div class="moments-bg">
+                    <img src="images/wechat-moments/default.png" alt="" />
+                </div>
+                <div class="avatar">
+                    <img src="images/wechat-moments/default.png" alt="" />
+                </div>
+                <div class="username">
+                    {{setting.nickname}}
+                </div>
+                <div class="sign">
+                    {{setting.custom_sign}}
+                </div>
+            </header>
+            <main>
+                <div class="news">
+                    <div class="time-line">
+                        <div class="day">09</div>
+                        <div class="month">3月</div>
+                    </div>
+                    <div class="content">
+                        <div class="context-container">企业微信[客户朋友圈]的12条使用技能，最后一条是免费福利~</div>
+                        <div class="picture-container">
+                            <div class="piture-block num-5-9">
+                                <img src="images/wechat-moments/default.png" alt="" />
+                            </div>
+                            <div class="piture-block num-5-9">
+                                <img src="images/wechat-moments/default.png" alt="" />
+                            </div>
+                            <div class="piture-block num-5-9">
+                                <img src="images/wechat-moments/default.png" alt="" />
+                            </div>
+                            <div class="piture-block num-5-9">
+                                <img src="images/wechat-moments/default.png" alt="" />
+                            </div>
+                            <div class="piture-block num-5-9">
+                                <img src="images/wechat-moments/default.png" alt="" />
+                            </div>
+                            <div class="piture-block num-5-9">
+                                <img src="images/wechat-moments/default.png" alt="" />
+                            </div>
+                            <div class="piture-block num-5-9">
+                                <img src="images/wechat-moments/default.png" alt="" />
+                            </div>
+                            <div class="piture-block num-5-9">
+                                <img src="images/wechat-moments/default.png" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news">
+                    <div class="time-line">
+                        <div class="day">08</div>
+                        <div class="month">3月</div>
+                    </div>
+                    <div class="content">
+                        <div class="context-container">企业微信[客户朋友圈]的12条使用技能，最后一条是免费福利~</div>
+                        <div class="picture-container">
+                            <div class="piture-block num-2-4">
+                                <img src="images/wechat-moments/default.png" alt="" />
+                            </div>
+                            <div class="piture-block num-2-4">
+                                <img src="images/wechat-moments/default.png" alt="" />
+                            </div>
+                            <div class="piture-block num-2-4">
+                                <img src="images/wechat-moments/default.png" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news">
+                    <div class="time-line">
+                        <div class="day">07</div>
+                        <div class="month">3月</div>
+                    </div>
+                    <div class="content">
+                        <div class="context-container">企业微信[客户朋友圈]的12条使用技能，最后一条是免费福利~</div>
+                        <div class="picture-container">
+                            <div class="piture-block num-1-1">
+                                <img src="images/wechat-moments/default.png" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="news" v-for="news in newsList">
+                    <div class="time-line">
+                        <div class="day">{{news.day}}</div>
+                        <div class="month">{{news.month}}</div>
+                    </div>
+                    <div class="content">
+                        <div class="context-container">{{news.content}}</div>
+                        <div class="picture-container">
+                            <div :class="news.images.length > 4 ? 'num-5-9' : (news.images.length > 1 ? 'num-2-4' : 'num-1-1')"
+                                 class="piture-block" v-for="image in news.images" @click="viewImage(image)">
+                                <img :src="image" alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            <footer>
+                <div class="load-more">
+                    <a v-if="loading" href="javascript:void(0);">加载中...</a>
+                    <a v-else-if="loadDone" href="javascript:void(0);" class="done">已加载完</a>
+                    <a v-else href="javascript:void(0);" @click="getNewsList()">点击加载更多</a>
+                </div>
+            </footer>
+            <div v-show="showImage" class="shade" @click="hideImage()"><img :src="curImage" alt=""></div>
+        </div>
+    </body>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+    <script>
+      const API_DOMAIN = 'http://mp.ant.test/app/index.php'
+      const UNI_ACID = 1
+    </script>
+    <script src="js/wechat-moments/main.js"></script>
+</html>

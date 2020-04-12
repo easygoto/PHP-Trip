@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+    <head>
+        <meta charset="utf-8">
+        <title>star</title>
+        <style>
+            #canvas {
+                display: block;
+                margin: 20px auto 0;
+                /* border: 1px solid #aaa; */
+            }
+        </style>
+    </head>
+
+    <body>
+        <canvas id="canvas">当前浏览器不支持该图片的展示</canvas>
+    </body>
+    <script>
+      window.onload = function () {
+        let CANVAS_WIDTH = 1000
+        let CANVAS_HEIGHT = 540
+        let canvas = document.getElementById('canvas')
+        let context = canvas.getContext('2d')
+        canvas.width = CANVAS_WIDTH
+        canvas.height = CANVAS_HEIGHT
+
+        // 两点间的距离
+        function dis (x1, y1, x2, y2) {
+          return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2))
+        }
+
+        // 多边形星型
+        let starPath = function (context, angle, outRadius, innerRadius) {
+          innerRadius = arguments[3] ? arguments[3] : parseInt(outRadius / 2)
+          let dealAngle = 360 / angle
+          context.beginPath()
+          for (let i = 0; i < angle; i++) {
+            context.lineTo(Math.cos(((90 - dealAngle) + i * dealAngle) / 180 * Math.PI) * outRadius + outRadius, -Math.sin(((90 - dealAngle) + i * dealAngle) / 180 * Math.PI) * outRadius + outRadius)
+            context.lineTo(Math.cos(((90 - dealAngle / 2) + i * dealAngle) / 180 * Math.PI) * innerRadius + outRadius, -Math.sin(((90 - dealAngle / 2) + i * dealAngle) / 180 * Math.PI) * innerRadius + outRadius)
+          }
+          context.closePath()
+        }
+
+        // 圆角矩形路径
+        let roundRectPath = function (ctx, width, height, radius) {
+          radius = Math.min(width / 2, height / 2, radius)
+          ctx.beginPath()
+          ctx.arc(width - radius, height - radius, radius, 0, Math.PI / 2)
+          ctx.lineTo(radius, height)
+          ctx.arc(radius, height - radius, radius, Math.PI / 2, Math.PI)
+          ctx.lineTo(0, height - radius)
+          ctx.arc(radius, radius, radius, Math.PI, Math.PI * 3 / 2)
+          ctx.lineTo(width - radius, 0)
+          ctx.arc(width - radius, radius, radius, Math.PI * 3 / 2, Math.PI * 2)
+          ctx.lineTo(width, height - radius)
+          ctx.closePath()
+        }
+
+        // 月亮的路径
+        let moonPath = function (ctx, d) {
+          context.beginPath()
+          context.arc(0, 0, 1, 0.5 * Math.PI, 1.5 * Math.PI, true)
+          context.moveTo(0, -1)
+          context.arcTo(d, 0, 0, 1, dis(0, 1, d, 0) / d)
+        }
+
+        let rand = function (start, end) {
+          return Math.random() * (end - start) + start
+        }
+        let getRand = function (start, end) {
+          return parseInt(rand(start, end))
+        }
+
+        let drawCoordinate = function (Radius, radius) {
+          context.beginPath()
+          context.lineTo(0, CANVAS_HEIGHT / 2)
+          context.lineTo(CANVAS_WIDTH, CANVAS_HEIGHT / 2)
+          context.closePath()
+          context.stroke()
+          context.beginPath()
+          context.lineTo(CANVAS_WIDTH / 2, 0)
+          context.lineTo(CANVAS_WIDTH / 2, CANVAS_HEIGHT)
+          context.closePath()
+          context.stroke()
+          context.beginPath()
+          context.arc(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, Radius, 0, 2 * Math.PI)
+          context.closePath()
+          context.stroke()
+          context.beginPath()
+          context.arc(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2, radius, 0, 2 * Math.PI)
+          context.closePath()
+          context.stroke()
+        }
+
+        let drawStar = function (context, posX, posY, rot, sc) {
+          context.save()
+          context.translate(posX, posY)
+          context.rotate(rot)
+          context.scale(sc, sc)
+          starPath(context, 5, 10)
+          context.restore()
+          context.fillStyle = '#fb3'
+          context.fill()
+          context.stroke()
+        }
+
+        let drawMoon = function (context, posX, posY, rot, sc) {
+          context.save()
+          context.translate(posX, posY)
+          context.rotate(rot)
+          context.scale(sc, sc)
+          moonPath(context, 1)
+          context.restore()
+          context.fillStyle = '#fb3'
+          context.fill()
+          context.stroke()
+        }
+
+        // let linearGrad = context.createLinearGradient(0, 0, 0, CANVAS_HEIGHT);
+        let linearGrad = context.createRadialGradient(CANVAS_WIDTH / 2, CANVAS_HEIGHT, 0, CANVAS_WIDTH / 2, CANVAS_HEIGHT, CANVAS_HEIGHT * 1.5)
+        linearGrad.addColorStop(0.0, '#035')
+        linearGrad.addColorStop(1.0, '#000')
+        context.fillStyle = linearGrad
+        context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
+
+        for (let i = 0; i < 150; i++) {
+          drawStar(context, getRand(0, CANVAS_WIDTH), getRand(0, CANVAS_HEIGHT * 0.65), getRand(0, 360), rand(0.8, 1.2))
+        }
+        drawMoon(context, CANVAS_WIDTH - 200, 150, 20 * Math.PI / 180, 80)
+
+      }
+    </script>
+
+</html>
