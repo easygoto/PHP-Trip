@@ -5,8 +5,10 @@ namespace Trink\App\Trip\Distribute;
 class Consistent implements Hashes, Distribution
 {
     protected array $servers = [];
-    protected array $points  = [];
-    protected int   $mulNum  = 64;
+
+    protected array $points = [];
+
+    protected int $mulNum = 64;
 
     public function getPoints()
     {
@@ -36,7 +38,7 @@ class Consistent implements Hashes, Distribution
     {
         $this->servers[$ser] = [];
 
-        for ($i = 0; $i < $this->mulNum; $i ++) {
+        for ($i = 0; $i < $this->mulNum; $i++) {
             $point = $this->hash($ser . '_' . $i);
             $this->points[$point] = $ser;
 

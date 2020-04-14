@@ -13,7 +13,7 @@ window.onload = function() {
     methods: {
       reviseHeight() {
         Array.from(
-          document.querySelectorAll(".picture-container>.piture-block")
+          document.querySelectorAll(".picture-container>.picture-block")
         ).map(function(dom) {
           dom.style.height = dom.offsetWidth + "px";
         });

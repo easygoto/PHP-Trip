@@ -4,6 +4,7 @@ namespace Trink\Frame\Container;
 
 use Exception;
 use ReflectionClass;
+use Trink\Core\Exception\HttpException;
 use Trink\Frame\Component\Response\WebResponse;
 use Trink\Frame\Component\Router;
 
@@ -24,12 +25,17 @@ class Web
         try {
             $controller = (new ReflectionClass($controllerName))->newInstance();
             if (!is_callable([$controller, $action])) {
-                throw new Exception("Not Found Action : {$controllerName}::{$action}");
+                throw new HttpException(404, "Not Found Action : {$controllerName}::{$action}");
             }
-            App::instance()->response = WebResponse::class;
+            static::initComponent();
             return $controller->$action();
         } catch (Exception $e) {
             return $e->getMessage();
         }
+    }
+
+    protected static function initComponent()
+    {
+        App::instance()->response = WebResponse::class;
     }
 }

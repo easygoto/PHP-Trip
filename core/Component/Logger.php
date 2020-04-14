@@ -37,7 +37,7 @@ class Logger
         } elseif (is_bool($data) || is_resource($data)) {
             print var_export($data, true) . $endLine;
         } else {
-            print sprintf("%s{$endLine}", $data);
+            sprintf("%s{$endLine}", gettype($data));
         }
     }
 

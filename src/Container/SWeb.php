@@ -33,7 +33,7 @@ class SWeb
             if (!is_callable([$controller, $action])) {
                 throw new HttpException(404, "Not Found Action : {$controllerName}::{$action}");
             }
-            App::instance()->response = SWebResponse::class;
+            static::initComponent();
             return $response->end($controller->$action());
         } catch (HttpException $e) {
             $response->setStatusCode($e->getCode());
@@ -43,9 +43,16 @@ class SWeb
         }
     }
 
+    protected static function initComponent()
+    {
+        App::instance()->response = SWebResponse::class;
+    }
+
     protected static function handleRequest(Request $request)
     {
         $_SERVER = $_COOKIE = $_GET = $_POST = $_FILES = [];
+        $_SERVER['SCRIPT_NAME'] = '/index.php';
+        $_SERVER['SCRIPT_FILENAME'] = TRIP_ROOT . '/index.php';
 
         if ($request->server) {
             foreach ($request->server as $key => $item) {

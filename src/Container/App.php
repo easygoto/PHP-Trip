@@ -25,7 +25,7 @@ use Trink\Frame\Component\Response\WebResponse;
  */
 class App extends \Trink\Core\Container\App
 {
-    public static function instance(): self
+    public static function instance(): App
     {
         return parent::instance();
     }
