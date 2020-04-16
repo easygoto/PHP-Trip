@@ -3,6 +3,7 @@
 namespace Trink\App\Trip\Swoole;
 
 use Swoole\Server;
+use Trink\Core\Component\Logger;
 
 class AsyncUdpServer
 {
@@ -27,20 +28,10 @@ class AsyncUdpServer
         );
 
         $this->server->on('start', [$this, 'handleStart']);
-        $this->server->on('shutdown', [$this, 'handleShutdown']);
-        $this->server->on('connect', [$this, 'handleConnect']);
-        $this->server->on('receive', [$this, 'handleReceive']);
         $this->server->on('packet', [$this, 'handlePacket']);
         $this->server->on('close', [$this, 'handleClose']);
         $this->server->on('task', [$this, 'handleTask']);
         $this->server->on('finish', [$this, 'handleFinish']);
-        $this->server->on('pipeMessage', [$this, 'handlePipeMessage']);
-        $this->server->on('workerStart', [$this, 'handleWorkerStart']);
-        $this->server->on('workerStop', [$this, 'handleWorkerStop']);
-        $this->server->on('workerExit', [$this, 'handleWorkerExit']);
-        $this->server->on('workerError', [$this, 'handleWorkerError']);
-        $this->server->on('managerStart', [$this, 'handleManagerStart']);
-        $this->server->on('managerStop', [$this, 'handleManagerStop']);
     }
 
     public function run()
@@ -50,61 +41,33 @@ class AsyncUdpServer
 
     public function handleStart(Server $server)
     {
-    }
-
-    public function handleShutdown(Server $server)
-    {
-    }
-
-    public function handleConnect(Server $server, int $fd, int $reactorId)
-    {
-    }
-
-    public function handleReceive(Server $server, int $fd, int $reactorId, string $data)
-    {
+        Logger::println("Swoole UDP Server is started at http://{$this->host}:{$this->port}");
     }
 
     public function handlePacket(Server $server, string $data, array $clientInfo)
     {
+        $server->task(['clientInfo' => $clientInfo, 'data' => $data]);
+        Logger::print("client connect and send message, redirect to task ... {$data}");
+        Logger::println($clientInfo);
     }
 
     public function handleClose(Server $server, int $fd, int $reactorId)
     {
+        Logger::print("client {$fd} close ...");
     }
 
     public function handleTask(Server $server, int $taskId, int $srcWorkerId, $data)
     {
+        usleep(rand(2e5, 2e6));
+        ['clientInfo' => $clientInfo, 'data' => $content] = $data;
+        $sign = md5(uniqid($content));
+        $server->sendto($clientInfo['address'], $clientInfo['port'], $sign);
+        Logger::println("taskId {$taskId} task ...");
+        $server->finish($sign);
     }
 
     public function handleFinish(Server $server, int $taskId, string $data)
     {
-    }
-
-    public function handlePipeMessage(Server $server, int $srcWorkerId, $message)
-    {
-    }
-
-    public function handleWorkerStart(Server $server, int $workerId)
-    {
-    }
-
-    public function handleWorkerStop(Server $server, int $workerId)
-    {
-    }
-
-    public function handleWorkerExit(Server $server, int $workerId)
-    {
-    }
-
-    public function handleWorkerError(Server $server, int $workerId, int $workerPid, int $exitCode, int $signal)
-    {
-    }
-
-    public function handleManagerStart(Server $server)
-    {
-    }
-
-    public function handleManagerStop(Server $server)
-    {
+        Logger::println("taskId {$taskId} finish, sign : " . $data);
     }
 }

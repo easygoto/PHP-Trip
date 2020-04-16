@@ -51,29 +51,39 @@ class AsyncWsServer
 
     public function handleShutdown(Server $server)
     {
-        Logger::println('Swoole WebSocket Server is stopped');
+        Logger::println('Swoole WebSocket Server is stopped ...');
     }
 
     public function handleOpen(Server $server, Request $request)
     {
         $server->push($request->fd, '初次见面, 请多关照 ^_^');
-        Logger::println('Swoole WebSocket Server Open');
+        Logger::println('WebSocket client join ...');
     }
 
     public function handleMessage(Server $server, Frame $frame)
     {
-        Logger::println($frame->data);
+        $server->task(['frame' => $frame]);
+        Logger::println('client send message, redirect to task ...');
     }
 
     public function handleConnect(Server $server, int $fd, int $reactorId)
     {
+        Logger::println("client {$fd} join ...");
     }
 
     public function handleTask(Server $server, int $taskId, int $srcWorkerId, $data)
     {
+        usleep(rand(1e5, 2e6));
+        /** @var Frame $frame */
+        $frame = $data['frame'];
+        $sign = md5(uniqid($frame->data));
+        $server->push($frame->fd, $sign);
+        Logger::println("handle a task, taskId : {$taskId}, srcWorkerId : {$srcWorkerId}");
+        $server->finish($sign);
     }
 
     public function handleFinish(Server $server, int $taskId, string $data)
     {
+        Logger::println("handle task finish, taskId : {$taskId}, data: {$data}");
     }
 }

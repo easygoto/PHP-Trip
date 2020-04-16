@@ -8,7 +8,7 @@ class SwooleController extends BaseController
 {
     public function ws()
     {
-        return __METHOD__;
+        require TRIP_ROOT . 'src/View/swoole/ws.php';
     }
 
     private function wss()

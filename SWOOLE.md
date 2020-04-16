@@ -2,9 +2,9 @@
 
 ### 1 安装准备
 
-> 使用自己编译的 docker 镜像 registry.cn-hangzhou.aliyuncs.com/treelink/php:7.4-swoole
+> 使用自己编译的 docker 镜像 registry.cn-hangzhou.aliyuncs.com/treelink/php:php7-fpm-swoole
 >
-> 基于 php-fom:7.4 增加了 swoole, swoole_async, swoole_orm, swoole_postgresql, mongodb, redis, memcached, imagick, apcu 等扩展
+> 基于 php-fpm:7.4 增加了 swoole, swoole_async, swoole_orm, swoole_postgresql, mongodb, redis, memcached, imagick, psr, yaf 等扩展
 >
 > 开启 debug-log 或 trace-log 之后, 命令行会打印很多日志的日志, 如果不是特别需要, 建议不开启
 >

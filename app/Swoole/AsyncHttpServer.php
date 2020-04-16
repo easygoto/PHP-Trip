@@ -38,6 +38,7 @@ class AsyncHttpServer
         $this->server->on('shutdown', [$this, 'handleShutdown']);
         $this->server->on('request', [$this, 'handleRequest']);
         $this->server->on('task', [$this, 'handleTask']);
+        $this->server->on('finish', [$this, 'handleFinish']);
     }
 
     public function run()
@@ -67,6 +68,10 @@ class AsyncHttpServer
     }
 
     public function handleTask(Server $server, int $taskId, int $srcWorkerId, $data)
+    {
+    }
+
+    public function handleFinish(Server $server, int $taskId, string $data)
     {
     }
 }
