@@ -3,7 +3,7 @@
 namespace Trink\Frame\Component\Mysql;
 
 use Illuminate\Database\Capsule\Manager as CapsuleManager;
-use Trink\Core\Component\Setting;
+use Trink\Frame\Component\Setting;
 
 class Capsule
 {
@@ -12,7 +12,7 @@ class Capsule
     public static function instance(Setting $settings)
     {
         $dbs = $settings->get('db');
-        self::$instance = new CapsuleManager;
+        self::$instance = new CapsuleManager();
         self::$instance->addConnection([
             'driver'    => $dbs['type'],
             'host'      => $dbs['host'],

@@ -11,28 +11,50 @@ use Trink\Frame\Component\Mysql\Capsule;
 use Trink\Frame\Component\Mysql\Juggler;
 use Trink\Frame\Component\Mysql\Medoo;
 use Trink\Frame\Component\Response\WebResponse;
+use Trink\Frame\Component\Setting;
 
 /**
  * Class App
  *
  * @package Trink\Frame\Container
- *
- * @property Medoo medoo
- * @property Connection capsule
- * @property Juggler juggler
- * @property McCache mc
+ * @property Setting      setting
+ * @property Medoo        medoo
+ * @property Connection   capsule
+ * @property Juggler      juggler
+ * @property McCache      mc
  * @property BaseResponse response
  */
-class App extends \Trink\Core\Container\App
+class App
 {
-    public static function instance(): App
+    protected array $container = [];
+
+    protected static ?App $instance = null;
+
+    public static function instance()
     {
-        return parent::instance();
+        if (static::$instance == null) {
+            static::$instance = new static();
+        }
+        return static::$instance;
+    }
+
+    protected function __construct()
+    {
+    }
+
+    protected function __clone()
+    {
     }
 
     public function __get($name)
     {
+        if (isset($this->container[$name])) {
+            return $this->container[$name];
+        }
+
         switch ($name) {
+            case 'setting':
+                return $this->register($name, new Setting());
             case 'medoo':
                 return $this->register($name, new Medoo($this->setting));
             case 'capsule':
@@ -44,7 +66,7 @@ class App extends \Trink\Core\Container\App
             case 'response':
                 return $this->container[$name] ?? (new WebResponse());
             default:
-                return parent::__get($name);
+                return null;
         }
     }
 
@@ -62,5 +84,11 @@ class App extends \Trink\Core\Container\App
             default:
                 break;
         }
+    }
+
+    protected function register($name, $object)
+    {
+        $this->container[$name] = $object;
+        return $this->container[$name];
     }
 }

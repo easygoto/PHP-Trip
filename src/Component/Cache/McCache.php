@@ -4,7 +4,7 @@ namespace Trink\Frame\Component\Cache;
 
 use Memcache;
 use Trink\App\Dp\DependencyInjection\Demo\Concrete\DB;
-use Trink\Core\Component\Setting;
+use Trink\Frame\Component\Setting;
 
 /**
  * Class McCache
@@ -16,7 +16,7 @@ class McCache
     /** @var Memcache */
     protected $mc;
 
-    protected array $setting = [];
+    protected $setting = [];
 
     /** @var McCache */
     protected static $instance;

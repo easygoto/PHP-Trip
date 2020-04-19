@@ -38,6 +38,7 @@
     "ext-zip": "*",
     "illuminate/database": "^7.5",
     "php-amqplib/php-amqplib": "^2.11",
+    "php-ffmpeg/php-ffmpeg": "^0.16.0",
     "psr/cache": "^1.0",
     "psr/container": "^1.0",
     "psr/event-dispatcher": "^1.0",

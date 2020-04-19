@@ -24,13 +24,16 @@ class SPLTest extends TestCase
     public function doublyLinkedList()
     {
         // SplDoublyLinkedList::flags = 0
-        $linked_list = new SplDoublyLinkedList;
+        $linked_list = new SplDoublyLinkedList();
 
         // push 尾部加入
         $example_array = [1, 2, 3, 4, 5];
-        array_map(function ($value) use ($linked_list) {
-            $linked_list->push($value);
-        }, $example_array);
+        array_map(
+            function ($value) use ($linked_list) {
+                $linked_list->push($value);
+            },
+            $example_array
+        );
 
         // unshift 头部加入
         $linked_list->unshift(10);
@@ -67,7 +70,7 @@ class SPLTest extends TestCase
     public function stack()
     {
         // 继承 SplDoublyLinkedList 类，未添加方法
-        $stack = new SplStack;
+        $stack = new SplStack();
 
         $stack->push(1);
         $stack->push(3);
@@ -156,14 +159,14 @@ class SPLTest extends TestCase
     public function arrayIterator()
     {
         $fruit_list = [
-            'apple'  => 'apple value',
+            'apple' => 'apple value',
             'orange' => 'orange value',
-            'grape'  => 'grape value',
-            'plum'   => 'plum value',
+            'grape' => 'grape value',
+            'plum' => 'plum value',
         ];
 
         $obj = new ArrayObject($fruit_list);
-        $it  = $obj->getIterator();
+        $it = $obj->getIterator();
         foreach ($it as $key => $value) {
             print "{$key} : {$value}\n";
         }
@@ -223,13 +226,13 @@ class SPLTest extends TestCase
     /** @test */
     public function multipleIterator()
     {
-        $id_list   = [1, 2, 3];
+        $id_list = [1, 2, 3];
         $name_list = ['trink', 'easy', 'hello'];
-        $age_list  = [20, 21, 22];
+        $age_list = [20, 21, 22];
 
-        $id_it   = new ArrayIterator($id_list);
+        $id_it = new ArrayIterator($id_list);
         $name_it = new ArrayIterator($name_list);
-        $age_it  = new ArrayIterator($age_list);
+        $age_it = new ArrayIterator($age_list);
 
         // 合并数组，保留键值
         $mit = new MultipleIterator(MultipleIterator::MIT_KEYS_ASSOC);
@@ -248,7 +251,7 @@ class SPLTest extends TestCase
     public function fileSystemIterator()
     {
         $path = dirname(__DIR__);
-        $fit  = new FilesystemIterator($path);
+        $fit = new FilesystemIterator($path);
         while ($fit->valid()) {
             printf(
                 "%-30s%-8s%15s  %s\n",
@@ -272,18 +275,22 @@ class SPLTest extends TestCase
             ['id' => 3, 'name' => 'trink'],
         ];
         $this->assertCount(3, $list);
-        $this->assertCount(5, (new Counter));
+        $this->assertCount(5, (new Counter()));
     }
 
     /** @test */
     public function outerIterator()
     {
         // 失败了，咋回事？
-        $outer = new OuterImpl(new ArrayObject([
-            'key1' => 'value1',
-            'key2' => 'value2',
-            'key3' => 'value3',
-        ]));
+        $outer = new OuterImpl(
+            new ArrayObject(
+                [
+                    'key1' => 'value1',
+                    'key2' => 'value2',
+                    'key3' => 'value3',
+                ]
+            )
+        );
         while ($outer->valid()) {
             print "{$outer->key()}-{$outer->current()}\n";
             $outer->next();

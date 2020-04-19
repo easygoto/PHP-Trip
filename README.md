@@ -4,7 +4,8 @@
     - [x] 把设计模式迁移进来
     - [x] 将单例模式替换为注入依赖模式
     - [x] ~~组件适配, 同类组件统一方法~~
-    - [ ] 配置文件提取到 .env 中, Setting 组件添加默认值
+    - [x] 配置文件提取到 .env 中
+        - [ ] Setting 组件添加默认值
     - [x] 把传统的前端页面迁移进来
 - [x] 完善其他组件
     - [ ] 日志相关
@@ -47,10 +48,9 @@
 <root>
  |-- app : 应用目录
  |-- console : 命令行工具
- |-- core : 核心库
-     |-- Component : 组件, 一般放在容器中注入依赖
-     |-- Container : 容器, 常量
-     |-- Helper : 工具方法, 之间不可有依赖关系
+ |-- core : 核心库和组件, 可以提取到其他项目
+     |-- Component : 组件, 基于自己理解完成的 psr 组件
+     |-- Helper : 工具方法, 常用的工具方法
  |-- data : 配置及数据
      |-- backup : 备份文件, sql 改动
      |-- config : 配置文件
@@ -58,20 +58,24 @@
      |-- temp : 缓存
  |-- dp : 学习设计模式的目录
  |-- public : 网站根目录
-     |-- demo : 大部分的前端应用
-     |-- resource
+     |-- demo : 大部分的前端应用, 整理后移除
+     |-- assets
          |-- images : 资源图片
-         |-- wxcode : 微信码
+         |-- css
+         |-- js
+         |-- fonts
      |-- upload
          |-- images
+         |-- excel
  |-- src : 组件、工具等
-     |-- Container : 带有逻辑的常量和容器
-     |-- Component : 带有逻辑的组件
+     |-- Container : 容器, 常量
+     |-- Component : 二次封装带有逻辑的组件
      |-- Model : 数据库对接层
      |-- Service : 业务逻辑层
      |-- Controller : 控制路由层
-     |-- View : 页面显示层
-     |-- Helper : 带有逻辑的库
+     |-- View : 视图层
+     |-- Helper : 二次封装带有逻辑的库
+ |-- tests : 测试板块
  |-- tests : 测试板块
 ```
 
@@ -95,46 +99,52 @@
 
 ### 3.1 商品秒杀
 
-> [秒杀源码](./app/Logic/Spike.php) 可以使用并发测试工具测试 `index.php/spike/mysql`
+#### 3.1.1 介绍
+
+> [秒杀源码](./app/Logic/Spike.php) 可以使用并发测试工具测试 `<domain>/index.php/spike/mysql`
+
+#### 问题及解决方案
 
 > 多线程测试时会出现 (顾客买到数量 + 剩余量 > 总库存量) 的问题, 原因是高并发的情况下, 那一行数据可能有多个线程在使用, 没有行锁, 简单处理可以把加减放到 SQL 语句中 :
 >
 > `update table set inventory = inventory - {x} where id = {id}`
 
-> 商品超卖, 使得数据库中某一商品变成负数, 原因同上, 最简单的方法就是把库存字段设置成 unsigned 类型, 和事务一起使用, 本例就是用这种方法 
+> 商品超卖, 使得数据库中某一商品变成负数, 原因同上
 >
-> 也可以运用缓存建锁, 每次只能让一个线程使用数据:
+>> 最简单的方法就是把库存字段设置成 unsigned 类型, 和事务一起使用, 本例就是用这种方法 
 >
-> ```php
-> $lock = Lock::getInstance();
-> while (!$lock->isLock()) {
->     // 建议这里加入次数限制或时间限制
->     $lock->lock();
->     // TODO
->     $lock->unlock();
->     break;
-> }
-> ```
+>> 也可以简单的使用 SQL 语句优化:
+>>
+>> `update table set inventory = inventory - {x} where id = {id} and inventory >= {x}`
 >
-> 也可以简单的使用 SQL 语句优化:
+>> 也可以运用缓存建锁, 每次只能让一个线程使用数据:
+>>
+>> ```php
+>> $lock = Lock::getInstance();
+>> while (!$lock->isLock()) {
+>>     // 建议这里加入次数限制或时间限制
+>>     $lock->lock();
+>>     // TODO
+>>     $lock->unlock();
+>>     break;
+>> }
+>> ```
 >
->`update table set inventory = inventory - {x} where id = {id} and inventory >= {x}`
->
-> 还可以利用 redis 的 watch 命令:
->
-> ```php
-> $numKey = 'test:spike:goods_num';
-> $redis = new Redis();
-> $redis->watch($numKey);
-> $num = $redis->get($numKey);
-> usleep(100); # 耗时操作
-> if ($num <= 0) {
->     return;
-> }
-> $redis->multi();
-> $redis->decr($numKey);
-> $redis->exec();
-> ```
+>> 还可以利用 redis 的 watch 命令:
+>>
+>> ```php
+>> $numKey = 'test:spike:goods_num';
+>> $redis = new Redis();
+>> $redis->watch($numKey);
+>> $num = $redis->get($numKey);
+>> usleep(100); # 耗时操作
+>> if ($num <= 0) {
+>>     return;
+>> }
+>> $redis->multi();
+>> $redis->decr($numKey);
+>> $redis->exec();
+>> ```
 
 ### 3.2 一致性哈希算法
 

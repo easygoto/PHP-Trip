@@ -12,10 +12,26 @@ class AppTest extends TestCase
         $this->assertTrue(true);
     }
 
+    public function test4()
+    {
+        $a = 123;
+        $b = 'welcome';
+        $c = new \stdClass();
+        $arr = compact('a', 'b', 'c');
+        $this->assertEquals($b, $arr['b']);
+
+        $brr = [
+            'x' => 123,
+            'y' => 'welcome',
+            'z' => new \stdClass(),
+        ];
+        extract($brr);
+        /** @var $y */
+        $this->assertEquals($brr['y'], $y);
+    }
+
     public function test3()
     {
-        /*$photo = new Image(RES_DIR . 'example.jpg');
-        var_dump($photo->isValid(), $photo);*/
         var_dump($a ?? 1);
         var_dump(null ?? 1);
         var_dump(false ?? 1);

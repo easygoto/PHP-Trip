@@ -2,7 +2,7 @@
 
 namespace Trink\Frame\Component\Mysql;
 
-use Trink\Core\Component\Setting;
+use Trink\Frame\Component\Setting;
 
 class Juggler extends \Upfor\Juggler\Juggler
 {
