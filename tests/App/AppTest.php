@@ -8,7 +8,7 @@ class AppTest extends TestCase
 {
     public function test()
     {
-        var_dump(method_exists(null, 'ama'));
+        echo date('n月');
         $this->assertTrue(true);
     }
 

@@ -8,7 +8,7 @@ body {
 
 header .avatar > img,
 header .moments-bg > img,
-main .news .content .picture-container .piture-block > img {
+main .news .content .picture-container .picture-block > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -99,21 +99,21 @@ main .news .content .picture-container {
     margin-top: 16px;
 }
 
-main .news .content .picture-container .piture-block {
+main .news .content .picture-container .picture-block {
     display: inline-flex;
     padding: 5px;
     box-sizing: border-box;
 }
 
-main .news .content .picture-container .piture-block.num-5-9 {
+main .news .content .picture-container .picture-block.num-5-9 {
     width: 30%;
 }
 
-main .news .content .picture-container .piture-block.num-2-4 {
+main .news .content .picture-container .picture-block.num-2-4 {
     width: 45%;
 }
 
-main .news .content .picture-container .piture-block.num-1-1 {
+main .news .content .picture-container .picture-block.num-1-1 {
     width: 90%;
 }
 

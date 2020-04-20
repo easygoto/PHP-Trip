@@ -22,19 +22,14 @@ class SWeb
         static::$request = $request;
         static::$response = $response;
         static::handleRequest($request);
+        static::initComponent();
 
         // 路由解析到文件, 大小写用中划线分隔开(仿Yii2)
         $requestUri = $request->server['request_uri'] ?? '';
-        ['controller' => $controllerName, 'action' => $action] = Router::path2File($requestUri);
 
-        // Controller 处理
         try {
-            $controller = (new ReflectionClass($controllerName))->newInstance();
-            if (!is_callable([$controller, $action])) {
-                throw new HttpException(404, "Not Found Action : {$controllerName}::{$action}");
-            }
-            static::initComponent();
-            return $response->end($controller->$action());
+            ['controller' => $controller, 'actionName' => $actionName] = Router::uri2File($requestUri);
+            return $response->end(call_user_func_array([$controller, $actionName], []));
         } catch (HttpException $e) {
             $response->setStatusCode($e->getCode());
             return $response->end();

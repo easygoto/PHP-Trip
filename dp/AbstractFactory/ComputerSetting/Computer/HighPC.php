@@ -12,14 +12,14 @@ class HighPC extends Computer
     public function __construct()
     {
         $this->hardDisk = [
-            new SSD2T,
+            new SSD2T(),
         ];
         $this->memory = [
-            new Memory8G,
-            new Memory8G,
-            new Memory8G,
-            new Memory8G,
+            new Memory8G(),
+            new Memory8G(),
+            new Memory8G(),
+            new Memory8G(),
         ];
-        $this->cpu = new CPU4000MHzCore8;
+        $this->cpu = new CPU4000MHzCore8();
     }
 }

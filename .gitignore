@@ -2,10 +2,6 @@
 .idea/
 *.cache
 data/temp
-public/resource/*
-!public/resource/images
-!public/resource/js
-!public/resource/css
-!public/resource/fonts
+public/upload/*
 vendor/
 composer.lock

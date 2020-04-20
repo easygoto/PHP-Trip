@@ -23,18 +23,7 @@ window.onload = function() {
       },
       getSetting() {
         axios
-          .get(API_DOMAIN, {
-            params: {
-              i: UNI_ACID,
-              t: 0,
-              v: "1.0",
-              from: "wxapp",
-              c: "entry",
-              a: "wxapp",
-              m: "longbing_card",
-              do: "wwmoments_setting"
-            }
-          })
+          .get(API_DOMAIN + 'home/moments-setting')
           .then(function(response) {
             let result = response.data;
             if (result.hasOwnProperty("status") && result.status === 0) {
@@ -45,19 +34,7 @@ window.onload = function() {
       getNewsList() {
         vm.$data.loading = true;
         axios
-          .get(API_DOMAIN, {
-            params: {
-              i: UNI_ACID,
-              t: 0,
-              v: "1.0",
-              from: "wxapp",
-              c: "entry",
-              a: "wxapp",
-              m: "longbing_card",
-              do: "wwmoments_news",
-              page: vm.$data.page
-            }
-          })
+          .get(API_DOMAIN + 'home/moments-news', {})
           .then(function(response) {
             let result = response.data;
             if (result.hasOwnProperty("status") && result.status === 0) {

@@ -11,17 +11,17 @@ class BloggsCommsManager extends CommsManager
 
     public function getAppEncoder()
     {
-        return new BloggsApptEncoder;
+        return new BloggsApptEncoder();
     }
 
     public function getTtdEncoder()
     {
-        return new BloggsTtdEncoder;
+        return new BloggsTtdEncoder();
     }
 
     public function getContactEncoder()
     {
-        return new BloggsContactEncoder;
+        return new BloggsContactEncoder();
     }
 
     public function getFooterText()

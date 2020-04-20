@@ -3,8 +3,6 @@
 namespace Trink\Frame\Container;
 
 use Exception;
-use ReflectionClass;
-use Trink\Core\Exception\HttpException;
 use Trink\Frame\Component\Response\WebResponse;
 use Trink\Frame\Component\Router;
 
@@ -18,17 +16,13 @@ class Web
         } else {
             $root = substr($_SERVER['REQUEST_URI'], strlen($_SERVER['SCRIPT_NAME']));
         }
-        // 路由解析
-        ['controller' => $controllerName, 'action' => $action] = Router::path2File($root);
 
-        // Controller 处理
+        static::initComponent();
+
         try {
-            $controller = (new ReflectionClass($controllerName))->newInstance();
-            if (!is_callable([$controller, $action])) {
-                throw new HttpException(404, "Not Found Action : {$controllerName}::{$action}");
-            }
-            static::initComponent();
-            return $controller->$action();
+            // 路由解析
+            ['controller' => $controller, 'actionName' => $actionName] = Router::uri2File($root);
+            return call_user_func_array([$controller, $actionName], []);
         } catch (Exception $e) {
             return $e->getMessage();
         }

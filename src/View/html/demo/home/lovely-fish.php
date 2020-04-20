@@ -3,11 +3,7 @@
   <head>
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="/assets/css/common/init.css" />
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="/assets/css/lovely-fish/main.css"
-    />
+    <link rel="stylesheet" type="text/css" href="/assets/css/lovely-fish/main.css" />
   </head>
   <body>
     <div class="all-bg">
@@ -34,8 +30,5 @@
   <script type="text/javascript" src="/assets/js/lovely-fish/wave.js"></script>
   <script type="text/javascript" src="/assets/js/lovely-fish/halo.js"></script>
   <script type="text/javascript" src="/assets/js/lovely-fish/dust.js"></script>
-  <script
-    type="text/javascript"
-    src="/assets/js/lovely-fish/collision.js"
-  ></script>
+  <script type="text/javascript" src="/assets/js/lovely-fish/collision.js"></script>
 </html>

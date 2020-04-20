@@ -12,12 +12,12 @@ class LowPC extends Computer
     public function __construct()
     {
         $this->hardDisk = [
-            new HDD1T5400RPM,
+            new HDD1T5400RPM(),
         ];
         $this->memory = [
-            new Memory2G,
-            new Memory2G,
+            new Memory2G(),
+            new Memory2G(),
         ];
-        $this->cpu = new CPU2400MHzCore4;
+        $this->cpu = new CPU2400MHzCore4();
     }
 }

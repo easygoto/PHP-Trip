@@ -21,17 +21,13 @@ class XmlHelper
                     $result[$key] = self::toArray($value);
                 } elseif ($keys[$key] == 2) {
                     $result[$key] = [$result[$key], self::toArray($value)];
-                } else {
-                    if ($keys[$key] > 2) {
-                        $result[$key][] = self::toArray($value);
-                    }
+                } elseif ($keys[$key] > 2) {
+                    $result[$key][] = self::toArray($value);
                 }
             }
             return $result;
-        } else {
-            if (count($xml) == 0) {
-                return (string)$xml;
-            }
+        } elseif (count($xml) == 0) {
+            return (string)$xml;
         }
         return [];
     }
