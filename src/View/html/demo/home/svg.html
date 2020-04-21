@@ -1,0 +1,76 @@
+<?php
+
+use Trink\Frame\View\Asset;
+
+?>
+
+<!DOCTYPE html>
+<html lang="zh">
+    <head>
+        <title>Title</title>
+        <meta charset="utf-8" />
+        <?= Asset::load(Asset::RS['bs4.css']) ?>
+        <link rel="stylesheet" type="text/css" href="/assets/css/common/init.css" />
+        <link rel="stylesheet" type="text/css" href="/assets/css/svg-panel/main.css" />
+    </head>
+
+    <body>
+        <div class="effect-view">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                version="1.1"
+                width="800"
+                height="400"
+                preserveAspectRatio="xMidYMid meet"
+                style="border: 1px gray solid;"
+            >
+                <rect class="selected" height="" width=""></rect>
+            </svg>
+        </div>
+        <div class="setting-view">
+            <form action="" method="post" class="form-horizontal control-primary" role="form">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">画布设置</h3>
+                    </div>
+                    <div class="panel-body svg-setting"></div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">选择图形</h3>
+                    </div>
+                    <div class="panel-body choose-gragh">
+                        <div class="dropdown">
+                            <button
+                                class="btn btn-default dropdown-toggle"
+                                type="button"
+                                id="btn-choose-gragh"
+                                data-toggle="dropdown"
+                            >
+                                选择一个图形
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="btn-choose-gragh">
+                                <li><a href="javascript:">正方形</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="javascript:">圆形</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">图形设置</h3>
+                    </div>
+                    <div class="panel-body gragh-setting"></div>
+                </div>
+            </form>
+        </div>
+        <?= Asset::load(Asset::RS['jq3.js']) ?>
+        <?= Asset::load(Asset::RS['pop.js']) ?>
+        <?= Asset::load(Asset::RS['bs4.js']) ?>
+        <script type="text/javascript" src="/assets/js/svg-panel/control-tool.js"></script>
+        <script type="text/javascript" src="/assets/js/svg-panel/move-tool.js"></script>
+        <script type="text/javascript" src="/assets/js/svg-panel/main.js"></script>
+    </body>
+</html>

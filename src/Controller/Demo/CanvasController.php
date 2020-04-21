@@ -4,22 +4,22 @@ namespace Trink\Frame\Controller\Demo;
 
 use Trink\Frame\Component\BaseController;
 
-class HomeController extends BaseController
+class CanvasController extends BaseController
 {
-    // 主页
-    public function index()
+    // 炫酷时钟
+    public function coolClock()
     {
         require $this->renderPart();
     }
 
-    // 微信朋友圈
-    public function moments()
+    // 喂鱼小游戏
+    public function lovelyFish()
     {
         require $this->renderPart();
     }
 
-    // 编辑 svg 图形
-    public function svg()
+    // 小球跟随鼠标的移动效果
+    public function ballMove()
     {
         require $this->renderPart();
     }

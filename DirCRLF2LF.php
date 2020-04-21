@@ -7,7 +7,7 @@ function fileList(string $dirPath, $exclude = [])
         if (in_array($path, array_merge(['.', '..'], $exclude))) {
             continue;
         }
-        if (in_array(substr($path, 0, -3), ['php', '.js', 'tml'])) {
+        if (!in_array(substr($path, -3), ['php', '.js', 'tml'])) {
             continue;
         }
         if (is_dir($dirPath . '/' . $path)) {

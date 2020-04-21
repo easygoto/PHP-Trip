@@ -21,6 +21,10 @@ abstract class BaseController
 
     public function renderPart($view = '')
     {
-        return VIEW_DIR . implode('/', array_merge($this->moduleList, [$this->id, $this->actionId])) . '.php';
+        $baseDir = VIEW_DIR . implode('/', array_merge($this->moduleList, [$this->id, $this->actionId]));
+        if (file_exists($baseDir . '.php')) {
+            return $baseDir . '.php';
+        }
+        return $baseDir . '.html';
     }
 }
