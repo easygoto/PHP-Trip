@@ -3,6 +3,7 @@
 namespace Trink\App\Trip\Logic;
 
 use Exception;
+use Throwable;
 use Trink\Core\Helper\Arrays;
 use Trink\Core\Helper\Result;
 use Trink\Frame\Container\App;
@@ -14,8 +15,8 @@ class Spike
      *
      * @param int   $uid
      * @param array $goodsOrder
-     *
      * @return Result
+     * @throws Throwable
      */
     public static function mysql(int $uid, array $goodsOrder = [])
     {

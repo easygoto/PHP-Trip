@@ -1,5 +1,22 @@
 # PHP之旅
 
+## 目录
+
+- [简介](README.md#1-简介)
+    - [项目结构](README.md#11-结构)
+    - [项目规范](README.md#12-规范)
+- [设计](README.md#2-设计)
+- [案例](README.md#3-案例)
+    - [商品秒杀](README.md#31-商品秒杀)
+    - [一致性哈希算法](README.md#32-一致性哈希算法)
+    - [令牌桶算法限流](README.md#33-令牌桶算法限流)
+    - [Redis-特性](README.md#34-Redis-特性)
+    - [消息队列](README.md#35-消息队列)
+- [Swoole 专栏](SWOOLE.md)
+- [设计模式源码](dp)
+
+## 待办计划
+
 - [x] 整理项目结构
     - [x] 把设计模式迁移进来
     - [x] 将单例模式替换为注入依赖模式
@@ -40,11 +57,9 @@
     - [ ] 高并发测试工具
 - [ ] 系统模块监视器
 
-## 1 结构
+# 1 简介
 
-> [学习设计模式](dp/README.md)
->
-> [Swoole 专栏](SWOOLE.md)
+## 1.1 结构
 
 ```
 <root>
@@ -55,12 +70,10 @@
      |-- Helper : 工具方法, 常用的工具方法
  |-- data : 配置及数据
      |-- backup : 备份文件, sql 改动
-     |-- config : 配置文件
      |-- docs : 文档
      |-- temp : 缓存
  |-- dp : 学习设计模式的目录
  |-- public : 网站根目录
-     |-- demo : 大部分的前端应用, 整理后移除
      |-- assets
          |-- images : 资源图片
          |-- css
@@ -78,10 +91,9 @@
      |-- View : 视图层
      |-- Helper : 二次封装带有逻辑的库
  |-- tests : 测试板块
- |-- tests : 测试板块
 ```
 
-## 2 规范
+## 1.2 规范
 
 | 规范 | 名称 | 推荐(composer) |
 | --- | --- | --- |
@@ -97,68 +109,62 @@
 | PSR-17 | HTTP工厂 [psr/http-factory](https://github.com/psr/http-factory) | [http-interop/http-factory-guzzle](https://github.com/http-interop/http-factory-guzzle) |
 | PSR-18 | HTTP客户端 [psr/http-client](https://github.com/psr/http-client) | [ricardofiorani/guzzle-psr18-adapter](https://github.com/ricardofiorani/guzzle-psr18-adapter) |
 
-## 3 实验
+# 2 设计
 
-### 3.1 商品秒杀
+- 单入口 index.php, 由 `[Router](src/Component/Router.php)` 解析网址传递的参数找到相应的控制器
+- 依赖注入容器 `[App](src/Container/App.php)` 目前是简单处理
+- 配置不依赖于 php 文件, 只有一份在 .env 中
 
-#### 3.1.1 介绍
+# 3 案例
 
-> [秒杀源码](./app/Logic/Spike.php) 可以使用并发测试工具测试 `<domain>/index.php/spike/mysql`
+## 3.1 商品秒杀
 
-#### 问题及解决方案
+> [点击查看秒杀源码](./app/Logic/Spike.php)
 
-> 多线程测试时会出现 (顾客买到数量 + 剩余量 > 总库存量) 的问题, 原因是高并发的情况下, 那一行数据可能有多个线程在使用, 没有行锁, 简单处理可以把加减放到 SQL 语句中 :
->
-> `update table set inventory = inventory - {x} where id = {id}`
+### 3.1.1 问题及解决方案
 
-> 商品超卖, 使得数据库中某一商品变成负数, 原因同上
->
->> 最简单的方法就是把库存字段设置成 unsigned 类型, 和事务一起使用, 本例就是用这种方法 
->
->> 也可以简单的使用 SQL 语句优化:
->>
->> `update table set inventory = inventory - {x} where id = {id} and inventory >= {x}`
->
->> 也可以运用缓存建锁, 每次只能让一个线程使用数据:
->>
->> ```php
->> $lock = Lock::getInstance();
->> while (!$lock->isLock()) {
->>     // 建议这里加入次数限制或时间限制
->>     $lock->lock();
->>     // TODO
->>     $lock->unlock();
->>     break;
->> }
->> ```
->
->> 还可以利用 redis 的 watch 命令:
->>
->> ```php
->> $numKey = 'test:spike:goods_num';
->> $redis = new Redis();
->> $redis->watch($numKey);
->> $num = $redis->get($numKey);
->> usleep(100); # 耗时操作
->> if ($num <= 0) {
->>     return;
->> }
->> $redis->multi();
->> $redis->decr($numKey);
->> $redis->exec();
->> ```
+- 多线程测试时会出现 (顾客买到数量 + 剩余量 > 总库存量) 的问题
+    1. `简单处理` : `update table set inventory = inventory - {x} where id = {id}`
+- 商品超卖, 使得数据库中某一商品变成负数, 解决方案如下
+    1. `简单处理` : 库存字段设置成 unsigned 类型, 和事务一起使用
+    1. `SQL 处理` : `update table set inventory = inventory - {x} where id = {id} and inventory >= {x}`
+    1. `缓存/文件建锁` : 进入时加锁 flock, $lock->lock(), 完成后解锁 fclose, $lock->unlock()
+    1. `Reids 辅助` : 使用事务(乐观锁)
 
-### 3.2 一致性哈希算法
+```php
+# 缓存/文件建锁思想
+$lock = Lock::getInstance();
+while (!$lock->isLock()) {
+    // 这里加入次数限制或时间限制
+    $lock->lock();
+    // TODO
+    $lock->unlock();
+    break;
+}
+```
+
+```php
+# Reids 辅助
+$numKey = 'test:spike:goods_num';
+$redis = new Redis();
+$redis->watch($numKey);
+$num = $redis->get($numKey);
+usleep(100); # 耗时操作
+if ($num <= 0) {
+    return;
+}
+$redis->multi();
+$redis->decr($numKey);
+$redis->exec();
+```
+
+## 3.2 一致性哈希算法
 
 > [源代码](app/Distribute)
 >
 > [测试代码](tests/App/MemcachedTest.php), 使用 `distribute` 方法
 
-### 3.3 Swoole 专栏
-
-> [详情请看 SWOOLE.md](SWOOLE.md)
-
-### 3.4 令牌桶算法限流
+## 3.3 令牌桶算法限流
 
 > [令牌桶源码](app/Limiting/TokenBucket.php)
 
@@ -180,46 +186,20 @@ if ($result) {
 }
 ```
 
-### 3.5 Redis 特性
+## 3.4 Redis 特性
 
 > 特性测试代码均在 [tests/App/RedisTest](tests/App/RedisTest.php) 中
 
-#### 3.5.1 发布订阅
+- 发布订阅 : 推送使用 `publish` 方法, 接收使用 `subscribe` 方法
+- GEO : 使用 `geo` 方法, 计算经纬度距离, 筛选经纬度范围坐标
+- 位图 : 使用 `bitmap` 方法, 大量的 true/false 统计能节省不少空间, 但是比较少的数量建议不使用这种数据类型, 当然也可以使用更小的 hyperloglog
+- hyperloglog : 使用 `hyper` 方法, 统计百万级的独立用户, 每天向内存中输入 1e6 的用户 ID, 可能只需几十 kb 的内存, 好用的东西不完美, 并不是 0 失误, 不能取出单条的数据
+- pipeline : 使用 `pipeline` 方法, 节省大量时间, n 次命令的执行可能会有 n 次的网络传输, 放到 pipeline 中, 一次网络请求就可以执行多条命令(此时仍然是原子级别), 然后依次返回结果集, 注意 pipeline 携带的数据量, 每次只作用于一个 Redis 节点
 
-> 推送使用的是 `publish` 方法
-> 
-> 接收使用的是 `subscribe` 方法
+## 3.5 消息队列
 
-#### 3.5.2 地理 API GEO
-
-> 地理 API 使用 `geo` 方法, 计算经纬度距离, 筛选经纬度范围坐标
-
-#### 3.5.3 位图
-
-> 使用 `bitmap` 方法, 大量的 true/false 统计能节省不少空间, 但是比较少的数量建议不使用这种数据类型, 当然也可以使用更小的 hyperloglog
-
-#### 3.5.4 hyperloglog
-
-> 使用 `hyper` 方法, 统计百万级的独立用户, 每天向内存中输入 1e6 的用户 ID, 可能只需几十 kb 的内存
->
-> 但好用的东西不完美, 不是 0 失误率(每次的 count 不一样), 不能取出单条的数据
-
-#### 3.5.5 pipeline
-
-> 使用 `pipeline` 方法, 节省大量时间
->
-> n 次命令的执行可能会有 n 次的网络传输, 放到 pipeline 中, 一次网络请求就可以执行多条命令(此时仍然是原子级别), 然后依次返回结果集
->
-> 注意 pipeline 携带的数据量, 每次只作用于一个 Redis 节点
-
-### 3.6 消息队列
-
-> amqp 和 php-libamqp 的性能比较, [建议在 cli 环境下执行](console/mq.php)
->
-> 保证结构一致且是空队列的情况. 十万级的数目, amqp 比 libamqp 的效率高 40% ~ 60%; 万级的数目, amqp 比 libamqp 的效率高 100% ~ 110%
->
-> [amqp 的源码](app/MQ/AmqpDemo.php) 和 [libamqp 的源码](app/MQ/LibMqDemo.php)
-
-
+- amqp 和 php-libamqp 的性能比较, [建议在 cli 环境下执行](console/mq.php)
+    - 保证结构一致且是空队列的情况. 十万级的数目, amqp 比 libamqp 的效率高 40% ~ 60%; 万级的数目, amqp 比 libamqp 的效率高 100% ~ 110%
+    - [amqp 的源码](app/MQ/AmqpDemo.php) 和 [libamqp 的源码](app/MQ/LibMqDemo.php)
 
 

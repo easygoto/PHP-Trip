@@ -1,6 +1,6 @@
 <?php
 
-namespace Trink\Core\Component;
+namespace Trink\Core\Component\Reader;
 
 class FileReader
 {
