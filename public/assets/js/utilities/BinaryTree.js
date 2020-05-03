@@ -9,10 +9,10 @@ function Node(value) {
     _this.right = null;
 }
 
-BinaryTree.prototype.insert = function (value) {
+BinaryTree.prototype.insert = function(value) {
     let _this = this;
     let node = new Node(value);
-    let insertNode = function (root, node) {
+    let insertNode = function(root, node) {
         if (root.value > node.value) {
             if (root.left === null) {
                 root.left = node;
@@ -36,8 +36,8 @@ BinaryTree.prototype.insert = function (value) {
 };
 
 // 中序遍历
-BinaryTree.prototype.inOrderTraverse = function (callback) {
-    let inOrderTraverseNode = function (node, callback) {
+BinaryTree.prototype.inOrderTraverse = function(callback) {
+    let inOrderTraverseNode = function(node, callback) {
         if (node !== null) {
             inOrderTraverseNode(node.left, callback);
             callback(node.value);
@@ -48,8 +48,8 @@ BinaryTree.prototype.inOrderTraverse = function (callback) {
 };
 
 // 前序遍历
-BinaryTree.prototype.preOrderTraverse = function (callback) {
-    let preOrderTraverseNode = function (node, callback) {
+BinaryTree.prototype.preOrderTraverse = function(callback) {
+    let preOrderTraverseNode = function(node, callback) {
         if (node !== null) {
             callback(node.value);
             preOrderTraverseNode(node.left, callback);
@@ -60,8 +60,8 @@ BinaryTree.prototype.preOrderTraverse = function (callback) {
 };
 
 // 后序遍历
-BinaryTree.prototype.postOrderTraverse = function (callback) {
-    let postOrderTraverseNode = function (node, callback) {
+BinaryTree.prototype.postOrderTraverse = function(callback) {
+    let postOrderTraverseNode = function(node, callback) {
         if (node !== null) {
             postOrderTraverseNode(node.left, callback);
             postOrderTraverseNode(node.right, callback);
@@ -71,8 +71,8 @@ BinaryTree.prototype.postOrderTraverse = function (callback) {
     postOrderTraverseNode(this.root, callback);
 };
 
-BinaryTree.prototype.min = function () {
-    let minNode = function (node) {
+BinaryTree.prototype.min = function() {
+    let minNode = function(node) {
         if (node !== null) {
             while (node.left !== null) {
                 node = node.left;
@@ -85,8 +85,8 @@ BinaryTree.prototype.min = function () {
     return minNode(this.root);
 };
 
-BinaryTree.prototype.max = function () {
-    let maxNode = function (node) {
+BinaryTree.prototype.max = function() {
+    let maxNode = function(node) {
         if (node !== null) {
             while (node.right !== null) {
                 node = node.right;
@@ -99,8 +99,8 @@ BinaryTree.prototype.max = function () {
     return maxNode(this.root);
 };
 
-BinaryTree.prototype.hasValue = function (value) {
-    let hasValueNode = function (node, value) {
+BinaryTree.prototype.hasValue = function(value) {
+    let hasValueNode = function(node, value) {
         if (node === null) {
             return false;
         }
@@ -115,8 +115,8 @@ BinaryTree.prototype.hasValue = function (value) {
     return hasValueNode(this.root, value);
 };
 
-BinaryTree.prototype.remove = function (value) {
-    let findMinNode = function (node) {
+BinaryTree.prototype.remove = function(value) {
+    let findMinNode = function(node) {
         if (node !== null) {
             while (node.left !== null) {
                 node = node.left;
@@ -127,7 +127,7 @@ BinaryTree.prototype.remove = function (value) {
         }
     };
 
-    let removeNode = function (node, value) {
+    let removeNode = function(node, value) {
         if (node === null) {
             return null;
         } else if (node.value > value) {
@@ -160,22 +160,22 @@ BinaryTree.prototype.remove = function (value) {
 
 let bt = new BinaryTree();
 let nodes = [12, 13, 5, 8, 19, 23, 78, 45, 41, 52, 64, 85];
-nodes.forEach(function (v) {
+nodes.forEach(function(v) {
     bt.insert(v);
 });
 
 let inOrderNodes = [];
-bt.inOrderTraverse(function (value) {
+bt.inOrderTraverse(function(value) {
     inOrderNodes.push(value);
 });
 
 let preOrderNodes = [];
-bt.preOrderTraverse(function (value) {
+bt.preOrderTraverse(function(value) {
     preOrderNodes.push(value);
 });
 
 let postOrderNodes = [];
-bt.postOrderTraverse(function (value) {
+bt.postOrderTraverse(function(value) {
     postOrderNodes.push(value);
 });
 
@@ -191,7 +191,7 @@ console.log("has 41 : " + bt.hasValue(41));
 
 console.log(bt.remove(41));
 let dealInOrderNodes = [];
-bt.inOrderTraverse(function (value) {
+bt.inOrderTraverse(function(value) {
     dealInOrderNodes.push(value);
 });
 console.log(dealInOrderNodes);

@@ -1,4 +1,4 @@
-let Halo = function () {
+let Halo = function() {
     this.x = [];
     this.y = [];
     this.r = [];
@@ -6,7 +6,7 @@ let Halo = function () {
 };
 
 Halo.prototype.num = 10;
-Halo.prototype.init = function () {
+Halo.prototype.init = function() {
     for (let i = 0; i < this.num; i++) {
         this.x[i] = 0;
         this.y[i] = 0;
@@ -15,7 +15,7 @@ Halo.prototype.init = function () {
     }
 };
 
-Halo.prototype.draw = function () {
+Halo.prototype.draw = function() {
     ctx1.save();
     ctx1.lineWidth = 3;
     ctx1.shadowBlur = 10;
@@ -38,7 +38,7 @@ Halo.prototype.draw = function () {
     ctx1.restore();
 };
 
-Halo.prototype.born = function (x, y) {
+Halo.prototype.born = function(x, y) {
     for (let i = 0; i < this.num; i++) {
         if (!this.alive[i]) {
             this.x[i] = x;

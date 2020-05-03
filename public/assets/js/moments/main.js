@@ -1,4 +1,4 @@
-window.onload = function () {
+window.onload = function() {
     let vm = new Vue({
         el: "#moments-app",
         data: {
@@ -8,11 +8,11 @@ window.onload = function () {
             loading: false,
             loadDone: false,
             showImage: false,
-            curImage: "",
+            curImage: ""
         },
         methods: {
             reviseHeight() {
-                Array.from(document.querySelectorAll(".picture-container>.picture-block")).map(function (dom) {
+                Array.from(document.querySelectorAll(".picture-container>.picture-block")).map(function(dom) {
                     dom.style.height = dom.offsetWidth + "px";
                 });
 
@@ -20,7 +20,7 @@ window.onload = function () {
                 momentsBg.style.height = momentsBg.offsetWidth * 0.8 + "px";
             },
             getSetting() {
-                axios.get(API_DOMAIN + "home/moments-setting").then(function (response) {
+                axios.get(API_DOMAIN + "home/moments-setting").then(function(response) {
                     let result = response.data;
                     if (result.hasOwnProperty("status") && result.status === 0) {
                         vm.$data.setting = result.data;
@@ -29,7 +29,7 @@ window.onload = function () {
             },
             getNewsList() {
                 vm.$data.loading = true;
-                axios.get(API_DOMAIN + "home/moments-news", {}).then(function (response) {
+                axios.get(API_DOMAIN + "home/moments-news", {}).then(function(response) {
                     let result = response.data;
                     if (result.hasOwnProperty("status") && result.status === 0) {
                         vm.$data.newsList = vm.$data.newsList.concat(result.data);
@@ -53,15 +53,15 @@ window.onload = function () {
             init() {
                 this.getSetting();
                 this.getNewsList();
-            },
+            }
         },
         watch: {
-            newsList: function () {
-                this.$nextTick(function () {
+            newsList: function() {
+                this.$nextTick(function() {
                     vm.reviseHeight();
                 });
-            },
-        },
+            }
+        }
     });
     vm.init();
 };

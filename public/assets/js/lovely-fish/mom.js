@@ -1,4 +1,4 @@
-let Mom = function () {
+let Mom = function() {
     this.x = 0;
     this.y = 0;
     this.angle = 0;
@@ -9,12 +9,12 @@ let Mom = function () {
     this.eyeInterval = 1000;
     this.bodyCount = 0;
 };
-Mom.prototype.init = function () {
+Mom.prototype.init = function() {
     this.x = 0.5 * canWidth;
     this.y = 0.5 * canHeight;
     this.angle = 0;
 };
-Mom.prototype.draw = function () {
+Mom.prototype.draw = function() {
     this.x = lerpDistance(mx, this.x, 0.98);
     this.y = lerpDistance(my, this.y, 0.98);
 

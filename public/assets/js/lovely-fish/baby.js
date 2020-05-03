@@ -1,4 +1,4 @@
-let Baby = function () {
+let Baby = function() {
     this.x = 0;
     this.y = 0;
     this.angle = 0;
@@ -10,12 +10,12 @@ let Baby = function () {
     this.bodyTimer = 0;
     this.bodyCount = 0;
 };
-Baby.prototype.init = function () {
+Baby.prototype.init = function() {
     this.x = -50 + 0.5 * canWidth;
     this.y = 50 + 0.5 * canHeight;
     this.angle = 0;
 };
-Baby.prototype.draw = function () {
+Baby.prototype.draw = function() {
     this.x = lerpDistance(mom.x, this.x, 0.99);
     this.y = lerpDistance(mom.y, this.y, 0.99);
     let deltaX = mom.x - this.x;

@@ -35,12 +35,12 @@ function init() {
     ctx1 = can1.getContext("2d");
     can2 = document.getElementById("canvas2");
     ctx2 = can2.getContext("2d");
-    can1.oncontextmenu = function (ev) {
+    can1.oncontextmenu = function(ev) {
         ev.stopPropagation();
         return false;
     };
     can1.addEventListener("mousemove", onMouseMove, false);
-    bgPic.src = "images/lovely-fish/background.jpg";
+    bgPic.src = "/assets/images/lovely-fish/background.jpg";
     canWidth = can1.width;
     canHeight = can1.height;
     ane = new Ane();
@@ -58,33 +58,33 @@ function init() {
 
     for (let i = 0; i < 2; i++) {
         babyEye[i] = new Image();
-        babyEye[i].src = "images/lovely-fish/baby/babyEye" + i + ".png";
+        babyEye[i].src = "/assets/images/lovely-fish/baby/babyEye" + i + ".png";
     }
     for (let i = 0; i < 8; i++) {
         babyTail[i] = new Image();
-        babyTail[i].src = "images/lovely-fish/baby/babyTail" + i + ".png";
+        babyTail[i].src = "/assets/images/lovely-fish/baby/babyTail" + i + ".png";
     }
     for (let i = 0; i < 20; i++) {
         babyBody[i] = new Image();
-        babyBody[i].src = "images/lovely-fish/baby/babyFade" + i + ".png";
+        babyBody[i].src = "/assets/images/lovely-fish/baby/babyFade" + i + ".png";
     }
     for (let i = 0; i < 8; i++) {
         momTail[i] = new Image();
-        momTail[i].src = "images/lovely-fish/mom/bigTail" + i + ".png";
+        momTail[i].src = "/assets/images/lovely-fish/mom/bigTail" + i + ".png";
     }
     for (let i = 0; i < 8; i++) {
         momBodyOra[i] = new Image();
-        momBodyOra[i].src = "images/lovely-fish/mom/bigSwim" + i + ".png";
+        momBodyOra[i].src = "/assets/images/lovely-fish/mom/bigSwim" + i + ".png";
         momBodyBlue[i] = new Image();
-        momBodyBlue[i].src = "images/lovely-fish/mom/bigSwimBlue" + i + ".png";
+        momBodyBlue[i].src = "/assets/images/lovely-fish/mom/bigSwimBlue" + i + ".png";
     }
     for (let i = 0; i < 2; i++) {
         momEye[i] = new Image();
-        momEye[i].src = "images/lovely-fish/mom/bigEye" + i + ".png";
+        momEye[i].src = "/assets/images/lovely-fish/mom/bigEye" + i + ".png";
     }
     for (let i = 0; i < 7; i++) {
         dustPic[i] = new Image();
-        dustPic[i].src = "images/lovely-fish/dust" + i + ".png";
+        dustPic[i].src = "/assets/images/lovely-fish/dust" + i + ".png";
     }
     data = new Data();
     ctx1.fillStyle = "white";

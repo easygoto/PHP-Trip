@@ -16,14 +16,14 @@ let endTime = new Date(2017, 6, 26, 12, 0, 0);
 let nowTime = getCurrentTime();
 let balls = [];
 
-window.onload = function () {
+window.onload = function() {
     let canvas = document.getElementById("canvas");
     let context = canvas.getContext("2d");
 
     canvas.width = CANVAS_WIDTH;
     canvas.height = CANVAS_HEIGHT;
 
-    let timer = setInterval(function () {
+    let timer = setInterval(function() {
         render(context);
         update();
         for (let i = 0, len = balls.length; i < len; i++) {
@@ -85,6 +85,7 @@ function getCurrentTime() {
 }
 
 function addBalls(x, y, num) {
+    num = parseInt(num);
     for (let i = 0; i < digit[num].length; i++) {
         for (let j = 0; j < digit[num][i].length; j++) {
             if (digit[num][i][j] === 1) {
@@ -97,7 +98,7 @@ function addBalls(x, y, num) {
                             : getRandom(MIN_SPEED_X, MAX_SPEED_X),
                     vy: getRandom(-MAX_SPEED_Y, -MIN_SPEED_Y),
                     g: getRandom(MIN_G, MAX_G),
-                    color: COLOR[Math.round(getRandom(0, COLOR.length - 1))],
+                    color: COLOR[Math.round(getRandom(0, COLOR.length - 1))]
                 };
                 balls.push(aBall);
             }
@@ -148,6 +149,7 @@ function render(context) {
 
 function renderDigit(context, x, y, num) {
     context.fillStyle = "#069";
+    num = parseInt(num);
     for (let i = 0; i < digit[num].length; i++) {
         for (let j = 0; j < digit[num][i].length; j++) {
             if (1 === digit[num][i][j]) {

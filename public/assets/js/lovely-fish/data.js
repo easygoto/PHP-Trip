@@ -6,7 +6,7 @@ function Data() {
     this.gameOver = false;
 }
 
-Data.prototype.draw = function () {
+Data.prototype.draw = function() {
     let w = can1.width;
     let h = can1.height;
     ctx1.save();
@@ -21,7 +21,7 @@ Data.prototype.draw = function () {
     }
     ctx1.restore();
 };
-Data.prototype.addScore = function () {
+Data.prototype.addScore = function() {
     this.score += 100 * this.fruitNum * this.double;
     this.fruitNum = 0;
     this.double = 1;

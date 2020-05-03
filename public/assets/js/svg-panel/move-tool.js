@@ -1,7 +1,7 @@
-(function ($) {
+(function($) {
     let defaults = {};
 
-    let init = function (obj, options) {
+    let init = function(obj, options) {
         obj = $(obj);
         let svg = $("svg");
         let ctrlTool = obj.data("_control");
@@ -11,7 +11,7 @@
         let pointStartX = 0;
         let pointStartY = 0;
 
-        obj.on("mousedown", function (ev) {
+        obj.on("mousedown", function(ev) {
             isDown = true;
             objStartX = parseInt(obj.attr("x"));
             objStartY = parseInt(obj.attr("y"));
@@ -19,7 +19,7 @@
             pointStartY = ev.screenY;
         });
 
-        svg.on("mousemove", function (ev) {
+        svg.on("mousemove", function(ev) {
             if (isDown) {
                 let currentX = objStartX + ev.screenX - pointStartX;
                 let currentY = objStartY + ev.screenY - pointStartY;
@@ -32,16 +32,16 @@
             }
         });
 
-        svg.on("mouseup", function () {
+        svg.on("mouseup", function() {
             isDown = false;
-        }).on("mouseleave", function () {
+        }).on("mouseleave", function() {
             isDown = false;
         });
     };
 
-    $.fn.initMove = function (options) {
+    $.fn.initMove = function(options) {
         options = $.extend(defaults, options);
-        return this.each(function () {
+        return this.each(function() {
             init(this, options);
         });
     };

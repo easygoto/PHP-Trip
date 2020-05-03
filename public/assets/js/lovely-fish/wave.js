@@ -1,4 +1,4 @@
-let Wave = function () {
+let Wave = function() {
     this.x = [];
     this.y = [];
     this.r = [];
@@ -6,14 +6,14 @@ let Wave = function () {
 };
 
 Wave.prototype.num = 10;
-Wave.prototype.init = function () {
+Wave.prototype.init = function() {
     for (let i = 0; i < this.num; i++) {
         this.r[i] = 0;
         this.alive[i] = false;
     }
 };
 
-Wave.prototype.draw = function () {
+Wave.prototype.draw = function() {
     ctx1.save();
     ctx1.lineWidth = 2;
     ctx1.shadowBlur = 10;
@@ -36,7 +36,7 @@ Wave.prototype.draw = function () {
     ctx1.restore();
 };
 
-Wave.prototype.born = function (x, y) {
+Wave.prototype.born = function(x, y) {
     for (let i = 0; i < this.num; i++) {
         if (!this.alive[i]) {
             this.x[i] = x;
