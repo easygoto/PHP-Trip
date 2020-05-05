@@ -9,8 +9,7 @@ class Asset
         'pop.js' => 'popper.js.html',
         'bs4.js' => 'bootstrap4.js.html',
         'jq3.js' => 'jquery3.js.html',
-        'vue.js' => 'vue.js.html',
-        'axo.js' => 'axios.js.html'
+        'jq3.slim.js' => 'jquery3.slim.js.html',
     ];
 
     /**

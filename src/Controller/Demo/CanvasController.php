@@ -23,4 +23,10 @@ class CanvasController extends BaseController
     {
         require $this->renderPart();
     }
+
+    // 数学函数
+    public function mathLove()
+    {
+        require $this->renderPart();
+    }
 }
