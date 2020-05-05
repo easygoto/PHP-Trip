@@ -35,7 +35,7 @@ function init() {
     ctx1 = can1.getContext("2d");
     can2 = document.getElementById("canvas2");
     ctx2 = can2.getContext("2d");
-    can1.oncontextmenu = function(ev) {
+    can1.oncontextmenu = function (ev) {
         ev.stopPropagation();
         return false;
     };

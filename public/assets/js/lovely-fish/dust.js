@@ -1,4 +1,4 @@
-let Dust = function() {
+let Dust = function () {
     this.x = [];
     this.y = [];
     this.amp = [];
@@ -6,7 +6,7 @@ let Dust = function() {
     this.alpha = 0;
 };
 Dust.prototype.num = 30;
-Dust.prototype.init = function() {
+Dust.prototype.init = function () {
     for (let i = 0; i < this.num; i++) {
         this.x[i] = Math.random() * canWidth;
         this.y[i] = Math.random() * canHeight;
@@ -15,7 +15,7 @@ Dust.prototype.init = function() {
     }
     this.alpha = 0;
 };
-Dust.prototype.draw = function() {
+Dust.prototype.draw = function () {
     this.alpha += deltaTime * 0.0008;
     let l = Math.sin(this.alpha);
     for (let i = 0; i < this.num; i++) {

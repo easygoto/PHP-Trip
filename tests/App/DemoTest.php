@@ -150,7 +150,7 @@ XML;
                 return 3;
             }
         })->run();
-        $this->assertEquals(3, count($object));
+        $this->assertCount(3, $object);
 
         $reflect = new ReflectionObject($object);
         $this->assertTrue(strpos($reflect->getName(), 'class@anonymous') == 0);

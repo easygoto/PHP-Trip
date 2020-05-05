@@ -1,4 +1,4 @@
-let Ane = function() {
+let Ane = function () {
     this.rootX = [];
     this.headX = [];
     this.headY = [];
@@ -6,7 +6,7 @@ let Ane = function() {
     this.alpha = 0;
 };
 Ane.prototype.num = 50;
-Ane.prototype.init = function() {
+Ane.prototype.init = function () {
     for (let i = 0; i < this.num; i++) {
         this.amp[i] = Math.random() * 50 + 50;
         this.rootX[i] = i * 16 + Math.random() * 20;
@@ -14,7 +14,7 @@ Ane.prototype.init = function() {
         this.headY[i] = canHeight - 250 + Math.random() * 50;
     }
 };
-Ane.prototype.draw = function() {
+Ane.prototype.draw = function () {
     this.alpha += deltaTime * 0.0008;
     let l = Math.sin(this.alpha);
     ctx2.save();

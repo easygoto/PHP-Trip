@@ -1,4 +1,4 @@
-let Fruit = function() {
+let Fruit = function () {
     this.alive = [];
     this.x = [];
     this.y = [];
@@ -10,7 +10,7 @@ let Fruit = function() {
     this.blue = new Image();
 };
 Fruit.prototype.num = 15;
-Fruit.prototype.init = function() {
+Fruit.prototype.init = function () {
     for (let i = 0; i < this.num; i++) {
         this.alive[i] = false;
         this.x[i] = 0;
@@ -22,7 +22,7 @@ Fruit.prototype.init = function() {
     this.orange.src = "/assets/images/lovely-fish/fruit.png";
     this.blue.src = "/assets/images/lovely-fish/blue.png";
 };
-Fruit.prototype.draw = function() {
+Fruit.prototype.draw = function () {
     for (let i = 0; i < this.num; i++) {
         if (this.alive[i]) {
             if (this.l[i] <= 14) {
@@ -50,7 +50,7 @@ Fruit.prototype.draw = function() {
         }
     }
 };
-Fruit.prototype.born = function(i) {
+Fruit.prototype.born = function (i) {
     this.aneId[i] = Math.floor(Math.random() * ane.num);
     let aneId = this.aneId[i];
     this.x[i] = ane.headX[aneId];
@@ -63,7 +63,7 @@ Fruit.prototype.born = function(i) {
         this.fruitType[i] = "orange";
     }
 };
-Fruit.prototype.dead = function(i) {
+Fruit.prototype.dead = function (i) {
     this.alive[i] = false;
 };
 

@@ -97,17 +97,17 @@
 
 | 规范 | 名称 | 推荐(composer) |
 | --- | --- | --- |
-| PSR-3 | 日志 [psr/log](https://github.com/psr/log) | [monolog/monolog](https://github.com/Seldaek/monolog) |
-| PSR-6 | 缓存 [psr/cache](https://github.com/psr/cache) | [tedivm/stash](https://github.com/tedious/Stash) 或 [psx/cache](https://github.com/apioo/psx-cache) |
-| PSR-7 | HTTP消息 [psr/http-message](https://github.com/psr/http-message) | [guzzlehttp/psr7](https://github.com/guzzle/psr7) |
-| PSR-11 | 容器 [psr/container](https://github.com/psr/container) | [league/container](https://github.com/thephpleague/container) |
-| PSR-13 | 超媒体链接 [psr/link](https://github.com/psr/link) | [fig/link-util](https://github.com/php-fig/link-util) |
-| PSR-14 | 事件分发 [psr/event-dispatcher](https://github.com/psr/event-dispatcher) | [crell/tukio](https://github.com/Crell/Tukio) |
-| PSR-15 | HTTP请求处理器 [psr/http-server-handler](https://github.com/psr/http-server-handler) | [equip/dispatch](https://github.com/equip/dispatch) |
-| PSR-15 | HTTP请求处理器 [psr/http-server-middleware](https://github.com/psr/http-server-middleware) | [middlewares/request-handler](https://github.com/middlewares/request-handler) |
-| PSR-16 | 缓存 [psr/simple-cache](https://github.com/psr/simple-cache) | [psx/cache](https://github.com/apioo/psx-cache) |
-| PSR-17 | HTTP工厂 [psr/http-factory](https://github.com/psr/http-factory) | [http-interop/http-factory-guzzle](https://github.com/http-interop/http-factory-guzzle) |
-| PSR-18 | HTTP客户端 [psr/http-client](https://github.com/psr/http-client) | [ricardofiorani/guzzle-psr18-adapter](https://github.com/ricardofiorani/guzzle-psr18-adapter) |
+| PSR-3 | 日志 [psr/log](https://github.com/php-fig/log) | [monolog/monolog](https://github.com/Seldaek/monolog) |
+| PSR-6 | 缓存 [psr/cache](https://github.com/php-fig/cache) | [tedivm/stash](https://github.com/tedious/Stash) 或 [psx/cache](https://github.com/apioo/psx-cache) |
+| PSR-7 | HTTP消息 [psr/http-message](https://github.com/php-fig/http-message) | [guzzlehttp/psr7](https://github.com/guzzle/psr7) |
+| PSR-11 | 容器 [psr/container](https://github.com/php-fig/container) | [league/container](https://github.com/thephpleague/container) |
+| PSR-13 | 超媒体链接 [psr/link](https://github.com/php-fig/link) | [fig/link-util](https://github.com/php-fig/link-util) |
+| PSR-14 | 事件分发 [psr/event-dispatcher](https://github.com/php-fig/event-dispatcher) | [crell/tukio](https://github.com/Crell/Tukio) |
+| PSR-15 | HTTP请求处理器 [psr/http-server-handler](https://github.com/php-fig/http-server-handler) | [equip/dispatch](https://github.com/equip/dispatch) |
+| PSR-15 | HTTP请求处理器 [psr/http-server-middleware](https://github.com/php-fig/http-server-middleware) | [middlewares/request-handler](https://github.com/middlewares/request-handler) |
+| PSR-16 | 缓存 [psr/simple-cache](https://github.com/php-fig/simple-cache) | [psx/cache](https://github.com/apioo/psx-cache) |
+| PSR-17 | HTTP工厂 [psr/http-factory](https://github.com/php-fig/http-factory) | [http-interop/http-factory-guzzle](https://github.com/http-interop/http-factory-guzzle) |
+| PSR-18 | HTTP客户端 [psr/http-client](https://github.com/php-fig/http-client) | [ricardofiorani/guzzle-psr18-adapter](https://github.com/ricardofiorani/guzzle-psr18-adapter) |
 
 # 2 设计
 
@@ -128,7 +128,7 @@
 - 商品超卖, 使得数据库中某一商品变成负数, 解决方案如下
     1. `简单处理` : 库存字段设置成 unsigned 类型, 和事务一起使用
     1. `SQL 处理` : `update table set inventory = inventory - {x} where id = {id} and inventory >= {x}`
-    1. `缓存/文件建锁` : 进入时加锁 flock, $lock->lock(), 完成后解锁 fclose, $lock->unlock()
+    1. `缓存/文件建锁` : 进入时加锁 `flock, $lock->lock()`, 完成后解锁 `fclose, $lock->unlock()`
     1. `Reids 辅助` : 使用事务(乐观锁)
 
 ```php

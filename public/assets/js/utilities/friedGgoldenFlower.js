@@ -50,7 +50,7 @@ let pokerSet = [
     "$10",
     "$J",
     "$Q",
-    "$K"
+    "$K",
 ];
 let result = {
     total: 0,
@@ -59,7 +59,7 @@ let result = {
     flower: 0,
     straight: 0,
     pair: 0,
-    other: 0
+    other: 0,
 };
 
 function isStraight(i, j, k) {
